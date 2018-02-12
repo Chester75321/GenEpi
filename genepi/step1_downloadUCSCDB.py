@@ -36,3 +36,5 @@ def DownloadUCSCDB(str_outputFilePath = os.path.dirname(os.path.abspath(__file__
     with open(str_outputFilePath + "/UCSCGenomeDatabase.txt", "w") as file_outputFile:
         for item in db_result:
             file_outputFile.writelines(",".join(item) + "\n")
+    
+    print("step1: Down load UCSC Database. DONE!")

@@ -152,3 +152,5 @@ def EstimateLDBlock(str_inputFilePath_genotype, float_threshold_DPrime = 0.8, fl
     with open(str_inputFilePath_genotype.replace(".gen", ".LDBlock"), "w") as file_outputFile:
         for item in list_outputLDBlock:
             file_outputFile.writelines(item + "\n")
+    
+    print("step2: Estimate LD. DONE!")
