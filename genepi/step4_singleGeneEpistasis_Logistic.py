@@ -33,7 +33,9 @@ from psutil import virtual_memory
 # main function
 """"""""""""""""""""""""""""""
 def SingleGeneEpistasisLogistic(str_inputFilePath_genotype, str_inputFilePath_phenotype, str_outputFilePath = ""):
-    str_inputFilePath_genotype = ""
+    str_inputFilePath_genotype = "D:\\Phd\\Grade_05\\Alzheimer\\GenEpi\\genepi\\example\\snpSubsets\\APOE_11.gen"
+    str_inputFilePath_phenotype = "D:\\Phd\\Grade_05\\Alzheimer\\GenEpi\\genepi\\example\\Sample.csv"
+    str_outputFilePath = ""
     
     ### set path of output file
     if str_outputFilePath == "":
