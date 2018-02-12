@@ -16,3 +16,8 @@ genepi.EstimateLDBlock(os.path.dirname(os.path.abspath(__file__)) + "/sample.gen
 
 ### step3_splitByGene
 genepi.SplitByGene(os.path.dirname(os.path.abspath(__file__)) + "/sample_LDReduced.gen")
+
+str_inputFilePath_genotype = "D:\\Phd\\Grade_05\\Alzheimer\\GenEpi\\genepi\\example\\snpSubsets\\APOE_11.gen"
+str_inputFilePath_phenotype = "D:\\Phd\\Grade_05\\Alzheimer\\GenEpi\\genepi\\example\\Sample.csv"
+genepi.SingleGeneEpistasisLogistic(str_inputFilePath_genotype,str_inputFilePath_phenotype)
+    

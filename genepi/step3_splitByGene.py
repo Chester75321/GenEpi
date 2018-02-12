@@ -14,24 +14,24 @@ import numpy as np
 """"""""""""""""""""""""""""""
 # define function
 """"""""""""""""""""""""""""""
-def SplitByGene(str_inputFilePath_genotype, str_inputFilePath_UCSCDB = os.path.dirname(os.path.abspath(__file__)) + "/UCSCGenomeDatabase.txt", str_outputFilePath = ""):
+def SplitByGene(str_inputFileName_genotype, str_inputFileName_UCSCDB = os.path.dirname(os.path.abspath(__file__)) + "/UCSCGenomeDatabase.txt", str_outputFilePath = ""):
     #print("Warning of step3: .gen file should be sorted by chromosome and position")
     
     if str_outputFilePath == "":
-        str_outputFilePath = os.path.dirname(str_inputFilePath_genotype) + "/snpSubsets/"
+        str_outputFilePath = os.path.dirname(str_inputFileName_genotype) + "/snpSubsets/"
     ### if output folder doesn't exist then create it
     if not os.path.exists(str_outputFilePath):
         os.makedirs(str_outputFilePath)
     
     ### load UCSC Genome Database
     list_UCSCGenomeDatabase = []
-    with open(str_inputFilePath_UCSCDB, "r") as file_inputFile:
+    with open(str_inputFileName_UCSCDB, "r") as file_inputFile:
         for line in file_inputFile:
             list_UCSCGenomeDatabase.append(line.strip().split(","))
     np_UCSCGenomeDatabase = np.array(list_UCSCGenomeDatabase)
     
     ### scan all snp
-    with open(str_inputFilePath_genotype, "r") as file_inputFile:
+    with open(str_inputFileName_genotype, "r") as file_inputFile:
         idx_gene = 0
         list_snpsOnGene = []
         for line in file_inputFile:

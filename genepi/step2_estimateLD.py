@@ -90,14 +90,14 @@ def EstimatePairwiseLD(gen_snp_1, gen_snp_2):
     except ZeroDivisionError:
         return 1.0, 1.0
 
-def EstimateLDBlock(str_inputFilePath_genotype, float_threshold_DPrime = 0.8, float_threshold_RSquare = 0.8):
+def EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime = 0.8, float_threshold_RSquare = 0.8):
     ### get the number of snp
-    int_num_snp = sum(1 for line in open(str_inputFilePath_genotype))
+    int_num_snp = sum(1 for line in open(str_inputFileName_genotype))
     
     ### read .gen file and estimate the LD block
     list_outputLDBlock = []
-    with open(str_inputFilePath_genotype, "r") as file_inputFile:
-        with open(str_inputFilePath_genotype.replace(".gen", "_LDReduced.gen"), "w") as file_outputFile:
+    with open(str_inputFileName_genotype, "r") as file_inputFile:
+        with open(str_inputFileName_genotype.replace(".gen", "_LDReduced.gen"), "w") as file_outputFile:
             ### create dictionary for LD block
             ### key: rsID; value:[minor allele requency, raw genotypes data]
             dict_thisLDBlock = {}
@@ -149,7 +149,7 @@ def EstimateLDBlock(str_inputFilePath_genotype, float_threshold_DPrime = 0.8, fl
     
     ### output the file of LD block
     ### output file format: rsid_representative: rsid_1,rsid_2,rsid_3,...(the snps in the same LD block)
-    with open(str_inputFilePath_genotype.replace(".gen", ".LDBlock"), "w") as file_outputFile:
+    with open(str_inputFileName_genotype.replace(".gen", ".LDBlock"), "w") as file_outputFile:
         for item in list_outputLDBlock:
             file_outputFile.writelines(item + "\n")
     
