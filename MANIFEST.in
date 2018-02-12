@@ -1,4 +1,4 @@
 include genepi/UCSCGenomeDatabase.txt
-include example/example.py
-include example/sample.gen
-include example/sample.csv
+include genepi/example/example.py
+include genepi/example/sample.gen
+include genepi/example/sample.csv
