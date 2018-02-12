@@ -13,3 +13,6 @@ genepi.DownloadUCSCDB(str_hgbuild="hg19")
 
 ### step2_estimateLD
 genepi.EstimateLDBlock(os.path.dirname(os.path.abspath(__file__)) + "/sample.gen", float_threshold_DPrime=0.9, float_threshold_RSquare=0.9)
+
+### step3_splitByGene
+genepi.SplitByGene(os.path.dirname(os.path.abspath(__file__)) + "/sample_LDReduced.gen")

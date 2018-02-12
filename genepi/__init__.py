@@ -10,3 +10,4 @@ Created on Feb 2018
 """"""""""""""""""""""""""""""
 from .step1_downloadUCSCDB import DownloadUCSCDB
 from .step2_estimateLD import EstimateLDBlock
+from .step3_splitByGene import SplitByGene
