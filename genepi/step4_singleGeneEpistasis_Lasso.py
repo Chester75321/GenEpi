@@ -11,7 +11,7 @@ import warnings
 warnings.warn = warn
 
 """"""""""""""""""""""""""""""
-# importing libraries
+# import libraries
 """"""""""""""""""""""""""""""
 import os
 import sys
@@ -29,7 +29,7 @@ import sklearn.metrics as skMetric
 import scipy.stats as stats
 
 """"""""""""""""""""""""""""""
-# functions definition
+# define functions 
 """"""""""""""""""""""""""""""
 def RandomizedLassoRegression(np_X, np_y, int_nJobs = 4):
     X = np_X
@@ -208,7 +208,7 @@ def SingleGeneEpistasisLasso(str_inputFileName_genotype, str_inputFileName_pheno
 def BatchSingleGeneEpistasisLasso(str_inputFilePath_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):
     ### set default output path
     if str_outputFilePath == "":
-        str_outputFilePath = os.path.dirname(str_inputFilePath_genotype) + "/singleGeneResult/"
+        str_outputFilePath = os.path.abspath(os.path.join(str_inputFilePath_genotype, os.pardir)) + "/singleGeneResult/"
     ### if output folder doesn't exist then create it
     if not os.path.exists(str_outputFilePath):
         os.makedirs(str_outputFilePath)

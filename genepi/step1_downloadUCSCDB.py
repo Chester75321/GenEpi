@@ -12,7 +12,7 @@ import os
 import pymysql
 
 """"""""""""""""""""""""""""""
-# define function
+# main function
 """"""""""""""""""""""""""""""
 # database schema: http://hgdownload.cse.ucsc.edu/goldenpath/hg19/database/
 # human genome build could be: hg18, hg19, hg38, etc.

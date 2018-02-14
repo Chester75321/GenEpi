@@ -12,7 +12,7 @@ import genepi
 def main():
     # give file names of "Genotype" and "Phenotype" here !
     str_inputFileName_genotype = os.path.dirname(os.path.abspath(__file__)) + "/sample.gen"
-    str_inputFileName_phenotype = os.path.dirname(os.path.abspath(__file__)) + "/sample_q.csv"
+    str_inputFileName_phenotype = os.path.dirname(os.path.abspath(__file__)) + "/sample.csv"
     
     ### step1_downloadUCSCDB
     genepi.DownloadUCSCDB(str_hgbuild="hg19")
@@ -24,9 +24,11 @@ def main():
     genepi.SplitByGene(str_inputFileName_genotype.replace(".gen", "_LDReduced.gen"))
     
     ### step4_singleGeneEpistasis_Logistic (for case/control trial)
-    #genepi.BatchSingleGeneEpistasisLogistic(os.path.dirname(str_inputFileName_genotype) + "/snpSubsets/", str_inputFileName_phenotype, int_nJobs=1)
+    genepi.BatchSingleGeneEpistasisLogistic(os.path.dirname(str_inputFileName_genotype) + "/snpSubsets/", str_inputFileName_phenotype, int_nJobs=1)
     ### step4_singleGeneEpistasis_Logistic (for quantitative trial)
-    genepi.BatchSingleGeneEpistasisLasso(os.path.dirname(str_inputFileName_genotype) + "/snpSubsets/", str_inputFileName_phenotype, int_nJobs=1)
+    #genepi.BatchSingleGeneEpistasisLasso(os.path.dirname(str_inputFileName_genotype) + "/snpSubsets/", str_inputFileName_phenotype, int_nJobs=1)
+    
+    
     
 if __name__ == '__main__':
     main()

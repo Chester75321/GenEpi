@@ -12,7 +12,7 @@ import sys
 import numpy as np
 
 """"""""""""""""""""""""""""""
-# define function
+# define functions 
 """"""""""""""""""""""""""""""
 def EstimateAlleleFrequency(gen_snp):
     ### get all subject's genotype
@@ -90,6 +90,9 @@ def EstimatePairwiseLD(gen_snp_1, gen_snp_2):
     except ZeroDivisionError:
         return 1.0, 1.0
 
+""""""""""""""""""""""""""""""
+# main function
+""""""""""""""""""""""""""""""
 def EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime = 0.8, float_threshold_RSquare = 0.8):
     ### get the number of snp
     int_num_snp = sum(1 for line in open(str_inputFileName_genotype))
@@ -153,4 +156,4 @@ def EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime = 0.8, fl
         for item in list_outputLDBlock:
             file_outputFile.writelines(item + "\n")
     
-    print("step2: Estimate LD. DONE!")
+    print("step2: Estimate LD. DONE! \t\t\t\t")

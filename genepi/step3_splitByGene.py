@@ -12,7 +12,7 @@ import os
 import numpy as np
 
 """"""""""""""""""""""""""""""
-# define function
+# main function
 """"""""""""""""""""""""""""""
 def SplitByGene(str_inputFileName_genotype, str_inputFileName_UCSCDB = os.path.dirname(os.path.abspath(__file__)) + "/UCSCGenomeDatabase.txt", str_outputFilePath = ""):
     #print("Warning of step3: .gen file should be sorted by chromosome and position")
