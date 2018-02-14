@@ -17,3 +17,5 @@ from .step4_singleGeneEpistasis_Lasso import SingleGeneEpistasisLasso
 from .step4_singleGeneEpistasis_Lasso import BatchSingleGeneEpistasisLasso
 from .step5_crossGeneEpistasis_Logistic import CrossGeneEpistasisLogistic
 from .step5_crossGeneEpistasis_Lasso import CrossGeneEpistasisLasso
+from .step6_ensembleWithCovariates import EnsembleWithCovariatesClassifier
+from .step6_ensembleWithCovariates import EnsembleWithCovariatesRegressor

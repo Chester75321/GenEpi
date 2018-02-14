@@ -17,17 +17,15 @@ import os
 import numpy as np
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.feature_selection import VarianceThreshold
-from sklearn.feature_selection import chi2
+from sklearn.feature_selection import f_regression
 from scipy.sparse import coo_matrix
 from sklearn.utils import shuffle
 from sklearn.cross_validation import KFold
-import sklearn.metrics as skMetric
 import scipy.stats as stats
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.externals import joblib
-from .step4_singleGeneEpistasis_Logistic import RandomizedLogisticRegression
-from .step4_singleGeneEpistasis_Logistic import LogisticRegressionL1
-from .step4_singleGeneEpistasis_Logistic import GenerateContingencyTable
+from .step4_singleGeneEpistasis_Lasso import RandomizedLassoRegression
+from .step4_singleGeneEpistasis_Lasso import LassoRegression
 
 """"""""""""""""""""""""""""""
 # define functions 
@@ -49,7 +47,7 @@ def CrossGeneInteractionGenerator(np_genotype_rsid, np_genotype):
     
     return np_genotype_rsid, np_genotype
 
-def RFClassifier(np_X, np_y, int_kOfKFold = 2, int_nJobs = 4):
+def RFRegressor(np_X, np_y, int_kOfKFold = 2, int_nJobs = 4):
     X = np_X
     y = np_y
     X_sparse = coo_matrix(X)
@@ -59,35 +57,37 @@ def RFClassifier(np_X, np_y, int_kOfKFold = 2, int_nJobs = 4):
     list_target = []
     list_predict = []
     for idxTr, idxTe in kf:
-        estimator_rf = RandomForestClassifier(n_estimators=1000, n_jobs=int_nJobs)
+        estimator_rf = RandomForestRegressor(n_estimators=1000, n_jobs=int_nJobs)
         estimator_rf.fit(X[idxTr], y[idxTr])
         list_label = estimator_rf.predict(X[idxTe])
         for idx_y, idx_label in zip(list(y[idxTe]), list_label):
             list_target.append(float(idx_y))
             list_predict.append(idx_label)
-    float_f1Score = skMetric.f1_score(list_target, list_predict)
+    float_pearson = stats.stats.pearsonr(list_target, list_predict)[0]
+    float_spearman = stats.stats.spearmanr(list_target, list_predict)[0]
 
-    return float_f1Score
+    return (float_pearson + float_spearman) / 2
 
-def RFClassifierModelPersistence(np_X, np_y, str_outputFilePath = "", str_outputFileName = "RFClassifier.pkl", int_nJobs = 4):
+def RFRegressorModelPersistence(np_X, np_y, str_outputFilePath = "", str_outputFileName = "RFRegressor.pkl", int_nJobs = 4):
     X = np_X
     y = np_y
     X_sparse = coo_matrix(X)
     X, X_sparse, y = shuffle(X, X_sparse, y, random_state=0)
     
-    estimator_rf = RandomForestClassifier(n_estimators=1000, n_jobs=int_nJobs)
+    estimator_rf = RandomForestRegressor(n_estimators=1000, n_jobs=int_nJobs)
     estimator_rf.fit(X, y)
     list_predict = estimator_rf.predict(X)
-    float_f1Score = skMetric.f1_score(y, list_predict)
-    
+    float_pearson = stats.stats.pearsonr(y, list_predict)[0]
+    float_spearman = stats.stats.spearmanr(y, list_predict)[0]
+  
     joblib.dump(estimator_rf, os.path.join(str_outputFilePath, str_outputFileName))
     
-    return float_f1Score
+    return (float_pearson + float_spearman) / 2
 
 """"""""""""""""""""""""""""""
 # main function
 """"""""""""""""""""""""""""""
-def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phenotype, str_inputFileName_score = "", str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):   
+def CrossGeneEpistasisLasso(str_inputFilePath_feature, str_inputFileName_phenotype, str_inputFileName_score = "", str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):
     ### set default output path
     if str_outputFilePath == "":
         str_outputFilePath = os.path.abspath(os.path.join(str_inputFilePath_feature, os.pardir)) + "/crossGeneResult/"
@@ -98,9 +98,9 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
     ### set default score file name
     if str_inputFileName_score == "":
         for str_fileName in os.listdir(str_inputFilePath_feature):
-            if str_fileName.startswith("All_Logistic"):
+            if str_fileName.startswith("All_Lasso"):
                 str_inputFileName_score = os.path.join(str_inputFilePath_feature, str_fileName)
-
+    
     #-------------------------
     # load data
     #-------------------------
@@ -185,16 +185,16 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
     #-------------------------
     # select feature
     #-------------------------
-    ### chi-square test selection
-    np_chi2 = -np.log10(chi2(np_genotype.astype(int), np_phenotype[:, -1].astype(int))[1])
-    np_selectedIdx = np.array([x > 2 for x in np_chi2])
+    ### f regression feature selection
+    np_fRegression = -np.log10(f_regression(np_genotype.astype(int), np_phenotype[:, -1].astype(int))[1])
+    np_selectedIdx = np.array([x > 2 for x in np_fRegression])
     np_genotype = np_genotype[:, np_selectedIdx]
     np_genotype_rsid = np_genotype_rsid[np_selectedIdx]
     if np_genotype_rsid.shape[0] == 0:
         return 0.0
     
-    ### random logistic feature selection
-    np_randWeight = np.array(RandomizedLogisticRegression(np_genotype, np_phenotype[:, -1].astype(int), int_nJobs))
+    ### random lasso feature selection
+    np_randWeight = np.array(RandomizedLassoRegression(np_genotype, np_phenotype[:, -1].astype(int), int_nJobs))
     np_selectedIdx = np.array([x >= 0.25 for x in np_randWeight])
     np_randWeight = np_randWeight[np_selectedIdx]
     np_genotype = np_genotype[:, np_selectedIdx]
@@ -205,7 +205,7 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
     #-------------------------
     # build model
     #-------------------------
-    float_f1Score, np_weight = LogisticRegressionL1(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
+    float_AVG_S_P, np_weight = LassoRegression(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
     
     ### filter out zero-weight features
     np_selectedIdx = np.array([x != 0.0 for x in np_weight])
@@ -216,20 +216,15 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
         return 0.0
     
     ### use random forest classifier for ensemble
-    float_f1Score_rf_te = RFClassifier(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
+    float_AVG_S_P_rf_te = RFRegressor(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
     ### random forest classifier model persistence
-    float_f1Score_rf_tr = RFClassifierModelPersistence(np_genotype, np_phenotype[:, -1].astype(int), str_outputFilePath)
+    float_AVG_S_P_rf_tr = RFRegressorModelPersistence(np_genotype, np_phenotype[:, -1].astype(int), str_outputFilePath)
     
     #-------------------------
     # analyze result
     #-------------------------
-    ### calculate chi-square p-value
-    np_chi2 = -np.log10(chi2(np_genotype.astype(int), np_phenotype[:, -1].astype(int))[1])
-    list_oddsRatio = []
-    for idx_feature in range(0, np_genotype.shape[1]):
-        np_contingency = GenerateContingencyTable(np_genotype[:, idx_feature], np_phenotype[:, -1])
-        oddsratio, pvalue = stats.fisher_exact(np_contingency)
-        list_oddsRatio.append(oddsratio)
+    ### calculate student t-test p-value
+    np_fRegression = -np.log10(f_regression(np_genotype.astype(int), np_phenotype[:, -1].astype(int))[1])
         
     ### calculate genotype frequency
     np_genotypeFreq = np.sum(np_genotype, axis=0).astype(float) / np_genotype.shape[0]
@@ -239,15 +234,15 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
     #-------------------------
     ### output statistics of features
     with open(str_outputFilePath + "Result.csv", "w") as file_outputFile:
-        file_outputFile.writelines("rsid,weight,chi-square_log_p-value,odds_ratio,genotype_frequency,geneSymbol,singleGeneScore" + "\n")
+        file_outputFile.writelines("rsid,weight,student-t-test_log_p-value,genotype_frequency,geneSymbol,singleGeneScore" + "\n")
         for idx_feature in range(0, np_genotype_rsid.shape[0]):
             ### if this feature is single gene epistasis
             if np_genotype_rsid[idx_feature,] in dict_geneMap.keys():
-                str_thisOutput = str(np_genotype_rsid[idx_feature,]) + "," + str(np_weight[idx_feature,]) + "," + str(np_chi2[idx_feature,]) + "," + str(list_oddsRatio[idx_feature]) + "," + str(np_genotypeFreq[idx_feature]) + "," + str(dict_geneMap[np_genotype_rsid[idx_feature,]]) + "," + str(dict_score[dict_geneMap[np_genotype_rsid[idx_feature,]]]) + "\n"
+                str_thisOutput = str(np_genotype_rsid[idx_feature,]) + "," + str(np_weight[idx_feature,]) + "," + str(np_fRegression[idx_feature,]) + "," + str(np_genotypeFreq[idx_feature]) + "," + str(dict_geneMap[np_genotype_rsid[idx_feature,]]) + "," + str(dict_score[dict_geneMap[np_genotype_rsid[idx_feature,]]]) + "\n"
                 file_outputFile.writelines(str_thisOutput)
             ### else this feature is cross gene epistasis
             else:
-                str_thisOutput = str(np_genotype_rsid[idx_feature,]) + "," + str(np_weight[idx_feature,]) + "," + str(np_chi2[idx_feature,]) + "," + str(list_oddsRatio[idx_feature]) + "," + str(np_genotypeFreq[idx_feature]) + "," + str(dict_geneMap[np_genotype_rsid[idx_feature,].split(" ")[0]]) + "*" + str(dict_geneMap[np_genotype_rsid[idx_feature,].split(" ")[1]]) + ", " + "\n"
+                str_thisOutput = str(np_genotype_rsid[idx_feature,]) + "," + str(np_weight[idx_feature,]) + "," + str(np_fRegression[idx_feature,]) + "," + str(np_genotypeFreq[idx_feature]) + "," + str(dict_geneMap[np_genotype_rsid[idx_feature,].split(" ")[0]]) + "*" + str(dict_geneMap[np_genotype_rsid[idx_feature,].split(" ")[1]]) + ", " + "\n"
                 file_outputFile.writelines(str_thisOutput)
             
     ### output feature
@@ -256,6 +251,7 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
         for idx_subject in range(0, np_genotype.shape[0]):
             file_outputFile.writelines(",".join(np_genotype[idx_subject, :].astype(str)) + "\n")
 
-    print("step5: Detect cross gene epistasis. DONE! (Training score:" + "{0:.2f}".format(float_f1Score_rf_tr) + "; " + str(int_kOfKFold) + "-fold Test Score:" + "{0:.2f}".format(float_f1Score_rf_te) + ")")
+    print("step5: Detect cross gene epistasis. DONE! (Training score:" + "{0:.2f}".format(float_AVG_S_P_rf_tr) + "; " + str(int_kOfKFold) + "-fold Test Score:" + "{0:.2f}".format(float_AVG_S_P_rf_te) + ")")
     
-    return float_f1Score
+    return float_AVG_S_P
+    

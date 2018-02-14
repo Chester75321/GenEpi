@@ -33,5 +33,10 @@ def main():
     ### step5_crossGeneEpistasis_Logistic (for quantitative trial)
     #genepi.CrossGeneEpistasisLasso(os.path.dirname(str_inputFileName_genotype) + "/singleGeneResult/", str_inputFileName_phenotype, int_nJobs=1)
     
+    ### step6_ensembleWithCovariates (for case/control trial)
+    genepi.EnsembleWithCovariatesClassifier(os.path.dirname(str_inputFileName_genotype) + "/crossGeneResult/Feature.csv", str_inputFileName_phenotype, int_nJobs=1)
+    ### step6_ensembleWithCovariates (for quantitative trial)
+    #genepi.EnsembleWithCovariatesRegressor(os.path.dirname(str_inputFileName_genotype) + "/crossGeneResult/Feature.csv", str_inputFileName_phenotype, int_nJobs=1)
+    
 if __name__ == '__main__':
     main()

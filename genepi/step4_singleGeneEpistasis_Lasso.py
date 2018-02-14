@@ -157,7 +157,7 @@ def SingleGeneEpistasisLasso(str_inputFileName_genotype, str_inputFileName_pheno
     if np_genotype_rsid.shape[0] == 0:
         return 0.0
     
-    ### random logistic feature selection
+    ### random lasso feature selection
     np_randWeight = np.array(RandomizedLassoRegression(np_genotype, np_phenotype[:, -1].astype(int), int_nJobs))
     np_selectedIdx = np.array([x >= 0.25 for x in np_randWeight])
     np_randWeight = np_randWeight[np_selectedIdx]
