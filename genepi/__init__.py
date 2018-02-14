@@ -2,7 +2,7 @@
 """
 Created on Feb 2018
 
-@author: Chester Chang
+@author: Chester (Yu-Chuan Chang)
 """
 
 """"""""""""""""""""""""""""""
@@ -13,3 +13,5 @@ from .step2_estimateLD import EstimateLDBlock
 from .step3_splitByGene import SplitByGene
 from .step4_singleGeneEpistasis_Logistic import SingleGeneEpistasisLogistic
 from .step4_singleGeneEpistasis_Logistic import BatchSingleGeneEpistasisLogistic
+from .step4_singleGeneEpistasis_Lasso import SingleGeneEpistasisLasso
+from .step4_singleGeneEpistasis_Lasso import BatchSingleGeneEpistasisLasso
