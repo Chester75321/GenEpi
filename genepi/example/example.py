@@ -28,7 +28,10 @@ def main():
     ### step4_singleGeneEpistasis_Logistic (for quantitative trial)
     #genepi.BatchSingleGeneEpistasisLasso(os.path.dirname(str_inputFileName_genotype) + "/snpSubsets/", str_inputFileName_phenotype, int_nJobs=1)
     
-    
+    ### step5_crossGeneEpistasis_Logistic (for case/control trial)
+    genepi.CrossGeneEpistasisLogistic(os.path.dirname(str_inputFileName_genotype) + "/singleGeneResult/", str_inputFileName_phenotype, int_nJobs=1)
+    ### step5_crossGeneEpistasis_Logistic (for quantitative trial)
+    #genepi.CrossGeneEpistasisLasso(os.path.dirname(str_inputFileName_genotype) + "/singleGeneResult/", str_inputFileName_phenotype, int_nJobs=1)
     
 if __name__ == '__main__':
     main()

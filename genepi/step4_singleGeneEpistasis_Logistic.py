@@ -136,7 +136,7 @@ def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_ph
     if sys.getsizeof(np_genotype) **2 > mem.available:
         return "MemErr"
     
-    ### generate interaction term
+    ### generate interaction terms
     sklearn_poly = PolynomialFeatures(degree=2, interaction_only=True, include_bias=False)
     np_genotype = sklearn_poly.fit_transform(np_genotype)
     np_genotype_rsid = np.array(sklearn_poly.get_feature_names(np_genotype_rsid))

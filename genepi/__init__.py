@@ -15,3 +15,5 @@ from .step4_singleGeneEpistasis_Logistic import SingleGeneEpistasisLogistic
 from .step4_singleGeneEpistasis_Logistic import BatchSingleGeneEpistasisLogistic
 from .step4_singleGeneEpistasis_Lasso import SingleGeneEpistasisLasso
 from .step4_singleGeneEpistasis_Lasso import BatchSingleGeneEpistasisLasso
+from .step5_crossGeneEpistasis_Logistic import CrossGeneEpistasisLogistic
+from .step5_crossGeneEpistasis_Lasso import CrossGeneEpistasisLasso
