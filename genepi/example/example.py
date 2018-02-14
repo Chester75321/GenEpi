@@ -8,16 +8,23 @@ Created on Feb 2018
 import os
 import genepi
 
-### step1_downloadUCSCDB
-genepi.DownloadUCSCDB(str_hgbuild="hg19")
 
-### step2_estimateLD
-genepi.EstimateLDBlock(os.path.dirname(os.path.abspath(__file__)) + "/sample.gen", float_threshold_DPrime=0.9, float_threshold_RSquare=0.9)
-
-### step3_splitByGene
-genepi.SplitByGene(os.path.dirname(os.path.abspath(__file__)) + "/sample_LDReduced.gen")
-
-str_inputFilePath_genotype = "D:\\Phd\\Grade_05\\Alzheimer\\GenEpi\\genepi\\example\\snpSubsets\\APOE_11.gen"
-str_inputFilePath_phenotype = "D:\\Phd\\Grade_05\\Alzheimer\\GenEpi\\genepi\\example\\Sample.csv"
-genepi.SingleGeneEpistasisLogistic(str_inputFilePath_genotype,str_inputFilePath_phenotype)
+def main():
+    # give file names of "Genotype" and "Phenotype" here !
+    str_inputFileName_genotype = os.path.dirname(os.path.abspath(__file__)) + "/sample.gen"
+    str_inputFileName_phenotype = os.path.dirname(os.path.abspath(__file__)) + "/sample.csv"
     
+    ### step1_downloadUCSCDB
+    genepi.DownloadUCSCDB(str_hgbuild="hg19")
+    
+    ### step2_estimateLD
+    genepi.EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime=0.9, float_threshold_RSquare=0.9)
+    
+    ### step3_splitByGene
+    genepi.SplitByGene(str_inputFileName_genotype.replace(".gen", "_LDReduced.gen"))
+    
+    ### step4_singleGeneEpistasis_Logistic (for case/control trial)
+    genepi.BatchSingleGeneEpistasisLogistic(os.path.dirname(str_inputFileName_genotype) + "/snpSubsets/", str_inputFileName_phenotype, int_nJobs=1)
+    
+if __name__ == '__main__':
+    main()

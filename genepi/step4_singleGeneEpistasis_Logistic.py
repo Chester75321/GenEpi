@@ -31,7 +31,7 @@ import scipy.stats as stats
 """"""""""""""""""""""""""""""
 # functions definition
 """"""""""""""""""""""""""""""
-def RandomizedLogisticRegression(np_X, np_y, int_nJobs = 1):
+def RandomizedLogisticRegression(np_X, np_y, int_nJobs = 4):
     X = np_X
     y = np_y
     X_sparse = coo_matrix(X)
@@ -41,7 +41,7 @@ def RandomizedLogisticRegression(np_X, np_y, int_nJobs = 1):
     
     return estimator.scores_
 
-def LogisticRegressionL1(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1):
+def LogisticRegressionL1(np_X, np_y, int_kOfKFold = 2, int_nJobs = 4):
     X = np_X
     y = np_y
     X_sparse = coo_matrix(X)
@@ -82,7 +82,7 @@ def GenerateContingencyTable(np_genotype, np_phenotype):
 """"""""""""""""""""""""""""""
 # main function
 """"""""""""""""""""""""""""""
-def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 1):    
+def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):    
     ### set path of output file
     if str_outputFilePath == "":
         str_outputFilePath = os.path.dirname(str_inputFileName_genotype)
@@ -165,7 +165,7 @@ def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_ph
         return 0.0
     
     ### random logistic feature selection
-    np_randWeight = np.array(RandomizedLogisticRegression(np_genotype, np_phenotype[:, -1].astype(int)), int_nJobs)
+    np_randWeight = np.array(RandomizedLogisticRegression(np_genotype, np_phenotype[:, -1].astype(int), int_nJobs))
     np_selectedIdx = np.array([x >= 0.25 for x in np_randWeight])
     np_randWeight = np_randWeight[np_selectedIdx]
     np_genotype = np_genotype[:, np_selectedIdx]
@@ -210,7 +210,7 @@ def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_ph
     
     return float_f1Score
 
-def BatchSingleGeneEpistasisLogistic(str_inputFilePath_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 1):
+def BatchSingleGeneEpistasisLogistic(str_inputFilePath_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):
     ### set default output path
     if str_outputFilePath == "":
         str_outputFilePath = os.path.dirname(str_inputFilePath_genotype) + "/singleGeneResult/"
@@ -226,15 +226,15 @@ def BatchSingleGeneEpistasisLogistic(str_inputFilePath_genotype, str_inputFileNa
     
     ### batch PolyLogisticRegression
     int_count_gene = 0
-    with open(str_outputFilePath + "All_Logistic_k" + int_kOfKFold + ".csv", "w") as file_outputFile:
+    with open(str_outputFilePath + "All_Logistic_k" + str(int_kOfKFold) + ".csv", "w") as file_outputFile:
         file_outputFile.writelines("GeneSymbol,F1Score" + "\n")
         for item in list_genotypeFileName:
             int_count_gene = int_count_gene + 1
             str_genotypeFileName = str_inputFilePath_genotype + item
             float_f1Score = SingleGeneEpistasisLogistic(str_genotypeFileName, str_inputFileName_phenotype, str_outputFilePath, int_kOfKFold, int_nJobs)
             file_outputFile.writelines(item.split("_")[0] + "," + str(float_f1Score) + "\n")
-            str_print = "step4 processing: " + "{0:.2f}".format(float(int_count_gene) / len(list_genotypeFileName) * 100) + "% - " + item + ": " + str(float_f1Score) + "\t\t\n"
+            str_print = "step4: Processing: " + "{0:.2f}".format(float(int_count_gene) / len(list_genotypeFileName) * 100) + "% - " + item + ": " + str(float_f1Score) + "\t\t"
             sys.stdout.write('%s\r' % str_print)
             sys.stdout.flush()
     
-    print("step4: Detect single gene epistasis. DONE!")
+    print("step4: Detect single gene epistasis. DONE! \t\t\t")
