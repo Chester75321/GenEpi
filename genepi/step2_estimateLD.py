@@ -134,7 +134,7 @@ def EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime = 0.8, fl
                 
                 ### show progress
                 int_count_snp = int_count_snp + 1
-                str_print = "processing: " + "{0:.2f}".format(float(int_count_snp) / int_num_snp * 100) + "%"
+                str_print = "step2 processing: " + "{0:.2f}".format(float(int_count_snp) / int_num_snp * 100) + "%"
                 sys.stdout.write('%s\r' % str_print)
                 sys.stdout.flush()
             

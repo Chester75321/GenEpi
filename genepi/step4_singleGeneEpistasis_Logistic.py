@@ -82,7 +82,7 @@ def GenerateContingencyTable(np_genotype, np_phenotype):
 """"""""""""""""""""""""""""""
 # main function
 """"""""""""""""""""""""""""""
-def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath = ""):    
+def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 1):    
     ### set path of output file
     if str_outputFilePath == "":
         str_outputFilePath = os.path.dirname(str_inputFileName_genotype)
@@ -165,7 +165,7 @@ def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_ph
         return 0.0
     
     ### random logistic feature selection
-    np_randWeight = np.array(RandomizedLogisticRegression(np_genotype, np_phenotype[:, -1].astype(int)))
+    np_randWeight = np.array(RandomizedLogisticRegression(np_genotype, np_phenotype[:, -1].astype(int)), int_nJobs)
     np_selectedIdx = np.array([x >= 0.25 for x in np_randWeight])
     np_randWeight = np_randWeight[np_selectedIdx]
     np_genotype = np_genotype[:, np_selectedIdx]
@@ -177,7 +177,7 @@ def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_ph
     # build model
     #-------------------------
     ### final modeling
-    float_f1Score, np_weight = LogisticRegressionL1(np_genotype, np_phenotype[:, -1].astype(int))
+    float_f1Score, np_weight = LogisticRegressionL1(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
     
     #-------------------------
     # analyze result
@@ -208,12 +208,17 @@ def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_ph
         for idx_subject in range(0, np_genotype.shape[0]):
             file_outputFile.writelines(",".join(np_genotype[idx_subject, :].astype(str)) + "\n")
     
-    print("step4: Detect single gene epistasis. DONE!")
-    
     return float_f1Score
 
-def BatchSingleGeneEpistasisLogistic(str_inputFilePath_genotype, str_inputFilePath_phenotype, input_outputFilePath):
-    ### scan input file path
+def BatchSingleGeneEpistasisLogistic(str_inputFilePath_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 1):
+    ### set default output path
+    if str_outputFilePath == "":
+        str_outputFilePath = os.path.dirname(str_inputFilePath_genotype) + "/singleGeneResult/"
+    ### if output folder doesn't exist then create it
+    if not os.path.exists(str_outputFilePath):
+        os.makedirs(str_outputFilePath)
+    
+    ### scan all of the gen file in path
     list_genotypeFileName = []
     for str_fileName in os.listdir(str_inputFilePath_genotype):
         if ".gen" in str_fileName:
@@ -221,13 +226,15 @@ def BatchSingleGeneEpistasisLogistic(str_inputFilePath_genotype, str_inputFilePa
     
     ### batch PolyLogisticRegression
     int_count_gene = 0
-    with open(input_outputFilePath + "All_Logistic_k2.csv", "w") as file_outputFile:
+    with open(str_outputFilePath + "All_Logistic_k" + int_kOfKFold + ".csv", "w") as file_outputFile:
         file_outputFile.writelines("GeneSymbol,F1Score" + "\n")
         for item in list_genotypeFileName:
             int_count_gene = int_count_gene + 1
             str_genotypeFileName = str_inputFilePath_genotype + item
-            float_f1Score = SingleGeneEpistasisLogistic(str_genotypeFileName, str_inputFilePath_phenotype, input_outputFilePath)
+            float_f1Score = SingleGeneEpistasisLogistic(str_genotypeFileName, str_inputFileName_phenotype, str_outputFilePath, int_kOfKFold, int_nJobs)
             file_outputFile.writelines(item.split("_")[0] + "," + str(float_f1Score) + "\n")
-            str_print = "processing: " + "{0:.2f}".format(float(int_count_gene) / len(list_genotypeFileName) * 100) + "% - " + item + ": " + str(float_f1Score) + "\t\t\n"
+            str_print = "step4 processing: " + "{0:.2f}".format(float(int_count_gene) / len(list_genotypeFileName) * 100) + "% - " + item + ": " + str(float_f1Score) + "\t\t\n"
             sys.stdout.write('%s\r' % str_print)
             sys.stdout.flush()
+    
+    print("step4: Detect single gene epistasis. DONE!")
