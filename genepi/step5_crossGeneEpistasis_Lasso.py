@@ -24,6 +24,7 @@ from sklearn.cross_validation import KFold
 import scipy.stats as stats
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.externals import joblib
+from skimage import filters
 from .step4_singleGeneEpistasis_Lasso import RandomizedLassoRegression
 from .step4_singleGeneEpistasis_Lasso import LassoRegression
 
@@ -194,8 +195,10 @@ def CrossGeneEpistasisLasso(str_inputFilePath_feature, str_inputFileName_phenoty
         return 0.0
     
     ### random lasso feature selection
-    np_randWeight = np.array(RandomizedLassoRegression(np_genotype, np_phenotype[:, -1].astype(int), int_nJobs))
-    np_selectedIdx = np.array([x >= 0.25 for x in np_randWeight])
+    np_randWeight = np.array(RandomizedLassoRegression(np_genotype, np_phenotype[:, -1].astype(int)))
+    ### apply otsu method to decide threshold
+    float_threshold = filters.threshold_otsu(np_randWeight)
+    np_selectedIdx = np.array([x >= float_threshold for x in np_randWeight])
     np_randWeight = np_randWeight[np_selectedIdx]
     np_genotype = np_genotype[:, np_selectedIdx]
     np_genotype_rsid = np_genotype_rsid[np_selectedIdx]

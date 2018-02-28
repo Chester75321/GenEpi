@@ -48,7 +48,7 @@ def LoadDataForEnsemble(str_inputFileName_feature, str_inputFileName_phenotype):
     del list_phenotype
     
     if np_phenotype.shape[1] < 2:
-        print("step6: Error no other factos exist.")
+        print("step6: Error no other factors exist.")
         return None, None
     
     ### get genotype file

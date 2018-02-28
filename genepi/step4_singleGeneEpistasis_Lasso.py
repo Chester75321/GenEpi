@@ -27,16 +27,17 @@ from sklearn.cross_validation import KFold
 from sklearn import grid_search
 import sklearn.metrics as skMetric
 import scipy.stats as stats
+from skimage import filters
 
 """"""""""""""""""""""""""""""
 # define functions 
 """"""""""""""""""""""""""""""
-def RandomizedLassoRegression(np_X, np_y, int_nJobs = 4):
+def RandomizedLassoRegression(np_X, np_y):
     X = np_X
     y = np_y
     X_sparse = coo_matrix(X)
     X, X_sparse, y = shuffle(X, X_sparse, y, random_state=0)
-    estimator = linear_model.RandomizedLasso(n_jobs=int_nJobs, n_resampling=500)
+    estimator = linear_model.RandomizedLasso(n_jobs=1, n_resampling=500)
     estimator.fit(X, y)
     
     return estimator.scores_
@@ -126,7 +127,7 @@ def SingleGeneEpistasisLasso(str_inputFileName_genotype, str_inputFileName_pheno
     
     ### check memory leak
     mem = virtual_memory()
-    if sys.getsizeof(np_genotype) **2 > mem.available:
+    if np_genotype.shape[1] **2 * (np_genotype.shape[0] * np_genotype.itemsize * 12) > mem.available:
         return "MemErr"
     
     ### generate interaction terms
@@ -158,8 +159,10 @@ def SingleGeneEpistasisLasso(str_inputFileName_genotype, str_inputFileName_pheno
         return 0.0
     
     ### random lasso feature selection
-    np_randWeight = np.array(RandomizedLassoRegression(np_genotype, np_phenotype[:, -1].astype(int), int_nJobs))
-    np_selectedIdx = np.array([x >= 0.25 for x in np_randWeight])
+    np_randWeight = np.array(RandomizedLassoRegression(np_genotype, np_phenotype[:, -1].astype(int)))
+    ### apply otsu method to decide threshold
+    float_threshold = filters.threshold_otsu(np_randWeight)
+    np_selectedIdx = np.array([x >= float_threshold for x in np_randWeight])
     np_randWeight = np_randWeight[np_selectedIdx]
     np_genotype = np_genotype[:, np_selectedIdx]
     np_genotype_rsid = np_genotype_rsid[np_selectedIdx]

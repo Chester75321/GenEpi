@@ -25,6 +25,7 @@ import sklearn.metrics as skMetric
 import scipy.stats as stats
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.externals import joblib
+from skimage import filters
 from .step4_singleGeneEpistasis_Logistic import RandomizedLogisticRegression
 from .step4_singleGeneEpistasis_Logistic import LogisticRegressionL1
 from .step4_singleGeneEpistasis_Logistic import GenerateContingencyTable
@@ -194,8 +195,10 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
         return 0.0
     
     ### random logistic feature selection
-    np_randWeight = np.array(RandomizedLogisticRegression(np_genotype, np_phenotype[:, -1].astype(int), int_nJobs))
-    np_selectedIdx = np.array([x >= 0.25 for x in np_randWeight])
+    np_randWeight = np.array(RandomizedLogisticRegression(np_genotype, np_phenotype[:, -1].astype(int)))
+    ### apply otsu method to decide threshold
+    float_threshold = filters.threshold_otsu(np_randWeight)
+    np_selectedIdx = np.array([x >= float_threshold for x in np_randWeight])
     np_randWeight = np_randWeight[np_selectedIdx]
     np_genotype = np_genotype[:, np_selectedIdx]
     np_genotype_rsid = np_genotype_rsid[np_selectedIdx]

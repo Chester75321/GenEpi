@@ -27,16 +27,17 @@ from sklearn.cross_validation import KFold
 from sklearn import grid_search
 import sklearn.metrics as skMetric
 import scipy.stats as stats
+from skimage import filters
 
 """"""""""""""""""""""""""""""
 # define functions 
 """"""""""""""""""""""""""""""
-def RandomizedLogisticRegression(np_X, np_y, int_nJobs = 4):
+def RandomizedLogisticRegression(np_X, np_y):
     X = np_X
     y = np_y
     X_sparse = coo_matrix(X)
     X, X_sparse, y = shuffle(X, X_sparse, y, random_state=0)
-    estimator = linear_model.RandomizedLogisticRegression(n_jobs=int_nJobs, n_resampling=500)
+    estimator = linear_model.RandomizedLogisticRegression(n_jobs=1, n_resampling=500)
     estimator.fit(X, y)
     
     return estimator.scores_
@@ -82,7 +83,7 @@ def GenerateContingencyTable(np_genotype, np_phenotype):
 """"""""""""""""""""""""""""""
 # main function
 """"""""""""""""""""""""""""""
-def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):    
+def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):
     ### set path of output file
     if str_outputFilePath == "":
         str_outputFilePath = os.path.dirname(str_inputFileName_genotype)
@@ -133,7 +134,7 @@ def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_ph
     
     ### check memory leak
     mem = virtual_memory()
-    if sys.getsizeof(np_genotype) **2 > mem.available:
+    if np_genotype.shape[1] **2 * (np_genotype.shape[0] * np_genotype.itemsize * 12) > mem.available:
         return "MemErr"
     
     ### generate interaction terms
@@ -165,8 +166,10 @@ def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_ph
         return 0.0
     
     ### random logistic feature selection
-    np_randWeight = np.array(RandomizedLogisticRegression(np_genotype, np_phenotype[:, -1].astype(int), int_nJobs))
-    np_selectedIdx = np.array([x >= 0.25 for x in np_randWeight])
+    np_randWeight = np.array(RandomizedLogisticRegression(np_genotype, np_phenotype[:, -1].astype(int)))
+    ### apply otsu method to decide threshold
+    float_threshold = filters.threshold_otsu(np_randWeight)
+    np_selectedIdx = np.array([x >= float_threshold for x in np_randWeight])
     np_randWeight = np_randWeight[np_selectedIdx]
     np_genotype = np_genotype[:, np_selectedIdx]
     np_genotype_rsid = np_genotype_rsid[np_selectedIdx]
