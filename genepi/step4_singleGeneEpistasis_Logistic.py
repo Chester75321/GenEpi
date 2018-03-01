@@ -191,6 +191,8 @@ def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_ph
     # build model
     #-------------------------
     float_f1Score, np_weight = LogisticRegressionL1(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
+    if float_f1Score == 0.0:
+        return 0.0
     
     ### filter out zero-weight features
     np_selectedIdx = np.array([x != 0.0 for x in np_weight])

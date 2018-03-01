@@ -184,6 +184,8 @@ def SingleGeneEpistasisLasso(str_inputFileName_genotype, str_inputFileName_pheno
     # build model
     #-------------------------
     float_AVG_S_P, np_weight = LassoRegression(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
+    if float_AVG_S_P == 0.0:
+        return 0.0
     
     ### filter out zero-weight features
     np_selectedIdx = np.array([x != 0.0 for x in np_weight])
