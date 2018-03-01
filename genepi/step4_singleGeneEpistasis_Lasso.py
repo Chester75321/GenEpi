@@ -73,6 +73,17 @@ def LassoRegression(np_X, np_y, int_kOfKFold = 2, int_nJobs = 4):
     
     return (float_pearson + float_spearman) / 2, np_weight
 
+def OtsuThresholding(np_weight):
+    if np.amin(np_weight) == np.amax(np_weight):
+        return 0.0
+    else:
+        np_gray = (np_weight - np.amin(np_weight)) / (np.amax(np_weight) - np.amin(np_weight)) * 255
+        np_gray = np_gray.astype(np.uint8).reshape(np_gray.shape[0], 1, 1)
+        float_threshold = filters.threshold_otsu(np_gray)
+        float_threshold = float_threshold / 255 * (np.amax(np_weight) - np.amin(np_weight)) + np.amin(np_weight)
+    
+    return float_threshold
+
 """"""""""""""""""""""""""""""
 # main function
 """"""""""""""""""""""""""""""
@@ -161,8 +172,8 @@ def SingleGeneEpistasisLasso(str_inputFileName_genotype, str_inputFileName_pheno
     ### random lasso feature selection
     np_randWeight = np.array(RandomizedLassoRegression(np_genotype, np_phenotype[:, -1].astype(int)))
     ### apply otsu method to decide threshold
-    float_threshold = filters.threshold_otsu(np_randWeight)
-    np_selectedIdx = np.array([x >= float_threshold for x in np_randWeight])
+    float_threshold = OtsuThresholding(np_randWeight)
+    np_selectedIdx = np.array([x > float_threshold for x in np_randWeight])
     np_randWeight = np_randWeight[np_selectedIdx]
     np_genotype = np_genotype[:, np_selectedIdx]
     np_genotype_rsid = np_genotype_rsid[np_selectedIdx]
