@@ -27,7 +27,6 @@ from sklearn.cross_validation import KFold
 from sklearn import grid_search
 import sklearn.metrics as skMetric
 import scipy.stats as stats
-from skimage import filters
 
 """"""""""""""""""""""""""""""
 # define functions 
@@ -79,17 +78,6 @@ def GenerateContingencyTable(np_genotype, np_phenotype):
     np_contingency = np.rot90(np_contingency)
     
     return np_contingency
-
-def OtsuThresholding(np_weight):
-    if np.amin(np_weight) == np.amax(np_weight):
-        return 0.0
-    else:
-        np_gray = (np_weight - np.amin(np_weight)) / (np.amax(np_weight) - np.amin(np_weight)) * 255
-        np_gray = np_gray.astype(np.uint8).reshape(np_gray.shape[0], 1, 1)
-        float_threshold = filters.threshold_otsu(np_gray)
-        float_threshold = float_threshold / 255 * (np.amax(np_weight) - np.amin(np_weight)) + np.amin(np_weight)
-    
-    return float_threshold
 
 """"""""""""""""""""""""""""""
 # main function
@@ -178,9 +166,7 @@ def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_ph
     
     ### random logistic feature selection
     np_randWeight = np.array(RandomizedLogisticRegression(np_genotype, np_phenotype[:, -1].astype(int)))
-    ### apply otsu method to decide threshold
-    float_threshold = OtsuThresholding(np_randWeight)
-    np_selectedIdx = np.array([x > float_threshold for x in np_randWeight])
+    np_selectedIdx = np.array([x >= 0.25 for x in np_randWeight])
     np_randWeight = np_randWeight[np_selectedIdx]
     np_genotype = np_genotype[:, np_selectedIdx]
     np_genotype_rsid = np_genotype_rsid[np_selectedIdx]
