@@ -3,7 +3,7 @@ GenEpi is a package to uncover epistasis associated with phenotypes by machine l
 
 <img src="https://github.com/Chester75321/GenEpi/raw/master/GenEpi.png" width="75%" height="75%">
 
-The architecture and modules of GenEpi
+The architecture and modules of GenEpi.
 
 ## Getting Started
 ### Installation
@@ -23,4 +23,9 @@ GenEpi takes .csv file without header line as input format for phenotype and env
 
 >**NOTE:** The order of the phenotype data should be same as .GEN file.
 
-
+## Usage example
+### Running a test
+We provided an [example script](https://github.com/Chester75321/GenEpi/tree/master/genepi/example/example.py) in [example folder](https://github.com/Chester75321/GenEpi/tree/master/genepi/example). Please use following command for running a quick test.
+```
+$ python example.py
+```
