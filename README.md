@@ -10,7 +10,7 @@ The architecture and modules of GenEpi.
 ```
 $ pip install GenEpi
 ```
-**NOTE:** GenEpi is a memory-consuming package, which might cause memory errors when calculating the epistasis of a gene containing a large number of SNPs. We recommend that the memory for running GenEpi should be over 256 GB.
+>**NOTE:** GenEpi is a memory-consuming package, which might cause memory errors when calculating the epistasis of a gene containing a large number of SNPs. We recommend that the memory for running GenEpi should be over 256 GB.
 
 ### Inputs
 1. Genotype Data
@@ -21,7 +21,7 @@ GenEpi takes [Genotype File Format](http://www.stats.ox.ac.uk/~marchini/software
 2. Phenotype & Environmental Factor Data
 GenEpi takes .csv file without header line as input format for phenotype and environmental factor data. The last column of the file would be considered as phenotype data and the others would be considered as covariate (environmental factor data).
 
-**NOTE:** The order of the phenotype data should be same as .GEN file.
+>**NOTE:** The order of the phenotype data should be same as .GEN file.
 
 ## Usage example
 ### Running a test
