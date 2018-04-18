@@ -29,3 +29,21 @@ We provided an [example script](https://github.com/Chester75321/GenEpi/tree/mast
 ```
 $ python example.py
 ```
+### Applying on your data
+You may use this example script as a recipe and modify the input file names in Line 14 and 15 for running your data.
+```python
+str_inputFileName_genotype = "…/sample.gen" # full path of the .GEN file.
+str_inputFileName_phenotype = "…/sample.csv" # full path of the .csv file.
+```
+
+### Options
+For changing the build of USCS genome browser, please modify parameter of step one:
+```python
+genepi.DownloadUCSCDB(str_hgbuild="hg38") # for example: change to build hg38.
+```
+You could modify the threshold for Linkage Disequilibrium dimension reduction in step two:
+```python
+#default float_threshold_DPrime=0.9 and float_threshold_RSquare=0.9
+genepi.EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime=0.8, float_threshold_RSquare=0.8)
+```
+
