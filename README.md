@@ -49,8 +49,6 @@ genepi.EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime=0.8, f
 ```
 
 ## Meta
-Chester (Yu-Chuan Chang) – chester75321@gmail.com
-
-Distributed under the MIT license. See ``LICENSE`` for more information.
-
+Chester (Yu-Chuan Chang) – chester75321@gmail.com  
+Distributed under the MIT license. See ``LICENSE`` for more information.  
 [https://github.com/Chester75321/GenEpi/](https://github.com/Chester75321/GenEpi/)
