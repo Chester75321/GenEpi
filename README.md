@@ -10,7 +10,7 @@ The architecture and modules of GenEpi.
 ```
 $ pip install GenEpi
 ```
->**NOTE:** GenEpi is a memory-consuming package, which might cause memory errors when calculating the epistasis of a gene containing a large number of SNPs. We recommend that the memory for running GenEpi should be over 256 GB.
+**NOTE:** GenEpi is a memory-consuming package, which might cause memory errors when calculating the epistasis of a gene containing a large number of SNPs. We recommend that the memory for running GenEpi should be over 256 GB.
 
 ### Inputs
 1. Genotype Data
@@ -21,7 +21,7 @@ GenEpi takes [Genotype File Format](http://www.stats.ox.ac.uk/~marchini/software
 2. Phenotype & Environmental Factor Data
 GenEpi takes .csv file without header line as input format for phenotype and environmental factor data. The last column of the file would be considered as phenotype data and the others would be considered as covariate (environmental factor data).
 
->**NOTE:** The order of the phenotype data should be same as .GEN file.
+**NOTE:** The order of the phenotype data should be same as .GEN file.
 
 ## Usage example
 ### Running a test
@@ -29,6 +29,7 @@ We provided an [example script](https://github.com/Chester75321/GenEpi/tree/mast
 ```
 $ python example.py
 ```
+
 ### Applying on your data
 You may use this example script as a recipe and modify the input file names in Line 14 and 15 for running your data.
 ```python
@@ -47,3 +48,9 @@ You could modify the threshold for Linkage Disequilibrium dimension reduction in
 genepi.EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime=0.8, float_threshold_RSquare=0.8)
 ```
 
+## Meta
+Chester (Yu-Chuan Chang) – chester75321@gmail.com
+
+Distributed under the MIT license. See ``LICENSE`` for more information.
+
+[https://github.com/Chester75321/GenEpi/](https://github.com/Chester75321/GenEpi/)
