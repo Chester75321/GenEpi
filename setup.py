@@ -11,7 +11,7 @@ Created on Feb 2018
 from setuptools import setup
 
 setup(name='genepi',
-      version='0.1',
+      version='1.0',
       description='A package for detecting epsitasis by machine learning',
       url='https://github.com/Chester75321/GenEpi',
       author='Chester (Yu-Chuan Chang)',
