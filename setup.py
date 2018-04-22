@@ -10,12 +10,12 @@ Created on Feb 2018
 """"""""""""""""""""""""""""""
 from setuptools import setup
 
-with open('README.md', encoding = 'utf8') as f:
+with open('README.md') as f:
     long_description = f.read()
 
 setup(
     name = 'genepi',
-    version = '1.0.0',
+    version = '1.0.2',
     description = 'A package for detecting epsitasis by machine learning',
 	long_description=long_description,
 	long_description_content_type='text/markdown',

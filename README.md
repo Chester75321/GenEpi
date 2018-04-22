@@ -33,8 +33,8 @@ $ python example.py
 ### Applying on your data
 You may use this example script as a recipe and modify the input file names in Line 14 and 15 for running your data.
 ```python
-str_inputFileName_genotype = "…/sample.gen" # full path of the .GEN file.
-str_inputFileName_phenotype = "…/sample.csv" # full path of the .csv file.
+str_inputFileName_genotype = "../sample.gen" # full path of the .GEN file.
+str_inputFileName_phenotype = "../sample.csv" # full path of the .csv file.
 ```
 
 ### Options
@@ -49,6 +49,6 @@ genepi.EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime=0.8, f
 ```
 
 ## Meta
-Chester (Yu-Chuan Chang) – chester75321@gmail.com  
+Chester (Yu-Chuan Chang) - chester75321@gmail.com  
 Distributed under the MIT license. See ``LICENSE`` for more information.  
 [https://github.com/Chester75321/GenEpi/](https://github.com/Chester75321/GenEpi/)
