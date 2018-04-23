@@ -59,7 +59,7 @@ def RFClassifier(np_X, np_y, int_kOfKFold = 2, int_nJobs = 4):
     list_target = []
     list_predict = []
     for idxTr, idxTe in kf:
-        estimator_rf = RandomForestClassifier(n_estimators=1000, n_jobs=int_nJobs)
+        estimator_rf = RandomForestClassifier(n_estimators=1000, n_jobs=int_nJobs, class_weight='balanced')
         estimator_rf.fit(X[idxTr], y[idxTr])
         list_label = estimator_rf.predict(X[idxTe])
         for idx_y, idx_label in zip(list(y[idxTe]), list_label):
@@ -75,7 +75,7 @@ def RFClassifierModelPersistence(np_X, np_y, str_outputFilePath = "", str_output
     X_sparse = coo_matrix(X)
     X, X_sparse, y = shuffle(X, X_sparse, y, random_state=0)
     
-    estimator_rf = RandomForestClassifier(n_estimators=1000, n_jobs=int_nJobs)
+    estimator_rf = RandomForestClassifier(n_estimators=1000, n_jobs=int_nJobs, class_weight='balanced')
     estimator_rf.fit(X, y)
     list_predict = estimator_rf.predict(X)
     float_f1Score = skMetric.f1_score(y, list_predict)
@@ -83,17 +83,6 @@ def RFClassifierModelPersistence(np_X, np_y, str_outputFilePath = "", str_output
     joblib.dump(estimator_rf, os.path.join(str_outputFilePath, str_outputFileName))
     
     return float_f1Score
-
-def OtsuThresholding(np_weight):
-    if np.amin(np_weight) == np.amax(np_weight):
-        return 0.0
-    else:
-        np_gray = (np_weight - np.amin(np_weight)) / (np.amax(np_weight) - np.amin(np_weight)) * 255
-        np_gray = np_gray.astype(np.uint8).reshape(np_gray.shape[0], 1, 1)
-        float_threshold = filters.threshold_otsu(np_gray)
-        float_threshold = float_threshold / 255 * (np.amax(np_weight) - np.amin(np_weight)) + np.amin(np_weight)
-    
-    return float_threshold
     
 """"""""""""""""""""""""""""""
 # main function
@@ -192,6 +181,10 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
         np_genotype_crossGene_rsid, np_genotype_crossGene = CrossGeneInteractionGenerator(np_genotype_degree1_rsid, np_genotype_degree1)
         np_genotype = np.concatenate((np_genotype, np_genotype_crossGene), axis=1)
         np_genotype_rsid = np.concatenate((np_genotype_rsid, np_genotype_crossGene_rsid))
+    
+    ### remove redundant polynomial features
+    np_genotype, np_selectedIdx = np.unique(np_genotype, axis=1, return_index=True)
+    np_genotype_rsid = np_genotype_rsid[np_selectedIdx]
     
     #-------------------------
     # select feature

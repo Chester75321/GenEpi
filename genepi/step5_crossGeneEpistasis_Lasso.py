@@ -182,6 +182,10 @@ def CrossGeneEpistasisLasso(str_inputFilePath_feature, str_inputFileName_phenoty
         np_genotype = np.concatenate((np_genotype, np_genotype_crossGene), axis=1)
         np_genotype_rsid = np.concatenate((np_genotype_rsid, np_genotype_crossGene_rsid))
     
+    ### remove redundant polynomial features
+    np_genotype, np_selectedIdx = np.unique(np_genotype, axis=1, return_index=True)
+    np_genotype_rsid = np_genotype_rsid[np_selectedIdx]
+    
     #-------------------------
     # select feature
     #-------------------------
