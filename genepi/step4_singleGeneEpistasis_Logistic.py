@@ -53,7 +53,7 @@ def LogisticRegressionL1(np_X, np_y, int_kOfKFold = 2, int_nJobs = 4):
     list_weight = []
     for idxTr, idxTe in kf:
         cost = [2**x for x in range(-8, 8)]
-        parameters = [{'C':cost, 'penalty':['l1'], 'dual':[False]}]
+        parameters = [{'C':cost, 'penalty':['l1'], 'dual':[False], 'class_weight':['balanced']}]
         kf_estimator = KFold(len(idxTr), n_folds=2)
         estimator_logistic = linear_model.LogisticRegression()
         estimator_grid = grid_search.GridSearchCV(estimator_logistic, parameters, scoring='f1')
