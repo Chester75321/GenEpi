@@ -15,7 +15,7 @@ with open('README.md') as f:
 
 setup(
     name = 'genepi',
-    version = '1.0.3',
+    version = '1.0.4',
     description = 'A package for detecting epsitasis by machine learning',
     long_description=long_description,
     long_description_content_type='text/markdown',
