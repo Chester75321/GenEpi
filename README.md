@@ -14,16 +14,11 @@ $ pip install GenEpi
 
 ### Inputs
 1. Genotype Data
-GenEpi takes [Genotype File Format](http://www.stats.ox.ac.uk/~marchini/software/gwas/file_format_new.html) (.GEN) used by Oxford statistical genetics tools, such as IMPUTE2 and SNPTEST as the input format for genotype data. If your files are in [PLINK format](https://www.cog-genomics.org/plink/1.9/formats) (.PED /.MAP or .BED/.BIM/.FAM) or [1000 Genomes Project text Variant Call Format](https://www.cog-genomics.org/plink/1.9/formats#vcf) (.VCF), you could use [PLINK](https://www.cog-genomics.org/plink/1.9/) with the following command to convert the files to the .GEN file.
+GenEpi takes [Genotype File Format](http://www.stats.ox.ac.uk/~marchini/software/gwas/file_format_new.html) (.GEN) used by Oxford statistical genetics tools, such as IMPUTE2 and SNPTEST as the input format for genotype data. If your files are in [PLINK format](https://www.cog-genomics.org/plink/1.9/formats) (.BED/.BIM/.FAM) or [1000 Genomes Project text Variant Call Format](https://www.cog-genomics.org/plink/1.9/formats#vcf) (.VCF), you could use [PLINK](https://www.cog-genomics.org/plink/1.9/) with the following command to convert the files to the .GEN file.
 
 >If your files are in **.BED/.BIM/.FAM** format.
 >```
 >$ plink --bfile prefixOfTheFilename --recode oxford --out prefixOfTheFilename
->```
-
->If your files are in **.PED/.MAP** format.
->```
->$ plink --file prefixOfTheFilename --recode oxford --out prefixOfTheFilename
 >```
 
 >If your files are in **.VCF** format.
