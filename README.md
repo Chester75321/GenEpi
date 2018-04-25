@@ -14,7 +14,7 @@ $ pip install GenEpi
 
 ### Inputs
 1. Genotype Data
-GenEpi takes [Genotype File Format](http://www.stats.ox.ac.uk/~marchini/software/gwas/file_format_new.html) (.GEN) used by Oxford statistical genetics tools, such as IMPUTE2 and SNPTEST as the input format for genotype data. If your files are in [PLINK format](https://www.cog-genomics.org/plink/1.9/formats) (.BED/.BIM/.FAM) or [1000 Genomes Project text Variant Call Format](https://www.cog-genomics.org/plink/1.9/formats#vcf) (.VCF), you could use [PLINK](https://www.cog-genomics.org/plink/1.9/) with the following command to convert the files to the .GEN file.
+GenEpi takes the [Genotype File Format](http://www.stats.ox.ac.uk/~marchini/software/gwas/file_format_new.html) (.GEN) used by Oxford statistical genetics tools, such as IMPUTE2 and SNPTEST as the input format for genotype data. If your files are in [PLINK format](https://www.cog-genomics.org/plink/1.9/formats) (.BED/.BIM/.FAM) or [1000 Genomes Project text Variant Call Format](https://www.cog-genomics.org/plink/1.9/formats#vcf) (.VCF), you could use [PLINK](https://www.cog-genomics.org/plink/1.9/) with the following command to convert the files to the .GEN file.
 
 >If your files are in **.BED/.BIM/.FAM** format.
 >```
@@ -27,13 +27,13 @@ GenEpi takes [Genotype File Format](http://www.stats.ox.ac.uk/~marchini/software
 >```
 
 2. Phenotype & Environmental Factor Data
-GenEpi takes .csv file without header line as input format for phenotype and environmental factor data. The last column of the file would be considered as phenotype data and the others would be considered as covariate (environmental factor data).
+GenEpi takes the .csv file without header line as the input format for phenotype and environmental factor data. The last column of the file would be considered as the phenotype data and the other columns would be considered as the environmental factor (covariates) data.
 
->**NOTE:** The order of the phenotype data should be same as .GEN file.
+>**NOTE:** The order of the phenotype data should be same as the .GEN file.
 
 ## Usage example
 ### Running a test
-We provided an [example script](https://github.com/Chester75321/GenEpi/tree/master/genepi/example/example.py) in [example folder](https://github.com/Chester75321/GenEpi/tree/master/genepi/example). Please use following command for running a quick test.
+We provided an [example script](https://github.com/Chester75321/GenEpi/tree/master/genepi/example/example.py) in [example folder](https://github.com/Chester75321/GenEpi/tree/master/genepi/example). Please use the following command for running a quick test.
 ```
 $ python example.py
 ```
@@ -46,14 +46,14 @@ str_inputFileName_phenotype = "../sample.csv" # full path of the .csv file.
 ```
 
 ### Options
-For changing the build of USCS genome browser, please modify parameter of step one:
+For changing the build of USCS genome browser, please modify the parameter of the step one:
 ```python
 genepi.DownloadUCSCDB(str_hgbuild="hg38") # for example: change to build hg38.
 ```
-You could modify the threshold for Linkage Disequilibrium dimension reduction in step two:
+You could modify the threshold for Linkage Disequilibrium dimension reduction in the step two:
 ```python
-#default float_threshold_DPrime=0.9 and float_threshold_RSquare=0.9
 genepi.EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime=0.8, float_threshold_RSquare=0.8)
+#default float_threshold_DPrime=0.9 and float_threshold_RSquare=0.9
 ```
 
 ## Meta
