@@ -56,6 +56,10 @@ genepi.EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime=0.8, f
 #default: float_threshold_DPrime=0.9 and float_threshold_RSquare=0.9
 ```
 
+## Interpreting the Results
+### The main table
+GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, crossGeneResult) beside your .GEN file. You could go to **crossGeneResult** directly to obtain your main table for episatasis in **Result.csv**
+
 ## Meta
 Chester (Yu-Chuan Chang) - chester75321@gmail.com  
 Distributed under the MIT license. See ``LICENSE`` for more information.  
