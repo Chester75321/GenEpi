@@ -13,20 +13,22 @@ $ pip install GenEpi
 >**NOTE:** GenEpi is a memory-consuming package, which might causes memory errors when calculating the epistasis of a gene containing a large number of SNPs. We recommend that the memory for running GenEpi should be over 256 GB.
 
 ### Inputs
-1. Genotype Data
+**1\. Genotype Data:**
+
 GenEpi takes the [Genotype File Format](http://www.stats.ox.ac.uk/~marchini/software/gwas/file_format_new.html) (.GEN) used by Oxford statistical genetics tools, such as IMPUTE2 and SNPTEST as the input format for genotype data. If your files are in [PLINK format](https://www.cog-genomics.org/plink/1.9/formats) (.BED/.BIM/.FAM) or [1000 Genomes Project text Variant Call Format](https://www.cog-genomics.org/plink/1.9/formats#vcf) (.VCF), you could use [PLINK](https://www.cog-genomics.org/plink/1.9/) with the following command to convert the files to the .GEN file.
 
->If your files are in **.BED/.BIM/.FAM** format.
->```
->$ plink --bfile prefixOfTheFilename --recode oxford --out prefixOfTheFilename
->```
+If your files are in **.BED/.BIM/.FAM** format.
+```
+$ plink --bfile prefixOfTheFilename --recode oxford --out prefixOfTheFilename
+```
 
->If your files are in **.VCF** format.
->```
->$ plink --vcf filename.vcf --recode oxford --out prefixOfTheFilename
->```
+If your files are in **.VCF** format.
+```
+$ plink --vcf filename.vcf --recode oxford --out prefixOfTheFilename
+```
 
-2. Phenotype & Environmental Factor Data
+**2\. Phenotype & Environmental Factor Data**
+
 GenEpi takes the .csv file without header line as the input format for phenotype and environmental factor data. The last column of the file would be considered as the phenotype data and the other columns would be considered as the environmental factor (covariates) data.
 
 >**NOTE:** The order of the phenotype data should be same as the .GEN file.
