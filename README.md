@@ -60,17 +60,17 @@ genepi.EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime=0.8, f
 ### The main table
 GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, crossGeneResult) beside your .GEN file. You could go to **crossGeneResult** directly to obtain your main table for episatasis in **Result.csv**
 
-| rsid                        | weight  | -log<sub>10</sub>(&chi;<sup>2</sup> pvalue) | odds_ratio | genotype_frequency | geneSymbol  |
-|-----------------------------|---------|----------------------------------------------|------------|--------------------|-------------|
-| rs157580_BB rs2238681_AA    | 0.4577  | 8.4002                                       | 9.3952     | 0.1044             | TOMM40      |
-| rs449647_AA rs769449_AB     | 0.7592  | 8.0278                                       | 5.0877     | 0.2692             | APOE        |
-| rs59007384_BB rs11668327_AA | 0.1382  | 8.0158                                       | 12.0408    | 0.0824             | TOMM40      |
-| rs283811_BB rs7254892_AA    | 0.6517  | 8.0158                                       | 12.0408    | 0.0824             | PVRL2       |
-| rs429358_AA                 | -0.2230 | 5.7628                                       | 0.1743     | 0.5962             | APOE        |
-| rs73052335_AA rs429358_AA   | -0.0958 | 5.6548                                       | 0.1867     | 0.5714             | APOC1\*APOE |
-| rs449647_AB rs429358_AA     | -0.4523 | 5.1231                                       | 0.1535     | 0.2060             | APOE        |
-| rs769449_AA                 | -0.1949 | 5.0747                                       | 0.1647     | 0.6648             | APOE        |
-| rs77301115_AA rs11668327_AB | -0.2656 | 4.6171                                       | 0.2092     | 0.2418             | TOMM40      |
+| RSID                        | -Log<sub>10</sub>(&chi;<sup>2</sup> p-value) | Odds Ratio | Genotype Frequency | Gene Symbol |
+|-----------------------------|---------------------------------------------:|-----------:|-------------------:|-------------|
+| rs157580_BB rs2238681_AA    |                                       8.4002 |     9.3952 |             0.1044 | TOMM40      |
+| rs449647_AA rs769449_AB     |                                       8.0278 |     5.0877 |             0.2692 | APOE        |
+| rs59007384_BB rs11668327_AA |                                       8.0158 |    12.0408 |             0.0824 | TOMM40      |
+| rs283811_BB rs7254892_AA    |                                       8.0158 |    12.0408 |             0.0824 | PVRL2       |
+| rs429358_AA                 |                                       5.7628 |     0.1743 |             0.5962 | APOE        |
+| rs73052335_AA rs429358_AA   |                                       5.6548 |     0.1867 |             0.5714 | APOC1\*APOE |
+| rs449647_AB rs429358_AA     |                                       5.1231 |     0.1535 |             0.2060 | APOE        |
+| rs769449_AA                 |                                       5.0747 |     0.1647 |             0.6648 | APOE        |
+| rs77301115_AA rs11668327_AB |                                       4.6171 |     0.2092 |             0.2418 | TOMM40      |
 
 ## Meta
 Chester (Yu-Chuan Chang) - chester75321@gmail.com  
