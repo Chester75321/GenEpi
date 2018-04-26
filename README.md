@@ -58,7 +58,7 @@ genepi.EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime=0.8, f
 
 ## Interpreting the Results
 ### The main table
-GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, crossGeneResult) beside your .GEN file. You could go to **crossGeneResult** directly to obtain your main table for episatasis in **Result.csv**.
+GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, crossGeneResult) beside your .GEN file. You could go to the folder **crossGeneResult** directly to obtain your main table for episatasis in **Result.csv**.
 
 | RSID                        | -Log<sub>10</sub>(&chi;<sup>2</sup> p-value) | Odds Ratio | Genotype Frequency | Gene Symbol |
 |-----------------------------|---------------------------------------------:|-----------:|-------------------:|-------------|
