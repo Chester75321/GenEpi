@@ -69,7 +69,7 @@ GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, 
 | rs429358_AA                 |                                       5.7628 |     0.1743 |             0.5962 | APOE        |
 | rs73052335_AA rs429358_AA   |                                       5.6548 |     0.1867 |             0.5714 | APOC1\*APOE |
 
-The first column lists each feature by its RSID and the genotype (denoted as RSID_genotype), the pairwise epistatis features are represented using two SNPs. The last column describes the genes where the SNPs are located according to the genomic coordinates. We used a star sign to denote the epistasis between genes. The p-values of the &chi;<sup>2</sup> test (the quantitative task will use student t-test) are also included. The odds ratio significantly away from 1 also indicates whether the features are potential causal or protective genotypes. Since low genotype frequency may cause unreliable odds ratios, we also listed this information in the table.
+>The first column lists each feature by its RSID and the genotype (denoted as RSID_genotype), the pairwise epistatis features are represented using two SNPs. The last column describes the genes where the SNPs are located according to the genomic coordinates. We used a star sign to denote the epistasis between genes. The p-values of the &chi;<sup>2</sup> test (the quantitative task will use student t-test) are also included. The odds ratio significantly away from 1 also indicates whether the features are potential causal or protective genotypes. Since low genotype frequency may cause unreliable odds ratios, we also listed this information in the table.
 
 ## Meta
 Chester (Yu-Chuan Chang) - chester75321@gmail.com  
