@@ -60,8 +60,6 @@ genepi.EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime=0.8, f
 ### The main table
 GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, crossGeneResult) beside your .GEN file. You could go to **crossGeneResult** directly to obtain your main table for episatasis in **Result.csv**.
 
-The first column lists each feature by its RSID and the genotype (denoted as RSID_genotype), the pairwise epistatis features are represented using two SNPs. The last column describes the genes where the SNPs are located according to the genomic coordinates. We used a star sign to denote the epistasis between genes. The p-values of the &chi;<sup>2</sup> test (the quantitative task will use student t-test) are also included. The odds ratio significantly away from 1 also indicates whether the features are potential causal or protective genotypes. Since low genotype frequency may cause unreliable odds ratios, we also listed this information in the table.
-
 | RSID                        | -Log<sub>10</sub>(&chi;<sup>2</sup> p-value) | Odds Ratio | Genotype Frequency | Gene Symbol |
 |-----------------------------|---------------------------------------------:|-----------:|-------------------:|-------------|
 | rs157580_BB rs2238681_AA    |                                       8.4002 |     9.3952 |             0.1044 | TOMM40      |
@@ -73,6 +71,8 @@ The first column lists each feature by its RSID and the genotype (denoted as RSI
 | rs449647_AB rs429358_AA     |                                       5.1231 |     0.1535 |             0.2060 | APOE        |
 | rs769449_AA                 |                                       5.0747 |     0.1647 |             0.6648 | APOE        |
 | rs77301115_AA rs11668327_AB |                                       4.6171 |     0.2092 |             0.2418 | TOMM40      |
+
+The first column lists each feature by its RSID and the genotype (denoted as RSID_genotype), the pairwise epistatis features are represented using two SNPs. The last column describes the genes where the SNPs are located according to the genomic coordinates. We used a star sign to denote the epistasis between genes. The p-values of the &chi;<sup>2</sup> test (the quantitative task will use student t-test) are also included. The odds ratio significantly away from 1 also indicates whether the features are potential causal or protective genotypes. Since low genotype frequency may cause unreliable odds ratios, we also listed this information in the table.
 
 ## Meta
 Chester (Yu-Chuan Chang) - chester75321@gmail.com  
