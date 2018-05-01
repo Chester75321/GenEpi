@@ -15,7 +15,7 @@ with open('README.md') as f:
 
 setup(
     name = 'genepi',
-    version = '1.0.4',
+    version = '1.0.5',
     description = 'A package for detecting epsitasis by machine learning',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -32,7 +32,7 @@ setup(
         'Topic :: Scientific/Engineering :: Bio-Informatics',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
     ],
-    keywords = ['epistasis', 'SNP-SNP interactions'],
+    keywords = ['epistasis', 'SNP-SNP interactions', 'GWAS'],
     packages = ['genepi'],
     install_requires=[
         'pymysql>=0.8.0',

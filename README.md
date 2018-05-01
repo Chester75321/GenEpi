@@ -17,7 +17,7 @@ $ pip install GenEpi
 
 GenEpi takes the [Genotype File Format](http://www.stats.ox.ac.uk/~marchini/software/gwas/file_format_new.html) (.GEN) used by Oxford statistical genetics tools, such as IMPUTE2 and SNPTEST as the input format for genotype data. If your files are in [PLINK format](https://www.cog-genomics.org/plink/1.9/formats) (.BED/.BIM/.FAM) or [1000 Genomes Project text Variant Call Format](https://www.cog-genomics.org/plink/1.9/formats#vcf) (.VCF), you could use [PLINK](https://www.cog-genomics.org/plink/1.9/) with the following command to convert the files to the .GEN file.
 
-If your files are in the **.BED/.BIM/.FAM** format.
+If your files are in the **.BED/.BIM/.FAM** format.
 ```
 $ plink --bfile prefixOfTheFilename --recode oxford --out prefixOfTheFilename
 ```
@@ -100,7 +100,7 @@ All of the within-gene epistasis selected by sinlge-gene models will be stored i
 
 **4\. Model Persistance**
 
-The final models of the step five and step six would be persisted in the folder **crossGeneResult** as **RFClassifier/Regressor.pkl** and **RFClassifier/Regressor_Covariates.pkl** respectively. You could load these models for future use without having to retrain.
+The final models of the step five and step six will be persisted in the folder **crossGeneResult** as **RFClassifier/Regressor.pkl** and **RFClassifier/Regressor_Covariates.pkl** respectively. You could load these models for future use without having to retrain.
 
 ## Meta
 Chester (Yu-Chuan Chang) - chester75321@gmail.com  
