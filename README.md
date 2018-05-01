@@ -73,8 +73,8 @@ GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, 
 
 ### Other Details
 **1\. Linkage Disequilibrium**
-After linkage disequilibrium (LD) dimension reduction, GenEpi will generate two files, a dimesion-reduced subset of .GEN file and a LD blocks file (.LDBlock file). Each row in LD blocks file indicates a LD block (please see as the following example), the SNPs in front of colon signs are the representative SNP of each LD block and these SNPs will be retained in .GEN file.
 
+After linkage disequilibrium (LD) dimension reduction, GenEpi will generate two files, a dimesion-reduced subset of .GEN file and a LD blocks file (.LDBlock file). Each row in LD blocks file indicates a LD block (please see as the following example), the SNPs in front of colon signs are the representative SNPs of each LD block and only these SNPs will be retained in .GEN file.
 ```
 rs429358:rs429358
 rs7412:rs7412
