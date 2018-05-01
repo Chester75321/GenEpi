@@ -21,14 +21,14 @@ If your files are in the **.BED/.BIM/.FAM** format.
 ```
 $ plink --bfile prefixOfTheFilename --recode oxford --out prefixOfTheFilename
 ```
-If your files is in the **.VCF** format.
+If your file is in the **.VCF** format.
 ```
 $ plink --vcf filename.vcf --recode oxford --out prefixOfTheFilename
 ```
 
 **2\. Phenotype & Environmental Factor Data**
 
-GenEpi takes the .csv file without header line as the input format for phenotype and environmental factor data. The last column of the file would be considered as the phenotype data and the other columns would be considered as the environmental factor (covariates) data.
+GenEpi takes the .csv file without header line as the input format for phenotype and environmental factor data. The last column of the file will be considered as the phenotype data and the other columns will be considered as the environmental factor (covariates) data.
 >**NOTE:** The order of the phenotype data should be same as the .GEN file.
 
 ## Usage Example
@@ -74,7 +74,7 @@ GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, 
 ### Other Details
 **1\. Linkage Disequilibrium**
 
-After linkage disequilibrium (LD) dimension reduction, GenEpi will generate two files, a dimesion-reduced subset of .GEN file and a LD blocks file (.LDBlock file). Each row in LD blocks file indicates a LD block (please see as the following example), the SNPs in front of colon signs are the representative SNPs of each LD block and only these SNPs will be retained in .GEN file.
+After linkage disequilibrium (LD) dimension reduction, GenEpi will generate two files, a dimesion-reduced .GEN file and a LD blocks file (.LDBlock file). Each row in LD blocks file indicates a LD block (Please see as the following example.), the SNPs in front of colon signs are the representative SNPs of each LD block and only these SNPs will be retained in .GEN file.
 ```
 rs429358:rs429358
 rs7412:rs7412
@@ -82,6 +82,20 @@ rs117656888:rs117656888
 rs1081105:rs1081105
 rs1081106:rs1081106,rs191315680
 ```
+
+**2\. Subsets of the .GEN File for each Gene**
+The subsets of the .GEN file for each gene will be stored in the folder **snpSubsets**.
+
+**3\. Single-gene Results**
+
+All of the within-gene epistasis selected by sinlge-gene models will be stored in the folder **singleGeneResult**, which's formats are as same as the **Result.csv** of cross-gene result. The performances of each sinlge-gene model will be showed in **All_Logistic/Lasso_k-Fold.csv** in the same folder (Please see as the following example.).
+
+| Gene Symbol | F1 Score |
+|-------------|---------:|
+| APOE        |   0.6109 |
+| TOMM40      |   0.5900 |
+| PVRL2       |   0.5745 |
+| APOC1       |   0.5736 |
 
 ## Meta
 Chester (Yu-Chuan Chang) - chester75321@gmail.com  
