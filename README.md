@@ -83,7 +83,8 @@ rs1081105:rs1081105
 rs1081106:rs1081106,rs191315680
 ```
 
-**2\. Subsets of the .GEN File for each Gene**
+**2\. Single-gen .GEN Files**
+
 The subsets of the .GEN file for each gene will be stored in the folder **snpSubsets**.
 
 **3\. Single-gene Results**
@@ -99,7 +100,7 @@ All of the within-gene epistasis selected by sinlge-gene models will be stored i
 
 **4\. Model Persistance**
 
-The final models of the step five and step six would be persisted in the folder **crossGeneResult** as **RFClassifier/Regressor.pkl** and **RFClassifier/Regressor_Covariates.pkl** respectively. You could load these model for future use without having to retrain.
+The final models of the step five and step six would be persisted in the folder **crossGeneResult** as **RFClassifier/Regressor.pkl** and **RFClassifier/Regressor_Covariates.pkl** respectively. You could load these models for future use without having to retrain.
 
 ## Meta
 Chester (Yu-Chuan Chang) - chester75321@gmail.com  
