@@ -74,7 +74,7 @@ GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, 
 ### Other Details
 **1\. Linkage Disequilibrium**
 
-After linkage disequilibrium (LD) dimension reduction, GenEpi will generate two files, a dimesion-reduced .GEN file and a LD blocks file (.LDBlock file). Each row in LD blocks file indicates a LD block (Please see as the following example.), the SNPs in front of colon signs are the representative SNPs of each LD block and only these SNPs will be retained in .GEN file.
+After the linkage disequilibrium (LD) dimension reduction, GenEpi will generate two files, a dimesion-reduced .GEN file and a LD blocks file (.LDBlock file). Each row in the LD blocks file indicates a LD block (Please see as the following example.), the SNPs in front of colon signs are the representative SNPs of each LD block and only these SNPs will be retained in .GEN file.
 ```
 rs429358:rs429358
 rs7412:rs7412
@@ -98,6 +98,8 @@ All of the within-gene epistasis selected by sinlge-gene models will be stored i
 | APOC1       |   0.5736 |
 
 **4\. Model Persistance**
+
+The final models of the step five and step six would be persisted in the folder **crossGeneResult** as **RFClassifier/Regressor.pkl** and **RFClassifier/Regressor_Covariates.pkl** respectively. You could load these model for future use without having to retrain.
 
 ## Meta
 Chester (Yu-Chuan Chang) - chester75321@gmail.com  
