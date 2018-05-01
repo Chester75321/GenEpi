@@ -31,14 +31,14 @@ $ plink --vcf filename.vcf --recode oxford --out prefixOfTheFilename
 GenEpi takes the .csv file without header line as the input format for phenotype and environmental factor data. The last column of the file would be considered as the phenotype data and the other columns would be considered as the environmental factor (covariates) data.
 >**NOTE:** The order of the phenotype data should be same as the .GEN file.
 
-## Usage example
-### Running a test
+## Usage Example
+### Running a Test
 We provided an [example script](https://github.com/Chester75321/GenEpi/tree/master/genepi/example/example.py) in [example folder](https://github.com/Chester75321/GenEpi/tree/master/genepi/example). Please use the following command for running a quick test.
 ```
 $ python example.py
 ```
 
-### Applying on your data
+### Applying on Your Data
 You may use this example script as a recipe and modify the input file names in Line 14 and 15 for running your data.
 ```python
 str_inputFileName_genotype = "../sample.gen" # full path of the .GEN file.
@@ -57,7 +57,7 @@ genepi.EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime=0.8, f
 ```
 
 ## Interpreting the Results
-### The main table
+### The Main Table
 GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, crossGeneResult) beside your .GEN file. You could go to the folder **crossGeneResult** directly to obtain your main table for episatasis in **Result.csv**.
 
 | RSID                        | -Log<sub>10</sub>(&chi;<sup>2</sup> p-value) | Odds Ratio | Genotype Frequency | Gene Symbol |
@@ -70,6 +70,18 @@ GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, 
 | rs73052335_AA rs429358_AA   |                                       5.6548 |     0.1867 |             0.5714 | APOC1\*APOE |
 
 >The first column lists each feature by its RSID and the genotype (denoted as RSID_genotype), the pairwise epistatis features are represented using two SNPs. The last column describes the genes where the SNPs are located according to the genomic coordinates. We used a star sign to denote the epistasis between genes. The p-values of the &chi;<sup>2</sup> test (the quantitative task will use student t-test) are also included. The odds ratio significantly away from 1 also indicates whether the features are potential causal or protective genotypes. Since low genotype frequency may cause unreliable odds ratios, we also listed this information in the table.
+
+### Other Details
+**1\. Linkage Disequilibrium**
+After linkage disequilibrium (LD) dimension reduction, GenEpi will generate two files, a dimesion-reduced subset of .GEN file and a LD blocks file (.LDBlock file). Each row in LD blocks file indicates a LD block (please see as the following example), the SNPs in front of colon signs are the representative SNP of each LD block and these SNPs will be retained in .GEN file.
+
+```
+rs429358:rs429358
+rs7412:rs7412
+rs117656888:rs117656888
+rs1081105:rs1081105
+rs1081106:rs1081106,rs191315680
+```
 
 ## Meta
 Chester (Yu-Chuan Chang) - chester75321@gmail.com  
