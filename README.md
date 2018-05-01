@@ -52,8 +52,8 @@ genepi.DownloadUCSCDB(str_hgbuild="hg38") # for example: change to build hg38.
 ```
 You could modify the threshold for Linkage Disequilibrium dimension reduction in the step two:
 ```python
-genepi.EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime=0.8, float_threshold_RSquare=0.8)
 #default: float_threshold_DPrime=0.9 and float_threshold_RSquare=0.9
+genepi.EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime=0.8, float_threshold_RSquare=0.8)
 ```
 
 ## Interpreting the Results
@@ -96,6 +96,8 @@ All of the within-gene epistasis selected by sinlge-gene models will be stored i
 | TOMM40      |   0.5900 |
 | PVRL2       |   0.5745 |
 | APOC1       |   0.5736 |
+
+**4\. Model Persistance**
 
 ## Meta
 Chester (Yu-Chuan Chang) - chester75321@gmail.com  
