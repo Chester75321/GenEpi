@@ -74,7 +74,7 @@ GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, 
 ### Other Details
 **1\. Linkage Disequilibrium**
 
-After performing linkage disequilibrium (LD) dimension reduction, GenEpi will generate two files, a dimension-reduced .GEN file and a file containing LD blocks (.LDBlock file). Each row in the .LDBlock file indicates a LD block (see below for example.). The SNPs in front of colon signs are the representative SNPs of each LD block, and only these SNPs will be retained in the dimension-reduced .GEN file.
+After performing linkage disequilibrium (LD) dimension reduction, GenEpi will generate two files, a dimension-reduced .GEN file and a file containing LD blocks (.LDBlock file). Each row in the .LDBlock file indicates a LD block (see below for examples). The SNPs in front of colon signs are the representative SNPs of each LD block, and only these SNPs will be retained in the dimension-reduced .GEN file.
 ```
 rs429358:rs429358
 rs7412:rs7412
@@ -89,7 +89,7 @@ The subsets of the .GEN file for each gene will be stored in the folder **snpSub
 
 **3\. Single-gene Results**
 
-All of the within-gene epistasis selected by sinlge-gene models will be stored in the folder **singleGeneResult**, of which the format is the same as that in the **Result.csv** of cross-gene result. The performance of each single-gene model will be shown in **All_Logistic/Lasso_k-Fold.csv** in the same folder (see below for examples.).
+All of the within-gene epistasis selected by sinlge-gene models will be stored in the folder **singleGeneResult**, of which the format is the same as that in the **Result.csv** of cross-gene result. The performance of each single-gene model will be shown in **All_Logistic/Lasso_k-Fold.csv** in the same folder (see below for examples).
 
 | Gene Symbol | F1 Score |
 |-------------|---------:|
