@@ -190,7 +190,7 @@ def CrossGeneEpistasisLasso(str_inputFilePath_feature, str_inputFileName_phenoty
     # select feature
     #-------------------------
     ### f regression feature selection
-    np_fRegression = -np.log10(f_regression(np_genotype.astype(int), np_phenotype[:, -1].astype(int))[1])
+    np_fRegression = -np.log10(f_regression(np_genotype.astype(int), np_phenotype[:, -1].astype(float))[1])
     np_selectedIdx = np.array([x > 2 for x in np_fRegression])
     np_genotype = np_genotype[:, np_selectedIdx]
     np_genotype_rsid = np_genotype_rsid[np_selectedIdx]
@@ -198,7 +198,7 @@ def CrossGeneEpistasisLasso(str_inputFilePath_feature, str_inputFileName_phenoty
         return 0.0
     
     ### random lasso feature selection
-    np_randWeight = np.array(RandomizedLassoRegression(np_genotype, np_phenotype[:, -1].astype(int)))
+    np_randWeight = np.array(RandomizedLassoRegression(np_genotype, np_phenotype[:, -1].astype(float)))
     np_selectedIdx = np.array([x >= 0.25 for x in np_randWeight])
     np_randWeight = np_randWeight[np_selectedIdx]
     np_genotype = np_genotype[:, np_selectedIdx]
@@ -209,7 +209,7 @@ def CrossGeneEpistasisLasso(str_inputFilePath_feature, str_inputFileName_phenoty
     #-------------------------
     # build model
     #-------------------------
-    float_AVG_S_P, np_weight = LassoRegression(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
+    float_AVG_S_P, np_weight = LassoRegression(np_genotype, np_phenotype[:, -1].astype(float), int_kOfKFold, int_nJobs)
     
     ### filter out zero-weight features
     np_selectedIdx = np.array([x != 0.0 for x in np_weight])
@@ -220,15 +220,15 @@ def CrossGeneEpistasisLasso(str_inputFilePath_feature, str_inputFileName_phenoty
         return 0.0
     
     ### use random forest classifier for ensemble
-    float_AVG_S_P_rf_te = RFRegressor(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
+    float_AVG_S_P_rf_te = RFRegressor(np_genotype, np_phenotype[:, -1].astype(float), int_kOfKFold, int_nJobs)
     ### random forest classifier model persistence
-    float_AVG_S_P_rf_tr = RFRegressorModelPersistence(np_genotype, np_phenotype[:, -1].astype(int), str_outputFilePath)
+    float_AVG_S_P_rf_tr = RFRegressorModelPersistence(np_genotype, np_phenotype[:, -1].astype(float), str_outputFilePath)
     
     #-------------------------
     # analyze result
     #-------------------------
     ### calculate student t-test p-value
-    np_fRegression = -np.log10(f_regression(np_genotype.astype(int), np_phenotype[:, -1].astype(int))[1])
+    np_fRegression = -np.log10(f_regression(np_genotype.astype(int), np_phenotype[:, -1].astype(float))[1])
         
     ### calculate genotype frequency
     np_genotypeFreq = np.sum(np_genotype, axis=0).astype(float) / np_genotype.shape[0]

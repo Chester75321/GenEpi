@@ -150,7 +150,7 @@ def SingleGeneEpistasisLasso(str_inputFileName_genotype, str_inputFileName_pheno
     # select feature
     #-------------------------
     ### f regression feature selection
-    np_fRegression = -np.log10(f_regression(np_genotype.astype(int), np_phenotype[:, -1].astype(int))[1])
+    np_fRegression = -np.log10(f_regression(np_genotype.astype(int), np_phenotype[:, -1].astype(float))[1])
     np_selectedIdx = np.array([x > 2 for x in np_fRegression])
     np_genotype = np_genotype[:, np_selectedIdx]
     np_genotype_rsid = np_genotype_rsid[np_selectedIdx]
@@ -158,7 +158,7 @@ def SingleGeneEpistasisLasso(str_inputFileName_genotype, str_inputFileName_pheno
         return 0.0
     
     ### random lasso feature selection
-    np_randWeight = np.array(RandomizedLassoRegression(np_genotype, np_phenotype[:, -1].astype(int)))
+    np_randWeight = np.array(RandomizedLassoRegression(np_genotype, np_phenotype[:, -1].astype(float)))
     np_selectedIdx = np.array([x >= 0.25 for x in np_randWeight])
     np_randWeight = np_randWeight[np_selectedIdx]
     np_genotype = np_genotype[:, np_selectedIdx]
@@ -169,7 +169,7 @@ def SingleGeneEpistasisLasso(str_inputFileName_genotype, str_inputFileName_pheno
     #-------------------------
     # build model
     #-------------------------
-    float_AVG_S_P, np_weight = LassoRegression(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
+    float_AVG_S_P, np_weight = LassoRegression(np_genotype, np_phenotype[:, -1].astype(float), int_kOfKFold, int_nJobs)
     if float_AVG_S_P == 0.0:
         return 0.0
     
@@ -185,7 +185,7 @@ def SingleGeneEpistasisLasso(str_inputFileName_genotype, str_inputFileName_pheno
     # analyze result
     #-------------------------
     ### calculate student t-test p-value
-    np_fRegression = -np.log10(f_regression(np_genotype.astype(int), np_phenotype[:, -1].astype(int))[1])
+    np_fRegression = -np.log10(f_regression(np_genotype.astype(int), np_phenotype[:, -1].astype(float))[1])
         
     ### calculate genotype frequency
     np_genotypeFreq = np.sum(np_genotype, axis=0).astype(float) / np_genotype.shape[0]
