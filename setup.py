@@ -8,14 +8,14 @@ Created on Feb 2018
 """"""""""""""""""""""""""""""
 # import libraries
 """"""""""""""""""""""""""""""
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('README.md') as f:
     long_description = f.read()
 
 setup(
     name = 'genepi',
-    version = '1.0.6',
+    version = '2.0.1',
     description = 'A package for detecting epsitasis by machine learning',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -28,20 +28,23 @@ setup(
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Topic :: Scientific/Engineering :: Bio-Informatics',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
     ],
     keywords = ['epistasis', 'SNP-SNP interactions', 'GWAS'],
-    packages = ['genepi'],
+    packages = find_packages(),
     install_requires=[
         'pymysql>=0.8.0',
         'numpy>=1.13.0',
         'scipy>=0.19.0',
         'psutil>=4.3.0',
-        'scikit-learn>=0.19.0',
+        'scikit-learn>=0.21.2',
     ],
     python_requires='>=3',
     include_package_data = True,
-    zip_safe = False
+    zip_safe = False,
+    entry_points = {
+        'console_scripts': ['GenEpi=genepi.GenEpi:main'],
+    }
 )

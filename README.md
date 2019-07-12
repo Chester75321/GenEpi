@@ -1,7 +1,7 @@
 # GenEpi
-GenEpi is a package to uncover epistasis associated with phenotypes by a machine learning approach, developed by Yu-Chuan Chang at [c4Lab](http://bioinfo.bime.ntu.edu.tw/c4lab/) of National Taiwan University.
+GenEpi is a package to uncover epistasis associated with phenotypes by a machine learning approach, developed by Yu-Chuan Chang at [c4Lab](http://bioinfo.bime.ntu.edu.tw/c4lab/) of National Taiwan University and Taiwan AI Labs
 
-<img src="https://github.com/Chester75321/GenEpi/raw/master/GenEpi.png" width="50%" height="50%">
+<img src="./GenEpi.png" width="50%" height="50%">
 
 The architecture and modules of GenEpi.
 
@@ -13,6 +13,8 @@ $ pip install GenEpi
 >**NOTE:** GenEpi is a memory-consuming package, which might cause memory errors when calculating the epistasis of a gene containing a large number of SNPs. We recommend that the memory for running GenEpi should be over 256 GB.
 
 ### Inputs
+We provided test data [sample.gen](./genepi/example/sample.gen) and [sample.csv](./genepi/example/sample.csv) in [example folder](./genepi/example). Please see the following detail about input data.
+
 **1\. Genotype Data:**
 
 GenEpi takes the [Genotype File Format](http://www.stats.ox.ac.uk/~marchini/software/gwas/file_format_new.html) (.GEN) used by Oxford statistical genetics tools, such as IMPUTE2 and SNPTEST as the input format for genotype data. If your files are in [PLINK format](https://www.cog-genomics.org/plink/1.9/formats) (.BED/.BIM/.FAM) or [1000 Genomes Project text Variant Call Format](https://www.cog-genomics.org/plink/1.9/formats#vcf) (.VCF), you could use [PLINK](https://www.cog-genomics.org/plink/1.9/) with the following command to convert the files to the .GEN file.
@@ -28,32 +30,78 @@ $ plink --vcf filename.vcf --recode oxford --out prefixOfTheFilename
 
 **2\. Phenotype & Environmental Factor Data**
 
-GenEpi takes the .csv file without header line as the input format for phenotype and environmental factor data. The last column of the file will be considered as the phenotype data and the other columns will be considered as the environmental factor (covariates) data.
+GenEpi takes the .CSV file without header line as the input format for phenotype and environmental factor data. The last column of the file will be considered as the phenotype data and the other columns will be considered as the environmental factor (covariates) data.
 >**NOTE:** The sequential order of the phenotype data should be the same as that in the .GEN file.
 
 ## Usage Example
-### Running a Test
-We provided an [example script](https://github.com/Chester75321/GenEpi/tree/master/genepi/example/example.py) in [example folder](https://github.com/Chester75321/GenEpi/tree/master/genepi/example). Please use the following command for running a quick test.
+### Running a Quick Test
+You will obtain all the outputs of GenEpi in current folder.
 ```
-$ python example.py
+$ GenEpi -g example -p example -o ./
 ```
 
 ### Applying on Your Data
-You may use this example script as a recipe and modify the input file names in Line 14 and 15 for running your data.
-```python
-str_inputFileName_genotype = "../sample.gen" # full path of the .GEN file.
-str_inputFileName_phenotype = "../sample.csv" # full path of the .csv file.
+```
+$ GenEpi -g full_path_of_your_.GEN_file -p full_path_of_your_.CSV_file -o ./
+```
+
+### Applying Seld-defined Genome Regions on Your Data
+Prepare your genome regions in .TXT with following format:
+
+[chromosome, start, end, strand, geneSymbol], for eample:
+
+```
+1,10873,14409,+,DDX11L1
+1,14361,30370,-,WASH7P
+1,34610,37081,-,FAM138F
+1,68090,70008,+,OR4F5
+...
+```
+
+Then, use the parameter -s for applying it on your data
+```
+$ GenEpi -s full_path_of_your_genome_region_file -g full_path_of_your_.GEN_file -p full_path_of_your_.CSV_file -o ./
 ```
 
 ### Options
-For changing the build of USCS genome browser, please modify the parameter of the step one:
-```python
-genepi.DownloadUCSCDB(str_hgbuild="hg38") # for example: change to build hg38.
+For checking all the optional arguments, please use --help:
 ```
-You could modify the threshold for Linkage Disequilibrium dimension reduction in the step two:
-```python
-#default: float_threshold_DPrime=0.9 and float_threshold_RSquare=0.9
-genepi.EstimateLDBlock(str_inputFileName_genotype, float_threshold_DPrime=0.8, float_threshold_RSquare=0.8)
+$ GenEpi --help
+```
+
+You will obtain the following argument list:
+```
+usage: GenEpi [-h] -g G -p P [-s S] [-o O] [-m {c,r}] [-k K] [-t T]
+              [--updatedb] [-b {hg19,hg38}] [--compressld] [-d D] [-r R]
+
+optional arguments:
+  -h, --help      show this help message and exit
+  -g G            filename of the input .gen file
+  -p P            filename of the input phenotype
+  -s S            self-defined genome regions
+  -o O            output file path
+  -m {c,r}        choose model type: c for classification; r for regression
+  -k K            k of k-fold cross validation
+  -t T            number of threads
+
+update UCSC database:
+  --updatedb      enable this function
+  -b {hg19,hg38}  human genome build
+
+compress data by LD block:
+  --compressld    enable this function
+  -d D            threshold for compression: D prime
+  -r R            threshold for compression: R square
+```
+
+For changing the build of USCS genome browser, please modify the parameter -b:
+```
+$ GenEpi -g example -p example -o ./ --updatedb -b hg38
+```
+
+You could modify the threshold for Linkage Disequilibrium dimension reduction by following command:
+```
+$ GenEpi -g example -p example -o ./ --compressld -d 0.9 -r 0.9
 ```
 
 ## Interpreting the Results
