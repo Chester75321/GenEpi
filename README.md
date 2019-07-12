@@ -46,10 +46,7 @@ $ GenEpi -g full_path_of_your_.GEN_file -p full_path_of_your_.CSV_file -o ./
 ```
 
 ### Applying Seld-defined Genome Regions on Your Data
-Prepare your genome regions in .TXT with following format:
-
-[chromosome, start, end, strand, geneSymbol], for eample:
-
+Prepare your genome regions in .TXT with the columns [chromosome, start, end, strand, geneSymbol], for eample:
 ```
 1,10873,14409,+,DDX11L1
 1,14361,30370,-,WASH7P
