@@ -1,7 +1,7 @@
 # GenEpi
 GenEpi is a package to uncover epistasis associated with phenotypes by a machine learning approach, developed by Yu-Chuan Chang at [c4Lab](http://bioinfo.bime.ntu.edu.tw/c4lab/) of National Taiwan University and Taiwan AI Labs
 
-<img src="./GenEpi.png" width="50%" height="50%">
+<img src="https://github.com/Chester75321/GenEpi/raw/master/GenEpi.png" width="80%" height="80%">
 
 The architecture and modules of GenEpi.
 
@@ -13,7 +13,7 @@ $ pip install GenEpi
 >**NOTE:** GenEpi is a memory-consuming package, which might cause memory errors when calculating the epistasis of a gene containing a large number of SNPs. We recommend that the memory for running GenEpi should be over 256 GB.
 
 ### Inputs
-We provided test data [sample.gen](./genepi/example/sample.gen) and [sample.csv](./genepi/example/sample.csv) in [example folder](./genepi/example). Please see the following detail about input data.
+We provided test data [sample.gen](https://github.com/Chester75321/GenEpi/raw/master/genepi/example/sample.gen) and [sample.csv](https://github.com/Chester75321/GenEpi/raw/master/genepi/example/sample.csv) in [example folder](https://github.com/Chester75321/GenEpi/raw/master/genepi/example). Please see the following detail about input data.
 
 **1\. Genotype Data:**
 
