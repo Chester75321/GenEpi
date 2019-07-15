@@ -1,7 +1,7 @@
 # GenEpi
 GenEpi is a package to uncover epistasis associated with phenotypes by a machine learning approach, developed by Yu-Chuan Chang at [c4Lab](http://bioinfo.bime.ntu.edu.tw/c4lab/) of National Taiwan University and Taiwan AI Labs
 
-<img src="https://github.com/Chester75321/GenEpi/raw/master/GenEpi.png" width="100%" height="100%">
+<img src="https://github.com/Chester75321/GenEpi/raw/master/GenEpi.png" width="90%" height="90%">
 
 The architecture and modules of GenEpi.
 
