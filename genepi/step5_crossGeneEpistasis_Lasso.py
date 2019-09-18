@@ -9,6 +9,13 @@ Created on Feb 2018
 # import libraries
 """"""""""""""""""""""""""""""
 import os
+import warnings
+warnings.filterwarnings('ignore')
+# ignore all warnings
+warnings.simplefilter("ignore")
+os.environ["PYTHONWARNINGS"] = "ignore"
+
+import os
 import numpy as np
 np.seterr(divide='ignore', invalid='ignore')
 from sklearn.feature_selection import f_regression
@@ -20,11 +27,6 @@ import scipy.stats as stats
 from genepi.step4_singleGeneEpistasis_Lasso import RandomizedLassoRegression
 from genepi.step4_singleGeneEpistasis_Lasso import LassoRegressionCV
 from genepi.step4_singleGeneEpistasis_Lasso import FeatureEncoderLasso
-
-import warnings
-warnings.filterwarnings('ignore')
-# ignore all future warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
 
 """"""""""""""""""""""""""""""
 # define functions 
@@ -39,7 +41,7 @@ def LassoRegression(np_X, np_y, int_nJobs = 4):
     alpha = np.logspace(-10, 10, 200)
     parameters = [{'alpha':alpha}]
     kf_estimator = KFold(n_splits=2)
-    estimator_lasso = linear_model.Lasso()
+    estimator_lasso = linear_model.Lasso(max_iter=1000)
     estimator_grid = GridSearchCV(estimator_lasso, parameters, scoring='neg_mean_squared_error', n_jobs=int_nJobs, cv=kf_estimator)
     estimator_grid.fit(X, y)
     list_label = estimator_grid.best_estimator_.predict(X)

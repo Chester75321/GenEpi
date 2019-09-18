@@ -14,6 +14,13 @@ warnings.warn = warn
 # import libraries
 """"""""""""""""""""""""""""""
 import os
+import warnings
+warnings.filterwarnings('ignore')
+# ignore all warnings
+warnings.simplefilter("ignore")
+os.environ["PYTHONWARNINGS"] = "ignore"
+
+import os
 import numpy as np
 np.seterr(divide='ignore', invalid='ignore')
 
@@ -21,11 +28,6 @@ from genepi.step4_singleGeneEpistasis_Logistic import LogisticRegressionL1CV
 from genepi.step4_singleGeneEpistasis_Lasso import LassoRegressionCV
 from genepi.step5_crossGeneEpistasis_Logistic import LogisticRegressionL1
 from genepi.step5_crossGeneEpistasis_Lasso import LassoRegression
-
-import warnings
-warnings.filterwarnings('ignore')
-# ignore all future warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
 
 """"""""""""""""""""""""""""""
 # define functions 

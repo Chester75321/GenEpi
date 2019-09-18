@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.2] - 2019-09-18
+### Added
+- Add multiprocessing for gene batch running
+
 ## [2.0.1] - 2019-07-12
 ### Added
 - Support self-defiend genome regions (for any species)

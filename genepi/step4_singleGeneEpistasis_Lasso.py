@@ -9,6 +9,12 @@ Created on Feb 2018
 # import libraries
 """"""""""""""""""""""""""""""
 import os
+import warnings
+warnings.filterwarnings('ignore')
+# ignore all warnings
+warnings.simplefilter("ignore")
+os.environ["PYTHONWARNINGS"] = "ignore"
+
 import sys
 import itertools
 import numpy as np
@@ -21,13 +27,9 @@ from sklearn import linear_model
 from sklearn.model_selection import KFold
 from sklearn.model_selection import GridSearchCV
 import scipy.stats as stats
+import multiprocessing as mp
 
 from genepi.tools import randomized_l1
-
-import warnings
-warnings.filterwarnings('ignore')
-# ignore all future warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
 
 """"""""""""""""""""""""""""""
 # define functions 
@@ -42,7 +44,7 @@ def RandomizedLassoRegression(np_X, np_y):
     
     return estimator.scores_
 
-def LassoRegressionCV(np_X, np_y, int_kOfKFold = 2, int_nJobs = 4):
+def LassoRegressionCV(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1):
     X = np_X
     y = np_y
     X_sparse = coo_matrix(X)
@@ -56,8 +58,8 @@ def LassoRegressionCV(np_X, np_y, int_kOfKFold = 2, int_nJobs = 4):
         alpha = np.logspace(-10, 10, 200)
         parameters = [{'alpha':alpha}]
         kf_estimator = KFold(n_splits=2)
-        estimator_lasso = linear_model.Lasso()
-        estimator_grid = GridSearchCV(estimator_lasso, parameters, scoring='neg_mean_squared_error', n_jobs=int_nJobs, cv=kf_estimator)
+        estimator_lasso = linear_model.Lasso(max_iter=1000)
+        estimator_grid = GridSearchCV(estimator_lasso, parameters, scoring='neg_mean_squared_error', n_jobs=1, cv=kf_estimator)
         estimator_grid.fit(X[idxTr], y[idxTr])
         list_label = estimator_grid.best_estimator_.predict(X[idxTe])
         list_weight.append([float(item) for item in estimator_grid.best_estimator_.coef_])
@@ -136,7 +138,7 @@ def FilterInLoading(np_genotype, np_phenotype):
 """"""""""""""""""""""""""""""
 # main function
 """"""""""""""""""""""""""""""
-def SingleGeneEpistasisLasso(str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):    
+def SingleGeneEpistasisLasso(str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 1):    
     ### set path of output file
     if str_outputFilePath == "":
         str_outputFilePath = os.path.dirname(str_inputFileName_genotype)
@@ -240,7 +242,7 @@ def SingleGeneEpistasisLasso(str_inputFileName_genotype, str_inputFileName_pheno
     
     return float_AVG_S_P
 
-def BatchSingleGeneEpistasisLasso(str_inputFilePath_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):
+def BatchSingleGeneEpistasisLasso(str_inputFilePath_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = mp.cpu_count()):
     ### set default output path
     if str_outputFilePath == "":
         str_outputFilePath = os.path.abspath(os.path.join(str_inputFilePath_genotype, os.pardir)) + "/singleGeneResult/"
@@ -254,7 +256,29 @@ def BatchSingleGeneEpistasisLasso(str_inputFilePath_genotype, str_inputFileName_
         if ".gen" in str_fileName:
             list_genotypeFileName.append(str_fileName)
     
-    ### batch PolyLogisticRegression
+    ### batch PolyLassoRegression
+    ### inital multiprocessing pool
+    mp_pool = mp.Pool(int_nJobs)
+
+    ### apply pool on the function that need be parallelizing
+    dict_result = {}
+    for int_count_gene, float_AVG_S_P in enumerate(mp_pool.starmap(SingleGeneEpistasisLasso, [(os.path.join(str_inputFilePath_genotype, gene), str_inputFileName_phenotype, str_outputFilePath, int_kOfKFold, int_nJobs) for gene in list_genotypeFileName]), 0):
+        if list_genotypeFileName[int_count_gene] not in dict_result:
+            dict_result[list_genotypeFileName[int_count_gene]] = float_AVG_S_P
+        str_print = "step4: Processing: " + "{0:.2f}".format(float(int_count_gene) / len(list_genotypeFileName) * 100) + "% - " + list_genotypeFileName[int_count_gene] + ": " + "\t\t"
+        sys.stdout.write('%s\r' % str_print)
+        sys.stdout.flush()
+
+    mp_pool.close()
+
+    ### output result
+    with open(str_outputFilePath + "All_Lasso_k" + str(int_kOfKFold) + ".csv", "w") as file_outputFile:
+        file_outputFile.writelines("GeneSymbol,AVG_S_P" + "\n")
+        for key, value in dict_result.items():
+            file_outputFile.writelines(key.split("_")[0] + "," + str(value) + "\n")
+
+    '''
+    ### batch PolyLassoRegression
     int_count_gene = 0
     with open(str_outputFilePath + "All_Lasso_k" + str(int_kOfKFold) + ".csv", "w") as file_outputFile:
         file_outputFile.writelines("GeneSymbol,AVG_S_P" + "\n")
@@ -266,5 +290,6 @@ def BatchSingleGeneEpistasisLasso(str_inputFilePath_genotype, str_inputFileName_
             str_print = "step4: Processing: " + "{0:.2f}".format(float(int_count_gene) / len(list_genotypeFileName) * 100) + "% - " + item + ": " + str(float_AVG_S_P) + "\t\t"
             sys.stdout.write('%s\r' % str_print)
             sys.stdout.flush()
-    
+    '''
+
     print("step4: Detect single gene epistasis. DONE! \t\t\t\t")

@@ -9,6 +9,13 @@ Created on Feb 2018
 # import libraries
 """"""""""""""""""""""""""""""
 import os
+import warnings
+warnings.filterwarnings('ignore')
+# ignore all warnings
+warnings.simplefilter("ignore")
+os.environ["PYTHONWARNINGS"] = "ignore"
+
+import os
 import numpy as np
 np.seterr(divide='ignore', invalid='ignore')
 from sklearn.feature_selection import chi2
@@ -21,11 +28,6 @@ import scipy.stats as stats
 from genepi.step4_singleGeneEpistasis_Logistic import RandomizedLogisticRegression
 from genepi.step4_singleGeneEpistasis_Logistic import LogisticRegressionL1CV
 from genepi.step4_singleGeneEpistasis_Logistic import FeatureEncoderLogistic
-
-import warnings
-warnings.filterwarnings('ignore')
-# ignore all future warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
 
 """"""""""""""""""""""""""""""
 # define functions 
@@ -40,7 +42,7 @@ def LogisticRegressionL1(np_X, np_y, int_nJobs = 4):
     cost = [2**x for x in range(-8, 8)]
     parameters = [{'C':cost, 'penalty':['l1'], 'dual':[False], 'class_weight':['balanced']}]
     kf_estimator = KFold(n_splits=2)
-    estimator_logistic = linear_model.LogisticRegression()
+    estimator_logistic = linear_model.LogisticRegression(max_iter=100, solver='liblinear')
     estimator_grid = GridSearchCV(estimator_logistic, parameters, scoring='f1', n_jobs=int_nJobs, cv=kf_estimator)
     estimator_grid.fit(X, y)
     list_label = estimator_grid.best_estimator_.predict(X)

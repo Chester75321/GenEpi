@@ -9,6 +9,13 @@ Created on Feb 2018
 # import libraries
 """"""""""""""""""""""""""""""
 import os
+import warnings
+warnings.filterwarnings('ignore')
+# ignore all warnings
+warnings.simplefilter("ignore")
+os.environ["PYTHONWARNINGS"] = "ignore"
+
+import os
 import sys
 import itertools
 import numpy as np
@@ -22,13 +29,9 @@ from sklearn.model_selection import KFold
 from sklearn.model_selection import GridSearchCV
 import sklearn.metrics as skMetric
 import scipy.stats as stats
+import multiprocessing as mp
 
 from genepi.tools import randomized_l1
-
-import warnings
-warnings.filterwarnings('ignore')
-# ignore all future warnings
-warnings.simplefilter(action='ignore', category=FutureWarning)
 
 """"""""""""""""""""""""""""""
 # define functions 
@@ -43,7 +46,7 @@ def RandomizedLogisticRegression(np_X, np_y):
     
     return estimator.scores_
 
-def LogisticRegressionL1CV(np_X, np_y, int_kOfKFold = 2, int_nJobs = 4):
+def LogisticRegressionL1CV(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1):
     X = np_X
     y = np_y
     X_sparse = coo_matrix(X)
@@ -57,8 +60,8 @@ def LogisticRegressionL1CV(np_X, np_y, int_kOfKFold = 2, int_nJobs = 4):
         cost = [2**x for x in range(-8, 8)]
         parameters = [{'C':cost, 'penalty':['l1'], 'dual':[False], 'class_weight':['balanced']}]
         kf_estimator = KFold(n_splits=2)
-        estimator_logistic = linear_model.LogisticRegression()
-        estimator_grid = GridSearchCV(estimator_logistic, parameters, scoring='f1', n_jobs=int_nJobs, cv=kf_estimator)
+        estimator_logistic = linear_model.LogisticRegression(max_iter=100, solver='liblinear')
+        estimator_grid = GridSearchCV(estimator_logistic, parameters, scoring='f1', n_jobs=1, cv=kf_estimator)
         estimator_grid.fit(X[idxTr], y[idxTr])
         list_label = estimator_grid.best_estimator_.predict(X[idxTe])
         list_weight.append([float(item) for item in estimator_grid.best_estimator_.coef_[0]])
@@ -144,7 +147,7 @@ def FilterInLoading(np_genotype, np_phenotype):
 """"""""""""""""""""""""""""""
 # main function
 """"""""""""""""""""""""""""""
-def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):      
+def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 1):      
     ### set path of output file
     if str_outputFilePath == "":
         str_outputFilePath = os.path.dirname(str_inputFileName_genotype)
@@ -253,7 +256,7 @@ def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_ph
     
     return float_f1Score
 
-def BatchSingleGeneEpistasisLogistic(str_inputFilePath_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):
+def BatchSingleGeneEpistasisLogistic(str_inputFilePath_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = mp.cpu_count()):
     ### set default output path
     if str_outputFilePath == "":
         str_outputFilePath = os.path.abspath(os.path.join(str_inputFilePath_genotype, os.pardir)) + "/singleGeneResult/"
@@ -266,7 +269,29 @@ def BatchSingleGeneEpistasisLogistic(str_inputFilePath_genotype, str_inputFileNa
     for str_fileName in os.listdir(str_inputFilePath_genotype):
         if ".gen" in str_fileName:
             list_genotypeFileName.append(str_fileName)
+
+    ### batch PolyLogisticRegression
+    ### inital multiprocessing pool
+    mp_pool = mp.Pool(int_nJobs)
     
+    ### apply pool on the function that need be parallelizing
+    dict_result = {}
+    for int_count_gene, float_f1Score in enumerate(mp_pool.starmap(SingleGeneEpistasisLogistic, [(os.path.join(str_inputFilePath_genotype, gene), str_inputFileName_phenotype, str_outputFilePath, int_kOfKFold, int_nJobs) for gene in list_genotypeFileName]), 0):
+        if list_genotypeFileName[int_count_gene] not in dict_result:
+            dict_result[list_genotypeFileName[int_count_gene]] = float_f1Score
+        str_print = "step4: Processing: " + "{0:.2f}".format(float(int_count_gene) / len(list_genotypeFileName) * 100) + "% - " + list_genotypeFileName[int_count_gene] + ": " + "\t\t"
+        sys.stdout.write('%s\r' % str_print)
+        sys.stdout.flush()
+
+    mp_pool.close()
+
+    ### output result
+    with open(str_outputFilePath + "All_Logistic_k" + str(int_kOfKFold) + ".csv", "w") as file_outputFile:
+        file_outputFile.writelines("GeneSymbol,F1Score" + "\n")
+        for key, value in dict_result.items():
+            file_outputFile.writelines(key.split("_")[0] + "," + str(value) + "\n")
+
+    '''
     ### batch PolyLogisticRegression
     int_count_gene = 0
     with open(str_outputFilePath + "All_Logistic_k" + str(int_kOfKFold) + ".csv", "w") as file_outputFile:
@@ -279,5 +304,6 @@ def BatchSingleGeneEpistasisLogistic(str_inputFilePath_genotype, str_inputFileNa
             str_print = "step4: Processing: " + "{0:.2f}".format(float(int_count_gene) / len(list_genotypeFileName) * 100) + "% - " + item + ": " + str(float_f1Score) + "\t\t"
             sys.stdout.write('%s\r' % str_print)
             sys.stdout.flush()
+    '''
     
     print("step4: Detect single gene epistasis. DONE! \t\t\t\t")

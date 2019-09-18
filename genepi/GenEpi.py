@@ -12,6 +12,7 @@ import argparse
 import time
 import os
 import sys
+import multiprocessing as mp
 import genepi
 
 """"""""""""""""""""""""""""""
@@ -36,7 +37,7 @@ def ArgumentsParser():
     ### define arguments for modeling
     parser.add_argument("-m", required=False, default="c", choices=["c", "r"], help="choose model type: c for classification; r for regression")
     parser.add_argument("-k", required=False, default=2, help="k of k-fold cross validation")
-    parser.add_argument("-t", required=False, default=1, help="number of threads")
+    parser.add_argument("-t", required=False, default=mp.cpu_count(), help="number of threads")
     
     ### define arguments for step1_downloadUCSCDB
     parser_group_1 = parser.add_argument_group("update UCSC database")
@@ -91,6 +92,10 @@ def main(args=None):
         str_outputFilePath = args.o
     else:
         str_outputFilePath = os.path.dirname(str_inputFileName_genotype)
+    int_thread = mp.cpu_count()
+    if int(args.t) is not None:
+        if int(args.t) < mp.cpu_count():
+            int_thread = int(args.t)
         
     if str_inputFileName_genotype == "example" and str_inputFileName_phenotype == "example":
         str_command = "cp " + os.path.join(os.path.dirname(genepi.__file__), "example", "sample.csv") + " " + str_outputFilePath
@@ -117,7 +122,7 @@ def main(args=None):
         
         file_outputFile.writelines("\t" + "-m (model type): " + "Classification" if args.m=="c" else "Regression"  + "\n")
         file_outputFile.writelines("\t" + "-k (k-fold cross validation): " + str(args.k) + "\n")
-        file_outputFile.writelines("\t" + "-t (number of threads): " + str(args.t) + "\n" + "\n")
+        file_outputFile.writelines("\t" + "-t (number of threads): " + str(int_thread) + "\n" + "\n")
         
         file_outputFile.writelines("\t" + "--updatedb (enable function of update UCSC database): " + str(args.updatedb) + "\n")
         file_outputFile.writelines("\t" + "-b (human genome build): " + args.b + "\n" + "\n")
@@ -150,27 +155,27 @@ def main(args=None):
         
         if args.m=="c":
             ### step4_singleGeneEpistasis_Logistic (for case/control trial)
-            genepi.BatchSingleGeneEpistasisLogistic(os.path.join(str_outputFilePath, "snpSubsets"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(args.t))
+            genepi.BatchSingleGeneEpistasisLogistic(os.path.join(str_outputFilePath, "snpSubsets"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
             ### step5_crossGeneEpistasis_Logistic (for case/control trial)
-            float_score_train, float_score_test = genepi.CrossGeneEpistasisLogistic(os.path.join(str_outputFilePath, "singleGeneResult"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(args.t))
+            float_score_train, float_score_test = genepi.CrossGeneEpistasisLogistic(os.path.join(str_outputFilePath, "singleGeneResult"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
             file_outputFile.writelines("Overall genetic feature performance (F1 score)" + "\n")
             file_outputFile.writelines("Training: " + str(float_score_train) + "\n")
             file_outputFile.writelines("Testing (" + str(args.k) + "-fold CV): " + str(float_score_test) + "\n" + "\n")
             ### step6_ensembleWithCovariates (for case/control trial)
-            float_score_train, float_score_test = genepi.EnsembleWithCovariatesClassifier(os.path.join(str_outputFilePath, "crossGeneResult", "Feature.csv"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(args.t))
+            float_score_train, float_score_test = genepi.EnsembleWithCovariatesClassifier(os.path.join(str_outputFilePath, "crossGeneResult", "Feature.csv"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
             file_outputFile.writelines("Ensemble with co-variate performance (F1 score)" + "\n")
             file_outputFile.writelines("Training: " + str(float_score_train) + "\n")
             file_outputFile.writelines("Testing (" + str(args.k) + "-fold CV): " + str(float_score_test) + "\n" + "\n")
         else:
             ### step4_singleGeneEpistasis_Lasso (for quantitative trial)
-            genepi.BatchSingleGeneEpistasisLasso(os.path.join(str_outputFilePath, "snpSubsets"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(args.t))
+            genepi.BatchSingleGeneEpistasisLasso(os.path.join(str_outputFilePath, "snpSubsets"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
             ### step5_crossGeneEpistasis_Lasso (for quantitative trial)
-            float_score_train, float_score_test = genepi.CrossGeneEpistasisLasso(os.path.join(str_outputFilePath, "singleGeneResult"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(args.t))
+            float_score_train, float_score_test = genepi.CrossGeneEpistasisLasso(os.path.join(str_outputFilePath, "singleGeneResult"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
             file_outputFile.writelines("Overall genetic feature performance (Average of the Pearson and Spearman correlation)" + "\n")
             file_outputFile.writelines("Training: " + str(float_score_train) + "\n")
             file_outputFile.writelines("Testing (" + str(args.k) + "-fold CV): " + str(float_score_test) + "\n" + "\n")
             ### step6_ensembleWithCovariates (for quantitative trial)
-            float_score_train, float_score_test = genepi.EnsembleWithCovariatesRegressor(os.path.join(str_outputFilePath, "crossGeneResult", "Feature.csv"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(args.t))
+            float_score_train, float_score_test = genepi.EnsembleWithCovariatesRegressor(os.path.join(str_outputFilePath, "crossGeneResult", "Feature.csv"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
             file_outputFile.writelines("Ensemble with co-variate performance (Average of the Pearson and Spearman correlation)" + "\n")
             file_outputFile.writelines("Training: " + str(float_score_train) + "\n")
             file_outputFile.writelines("Testing (" + str(args.k) + "-fold CV): " + str(float_score_test) + "\n" + "\n")
