@@ -1,0 +1,409 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>genepi.step2_estimateLD &mdash; GenEpi  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> GenEpi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">I/O File Fomats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../example.html">More Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflow.html">How it Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Documentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">Release History</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">GenEpi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>genepi.step2_estimateLD</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for genepi.step2_estimateLD</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Feb 2018</span>
+
+<span class="sd">@author: Chester (Yu-Chuan Chang)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<span class="c1"># import libraries</span>
+<span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<span class="c1"># define functions </span>
+<span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="EstimateAlleleFrequency"><a class="viewcode-back" href="../../api.html#genepi.step2_estimateLD.EstimateAlleleFrequency">[docs]</a><span class="k">def</span> <span class="nf">EstimateAlleleFrequency</span><span class="p">(</span><span class="n">gen_snp</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    A function for estimating allele frequency of a single varaint</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        gen_snp (list): The genotypes of a variant of all samples</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        (tuple): tuple containing:</span>
+
+<span class="sd">            - float_frequency_A (float): The reference allele type frequency</span>
+<span class="sd">            - float_frequency_B (float): The alternative allele type frequency</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1">### get all subject&#39;s genotype</span>
+    <span class="n">list_snp</span> <span class="o">=</span> <span class="n">gen_snp</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">5</span><span class="p">:]</span>
+    <span class="c1">### get the number of subjects</span>
+    <span class="n">int_num_subject</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list_snp</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+    
+    <span class="c1">### generate count table (AA, AB, BB)</span>
+    <span class="n">list_count</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">idx_subject</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">int_num_subject</span><span class="p">):</span>
+        <span class="n">idx_col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">list_snp</span><span class="p">[</span><span class="n">idx_subject</span> <span class="o">*</span> <span class="mi">3</span><span class="p">:</span> <span class="n">idx_subject</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="p">])</span>
+        <span class="n">list_count</span><span class="p">[</span><span class="n">idx_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">list_count</span><span class="p">[</span><span class="n">idx_col</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+    
+    <span class="c1">### calculate allele frequency</span>
+    <span class="c1">### frequency of A = AA + AB/2</span>
+    <span class="c1">### frequency of B = BB + AB/2</span>
+    <span class="n">float_frequency_A</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">list_count</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">list_count</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">int_num_subject</span>
+    <span class="n">float_frequency_B</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">list_count</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">list_count</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">int_num_subject</span>
+    
+    <span class="k">return</span> <span class="n">float_frequency_A</span><span class="p">,</span> <span class="n">float_frequency_B</span></div>
+
+<div class="viewcode-block" id="EstimatePairwiseLD"><a class="viewcode-back" href="../../api.html#genepi.step2_estimateLD.EstimatePairwiseLD">[docs]</a><span class="k">def</span> <span class="nf">EstimatePairwiseLD</span><span class="p">(</span><span class="n">gen_snp_1</span><span class="p">,</span> <span class="n">gen_snp_2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Lewontin (1964) linkage disequilibrium (LD) estimation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        gen_snp_1 (list): The genotypes of first variant of all samples</span>
+<span class="sd">        gen_snp_2 (list): The genotypes of second variant of all samples</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (tuple): tuple containing:</span>
+
+<span class="sd">            - float_D_prime (float): The DPrime of these two variants</span>
+<span class="sd">            - float_R_square (float): The RSquare of these two variants</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">### get all subject&#39;s genotype</span>
+    <span class="n">list_snp1</span> <span class="o">=</span> <span class="n">gen_snp_1</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">5</span><span class="p">:]</span>
+    <span class="n">list_snp2</span> <span class="o">=</span> <span class="n">gen_snp_2</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">5</span><span class="p">:]</span>
+    <span class="c1">### get the number of subjects</span>
+    <span class="n">int_num_subject</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">list_snp1</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+    
+    <span class="c1">### generate contigency table</span>
+    <span class="c1">### row: SNP1_AA; SNP1_Aa; SNP1_aa</span>
+    <span class="c1">### col: SNP2_bb; SNP2_Bb; SNP2_bb</span>
+    <span class="n">np_contigency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">dtype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">idx_subject</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">int_num_subject</span><span class="p">):</span>
+        <span class="n">idx_row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">list_snp1</span><span class="p">[</span><span class="n">idx_subject</span> <span class="o">*</span> <span class="mi">3</span><span class="p">:</span> <span class="n">idx_subject</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]))</span>
+        <span class="n">idx_col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">list_snp2</span><span class="p">[</span><span class="n">idx_subject</span> <span class="o">*</span> <span class="mi">3</span><span class="p">:</span> <span class="n">idx_subject</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]))</span>
+        <span class="n">np_contigency</span><span class="p">[</span><span class="n">idx_row</span><span class="p">,</span> <span class="n">idx_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">np_contigency</span><span class="p">[</span><span class="n">idx_row</span><span class="p">,</span> <span class="n">idx_col</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+    
+    <span class="c1">### estimate single locus haplotyes</span>
+    <span class="c1">### snp1_A = (AABB + AABb + AAbb) + (AaBB + AaBb + Aabb)/2; snp1_a = snp1_A - 1</span>
+    <span class="n">float_probability_A</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np_contigency</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:])</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np_contigency</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]))</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">int_num_subject</span>
+    <span class="n">float_probability_a</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">float_probability_A</span>
+    <span class="c1">### snp2_B = (AABB + AaBB + aaBB) + (AABb + AaBb + aaBb)/2; snp2_b = snp2_B - 1</span>
+    <span class="n">float_probability_B</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np_contigency</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np_contigency</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]))</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">int_num_subject</span>
+    <span class="n">float_probability_b</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">float_probability_B</span>
+    
+    <span class="c1">### set arbitrary probability of AB</span>
+    <span class="n">float_probability_AB</span> <span class="o">=</span> <span class="n">float_probability_A</span> <span class="o">*</span> <span class="n">float_probability_B</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1">### EM algorithm</span>
+        <span class="k">for</span> <span class="n">idx_loop</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10000</span><span class="p">):</span>
+            <span class="c1">### E(num_AB|prob_AB) = 2 * num_AABB + num_AABb + num_AaBB +</span>
+            <span class="c1">### (prob_AB * (1 + prob_AB - prob_A - prob_B) * num_AbBb) / </span>
+            <span class="c1">### ((prob_A - prob_AB) * (prob_B - prob_AB) + prob_AB * (1 + prob_AB - prob_A - prob_B))</span>
+            <span class="n">float_num_AB_estimateByEM</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">np_contigency</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">np_contigency</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">np_contigency</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="n">float_probability_AB</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">float_probability_AB</span> <span class="o">-</span> <span class="n">float_probability_A</span> <span class="o">-</span> <span class="n">float_probability_B</span><span class="p">)</span> <span class="o">*</span> <span class="nb">float</span><span class="p">(</span><span class="n">np_contigency</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span> <span class="o">/</span> <span class="p">((</span><span class="n">float_probability_A</span> <span class="o">-</span> <span class="n">float_probability_AB</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">float_probability_B</span> <span class="o">-</span> <span class="n">float_probability_AB</span><span class="p">)</span> <span class="o">+</span> <span class="n">float_probability_AB</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">float_probability_AB</span> <span class="o">-</span> <span class="n">float_probability_A</span> <span class="o">-</span> <span class="n">float_probability_B</span><span class="p">))</span>
+            <span class="n">float_probability_AB_estimateByEM</span> <span class="o">=</span> <span class="n">float_num_AB_estimateByEM</span> <span class="o">/</span> <span class="p">(</span><span class="n">int_num_subject</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">float_probability_AB_estimateByEM</span> <span class="o">-</span> <span class="n">float_probability_AB</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.0000001</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">float_probability_AB</span> <span class="o">=</span> <span class="n">float_probability_AB_estimateByEM</span>
+        
+        <span class="c1">### calculate D</span>
+        <span class="n">float_D</span> <span class="o">=</span> <span class="n">float_probability_AB</span> <span class="o">-</span> <span class="n">float_probability_A</span> <span class="o">*</span> <span class="n">float_probability_B</span>
+        <span class="c1">### calculate D prime</span>
+        <span class="k">if</span> <span class="n">float_D</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">float_D_min</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">float_probability_A</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">float_probability_B</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">float_probability_A</span><span class="p">)</span> <span class="o">*</span> <span class="n">float_probability_B</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">float_D_min</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="o">-</span><span class="n">float_probability_A</span> <span class="o">*</span> <span class="n">float_probability_B</span><span class="p">,</span> <span class="o">-</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">float_probability_A</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">float_probability_B</span><span class="p">)])</span>
+        <span class="n">float_D_prime</span> <span class="o">=</span> <span class="n">float_D</span> <span class="o">/</span> <span class="n">float_D_min</span>
+        <span class="c1">### calculate R square</span>
+        <span class="n">float_R_square</span> <span class="o">=</span> <span class="p">(</span><span class="n">float_D</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">float_probability_A</span> <span class="o">*</span> <span class="n">float_probability_a</span> <span class="o">*</span> <span class="n">float_probability_B</span> <span class="o">*</span> <span class="n">float_probability_b</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">float_D_prime</span><span class="p">,</span> <span class="n">float_R_square</span>
+    
+    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span></div>
+
+<span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<span class="c1"># main function</span>
+<span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="EstimateLDBlock"><a class="viewcode-back" href="../../api.html#genepi.step2_estimateLD.EstimateLDBlock">[docs]</a><span class="k">def</span> <span class="nf">EstimateLDBlock</span><span class="p">(</span><span class="n">str_inputFileName_genotype</span><span class="p">,</span> <span class="n">str_outputFilePath</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">float_threshold_DPrime</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">,</span> <span class="n">float_threshold_RSquare</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    A function for implementing linkage disequilibrium (LD) dimension reduction. In genotype data, a variant often exhibits high dependency with its nearby variants because of LD. In the practical implantation, we prefer to group these dependent features to reduce the dimension of features. In other words, we can take the advantages of LD to reduce the dimensionality of genetic features. In this regard, this function adopted the same approach developed by Lewontin (1964) to estimate LD. We used D’ and r2 as the criteria to group highly dependent genetic features as blocks. In each block, we chose the features with the largest minor allele frequency to represent other features in the same block.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        str_inputFileName_genotype (str): File name of input genotype data</span>
+<span class="sd">        str_outputFilePath (str): File path of output file</span>
+<span class="sd">        float_threshold_DPrime (float): The Dprime threshold for discriminating a LD block (default: 0.8)</span>
+<span class="sd">        float_threshold_RSquare (float): The RSquare threshold for discriminating a LD block (default: 0.8)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        - Expected Success Response::</span>
+
+<span class="sd">            &quot;step2: Estimate LD. DONE!&quot;</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1">### set default output path</span>
+    <span class="k">if</span> <span class="n">str_outputFilePath</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="n">str_outputFilePath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">str_inputFileName_genotype</span><span class="p">)</span>
+    
+    <span class="c1">### get the number of snp</span>
+    <span class="n">int_num_snp</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">str_inputFileName_genotype</span><span class="p">))</span>
+    
+    <span class="c1">### read .gen file and estimate the LD block</span>
+    <span class="n">list_outputLDBlock</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">str_inputFileName_genotype</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_inputFile</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">str_outputFilePath</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">str_inputFileName_genotype</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.gen&quot;</span><span class="p">,</span> <span class="s2">&quot;_LDReduced.gen&quot;</span><span class="p">)),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_outputFile</span><span class="p">:</span>
+            <span class="c1">### create dictionary for LD block</span>
+            <span class="c1">### key: rsID; value:[minor allele requency, raw genotypes data]</span>
+            <span class="n">dict_thisLDBlock</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="c1">### put first snp into dictionary</span>
+            <span class="n">line_previousSnp</span> <span class="o">=</span> <span class="n">file_inputFile</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+            <span class="n">list_previousSnp</span> <span class="o">=</span> <span class="n">line_previousSnp</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="n">dict_thisLDBlock</span><span class="p">[</span><span class="n">list_previousSnp</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">EstimateAlleleFrequency</span><span class="p">(</span><span class="n">line_previousSnp</span><span class="p">)),</span> <span class="n">line_previousSnp</span><span class="p">]</span>
+            
+            <span class="c1">### scan all other snps</span>
+            <span class="n">int_count_snp</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file_inputFile</span><span class="p">:</span>
+                <span class="n">list_thisSnp</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+                
+                <span class="c1">### estimate pairwise LD for all of the snps in dictionary</span>
+                <span class="n">bool_flag_inLD</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dict_thisLDBlock</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">float_DPrime</span><span class="p">,</span> <span class="n">float_RSquare</span> <span class="o">=</span> <span class="n">EstimatePairwiseLD</span><span class="p">(</span><span class="n">dict_thisLDBlock</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">float_DPrime</span> <span class="o">&lt;</span> <span class="n">float_threshold_DPrime</span> <span class="ow">or</span> <span class="n">float_RSquare</span> <span class="o">&lt;</span> <span class="n">float_threshold_RSquare</span><span class="p">:</span>
+                        <span class="n">bool_flag_inLD</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="k">break</span>
+                
+                <span class="c1">### if this snp not in this LD block, then output and clear the content of dictionary</span>
+                <span class="k">if</span> <span class="n">bool_flag_inLD</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="c1">### find a snp with maximum minor allele frequency to be representative snp</span>
+                    <span class="n">str_representative_rsid</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dict_thisLDBlock</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dict_thisLDBlock</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="k">if</span> <span class="n">dict_thisLDBlock</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">dict_thisLDBlock</span><span class="p">[</span><span class="n">str_representative_rsid</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+                            <span class="n">str_representative_rsid</span> <span class="o">=</span> <span class="n">key</span>
+                    <span class="n">list_outputLDBlock</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">str_representative_rsid</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dict_thisLDBlock</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+                    <span class="n">file_outputFile</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">dict_thisLDBlock</span><span class="p">[</span><span class="n">str_representative_rsid</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="n">dict_thisLDBlock</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="c1">### add this snp to current dictionary</span>
+                <span class="n">dict_thisLDBlock</span><span class="p">[</span><span class="n">list_thisSnp</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">EstimateAlleleFrequency</span><span class="p">(</span><span class="n">line</span><span class="p">)),</span> <span class="n">line</span><span class="p">]</span>
+                
+                <span class="c1">### show progress</span>
+                <span class="n">int_count_snp</span> <span class="o">=</span> <span class="n">int_count_snp</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">str_print</span> <span class="o">=</span> <span class="s2">&quot;step2: Processing: &quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">int_count_snp</span><span class="p">)</span> <span class="o">/</span> <span class="n">int_num_snp</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;%&quot;</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="se">\r</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">str_print</span><span class="p">)</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+            
+            <span class="c1">### output the final LD block in dictionary</span>
+            <span class="c1">### find a snp with maximum minor allele frequency to be representative snp</span>
+            <span class="n">str_representative_rsid</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dict_thisLDBlock</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dict_thisLDBlock</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">dict_thisLDBlock</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">dict_thisLDBlock</span><span class="p">[</span><span class="n">str_representative_rsid</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="n">str_representative_rsid</span> <span class="o">=</span> <span class="n">key</span>
+            <span class="n">list_outputLDBlock</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">str_representative_rsid</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dict_thisLDBlock</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+            <span class="n">file_outputFile</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">dict_thisLDBlock</span><span class="p">[</span><span class="n">str_representative_rsid</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="c1">### output the file of LD block</span>
+    <span class="c1">### output file format: rsid_representative: rsid_1,rsid_2,rsid_3,...(the snps in the same LD block)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">str_outputFilePath</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">str_inputFileName_genotype</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.gen&quot;</span><span class="p">,</span> <span class="s2">&quot;.LDBlock&quot;</span><span class="p">)),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_outputFile</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">list_outputLDBlock</span><span class="p">:</span>
+            <span class="n">file_outputFile</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">item</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;step2: Estimate LD. DONE! </span><span class="se">\t\t\t\t</span><span class="s2">&quot;</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chester (Yu-Chuan Chang)
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

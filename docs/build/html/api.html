@@ -1,0 +1,1244 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>API Documentations &mdash; GenEpi  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Release History" href="history.html" />
+    <link rel="prev" title="How it Work" href="workflow.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GenEpi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="format.html">I/O File Fomats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">More Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">How it Work</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Documentations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-genepi.GenEpi">GenEpi module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-genepi.step1_downloadUCSCDB">step1_downloadUCSCDB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-genepi.step2_estimateLD">step2_estimateLD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-genepi.step3_splitByGene">step3_splitByGene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-genepi.step4_singleGeneEpistasis_Lasso">step4_singleGeneEpistasis_Lasso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-genepi.step4_singleGeneEpistasis_Logistic">step4_singleGeneEpistasis_Logistic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-genepi.step5_crossGeneEpistasis_Lasso">step5_crossGeneEpistasis_Lasso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-genepi.step5_crossGeneEpistasis_Logistic">step5_crossGeneEpistasis_Logistic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-genepi.step6_ensembleWithCovariates">step6_ensembleWithCovariates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Release History</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GenEpi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>API Documentations</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="api-documentations">
+<h1>API Documentations<a class="headerlink" href="#api-documentations" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<div class="section" id="module-genepi.GenEpi">
+<span id="genepi-module"></span><h2>GenEpi module<a class="headerlink" href="#module-genepi.GenEpi" title="Permalink to this headline">¶</a></h2>
+<p>Created on Apr 2019</p>
+<p>&#64;author: Chester (Yu-Chuan Chang)</p>
+<dl class="function">
+<dt id="genepi.GenEpi.ArgumentsParser">
+<code class="descclassname">genepi.GenEpi.</code><code class="descname">ArgumentsParser</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/GenEpi.html#ArgumentsParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.GenEpi.ArgumentsParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>To obtain and parse the arguments from user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>None</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">argparse.ArgumentParser</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.GenEpi.InputChecking">
+<code class="descclassname">genepi.GenEpi.</code><code class="descname">InputChecking</code><span class="sig-paren">(</span><em>str_inputFileName_genotype</em>, <em>str_inputFileName_phenotype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/GenEpi.html#InputChecking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.GenEpi.InputChecking" title="Permalink to this definition">¶</a></dt>
+<dd><p>To check the numbers of sample are consistent in genotype and phenotype data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str_inputFileName_genotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input genotype data</li>
+<li><strong>str_inputFileName_phenotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input phenotype data</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li>int_num_genotype (int): The sample number of genotype data</li>
+<li>int_num_phenotype (int): The sample number of phenotype data</li>
+</ul>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.GenEpi.main">
+<code class="descclassname">genepi.GenEpi.</code><code class="descname">main</code><span class="sig-paren">(</span><em>args=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/GenEpi.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.GenEpi.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main function for obtaining user arguments, controling workflow and recording log file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>None</strong> – </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-genepi.step1_downloadUCSCDB">
+<span id="step1-downloaducscdb"></span><h2>step1_downloadUCSCDB<a class="headerlink" href="#module-genepi.step1_downloadUCSCDB" title="Permalink to this headline">¶</a></h2>
+<p>Created on Feb 2018</p>
+<p>&#64;author: Chester (Yu-Chuan Chang)</p>
+<dl class="function">
+<dt id="genepi.step1_downloadUCSCDB.DownloadUCSCDB">
+<code class="descclassname">genepi.step1_downloadUCSCDB.</code><code class="descname">DownloadUCSCDB</code><span class="sig-paren">(</span><em>str_outputFilePath='/Users/chester/anaconda3/lib/python3.7/site-packages/genepi'</em>, <em>str_hgbuild='hg19'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step1_downloadUCSCDB.html#DownloadUCSCDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step1_downloadUCSCDB.DownloadUCSCDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>To obtain the gene information such as official gene symbols and genomic coordinates, this function is for retrieving kgXref and knownGene data table from the UCSC human genome annotation database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of output database</li>
+<li><strong>str_hgbuild</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Genome build (eg. “hg19”)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul>
+<li><p class="first">Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;step1: Down load UCSC Database. DONE!&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-genepi.step2_estimateLD">
+<span id="step2-estimateld"></span><h2>step2_estimateLD<a class="headerlink" href="#module-genepi.step2_estimateLD" title="Permalink to this headline">¶</a></h2>
+<p>Created on Feb 2018</p>
+<p>&#64;author: Chester (Yu-Chuan Chang)</p>
+<dl class="function">
+<dt id="genepi.step2_estimateLD.EstimateAlleleFrequency">
+<code class="descclassname">genepi.step2_estimateLD.</code><code class="descname">EstimateAlleleFrequency</code><span class="sig-paren">(</span><em>gen_snp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step2_estimateLD.html#EstimateAlleleFrequency"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step2_estimateLD.EstimateAlleleFrequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function for estimating allele frequency of a single varaint</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gen_snp</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The genotypes of a variant of all samples</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple containing:<blockquote>
+<div><ul class="simple">
+<li>float_frequency_A (float): The reference allele type frequency</li>
+<li>float_frequency_B (float): The alternative allele type frequency</li>
+</ul>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step2_estimateLD.EstimateLDBlock">
+<code class="descclassname">genepi.step2_estimateLD.</code><code class="descname">EstimateLDBlock</code><span class="sig-paren">(</span><em>str_inputFileName_genotype</em>, <em>str_outputFilePath=''</em>, <em>float_threshold_DPrime=0.8</em>, <em>float_threshold_RSquare=0.8</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step2_estimateLD.html#EstimateLDBlock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step2_estimateLD.EstimateLDBlock" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function for implementing linkage disequilibrium (LD) dimension reduction. In genotype data, a variant often exhibits high dependency with its nearby variants because of LD. In the practical implantation, we prefer to group these dependent features to reduce the dimension of features. In other words, we can take the advantages of LD to reduce the dimensionality of genetic features. In this regard, this function adopted the same approach developed by Lewontin (1964) to estimate LD. We used D’ and r2 as the criteria to group highly dependent genetic features as blocks. In each block, we chose the features with the largest minor allele frequency to represent other features in the same block.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str_inputFileName_genotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input genotype data</li>
+<li><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of output file</li>
+<li><strong>float_threshold_DPrime</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The Dprime threshold for discriminating a LD block (default: 0.8)</li>
+<li><strong>float_threshold_RSquare</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The RSquare threshold for discriminating a LD block (default: 0.8)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul>
+<li><p class="first">Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;step2: Estimate LD. DONE!&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step2_estimateLD.EstimatePairwiseLD">
+<code class="descclassname">genepi.step2_estimateLD.</code><code class="descname">EstimatePairwiseLD</code><span class="sig-paren">(</span><em>gen_snp_1</em>, <em>gen_snp_2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step2_estimateLD.html#EstimatePairwiseLD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step2_estimateLD.EstimatePairwiseLD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lewontin (1964) linkage disequilibrium (LD) estimation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>gen_snp_1</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The genotypes of first variant of all samples</li>
+<li><strong>gen_snp_2</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – The genotypes of second variant of all samples</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li>float_D_prime (float): The DPrime of these two variants</li>
+<li>float_R_square (float): The RSquare of these two variants</li>
+</ul>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-genepi.step3_splitByGene">
+<span id="step3-splitbygene"></span><h2>step3_splitByGene<a class="headerlink" href="#module-genepi.step3_splitByGene" title="Permalink to this headline">¶</a></h2>
+<p>Created on Feb 2018</p>
+<p>&#64;author: Chester (Yu-Chuan Chang)</p>
+<dl class="function">
+<dt id="genepi.step3_splitByGene.SplitByGene">
+<code class="descclassname">genepi.step3_splitByGene.</code><code class="descname">SplitByGene</code><span class="sig-paren">(</span><em>str_inputFileName_genotype</em>, <em>str_inputFileName_UCSCDB='/Users/chester/anaconda3/lib/python3.7/site-packages/genepi/UCSCGenomeDatabase.txt'</em>, <em>str_outputFilePath=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step3_splitByGene.html#SplitByGene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step3_splitByGene.SplitByGene" title="Permalink to this definition">¶</a></dt>
+<dd><p>In order to extract genetic features for a gene, this function used the start and end positions of each gene from the local UCSC database to split the genetic features. Then, generate the .GEN files for each gene in the folder named snpSubsets.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str_inputFileName_genotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input genotype data</li>
+<li><strong>str_inputFileName_UCSCDB</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input genome regions</li>
+<li><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of output file</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul>
+<li><p class="first">Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;step3: Split by gene. DONE!&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">“Warning of step3: .gen file should be sorted by chromosome and position”</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-genepi.step4_singleGeneEpistasis_Lasso">
+<span id="step4-singlegeneepistasis-lasso"></span><h2>step4_singleGeneEpistasis_Lasso<a class="headerlink" href="#module-genepi.step4_singleGeneEpistasis_Lasso" title="Permalink to this headline">¶</a></h2>
+<p>Created on Feb 2018</p>
+<p>&#64;author: Chester (Yu-Chuan Chang)</p>
+<dl class="function">
+<dt id="genepi.step4_singleGeneEpistasis_Lasso.BatchSingleGeneEpistasisLasso">
+<code class="descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="descname">BatchSingleGeneEpistasisLasso</code><span class="sig-paren">(</span><em>str_inputFilePath_genotype</em>, <em>str_inputFileName_phenotype</em>, <em>str_outputFilePath=''</em>, <em>int_kOfKFold=2</em>, <em>int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#BatchSingleGeneEpistasisLasso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.BatchSingleGeneEpistasisLasso" title="Permalink to this definition">¶</a></dt>
+<dd><p>Batch running for the single gene workflow.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str_inputFilePath_genotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of input genotype data</li>
+<li><strong>str_inputFileName_phenotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input phenotype data</li>
+<li><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of output file</li>
+<li><strong>int_kOfKFold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The k for k-fold cross validation (default: 2)</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 1)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul>
+<li><p class="first">Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;step4: Detect single gene epistasis. DONE!&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step4_singleGeneEpistasis_Lasso.FeatureEncoderLasso">
+<code class="descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="descname">FeatureEncoderLasso</code><span class="sig-paren">(</span><em>np_genotype_rsid</em>, <em>np_genotype</em>, <em>np_phenotype</em>, <em>int_dim</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#FeatureEncoderLasso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.FeatureEncoderLasso" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of the two-element combinatorial encoding.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_genotype_rsid</strong> (<em>ndarray</em>) – 1D array containing rsid of genotype data with <cite>str</cite> type</li>
+<li><strong>np_genotype</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_phenotype</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+<li><strong>int_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The dimension of a variant (default: 3. AA, AB and BB)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li>list_interaction_rsid (ndarray): 1D array containing rsid of genotype data with <cite>str</cite> type</li>
+<li>np_interaction (ndarray): 2D array containing genotype data with <cite>int8</cite> type</li>
+</ul>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step4_singleGeneEpistasis_Lasso.FilterInLoading">
+<code class="descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="descname">FilterInLoading</code><span class="sig-paren">(</span><em>np_genotype</em>, <em>np_phenotype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#FilterInLoading"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.FilterInLoading" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is for filtering low quality varaint. Before modeling each subset of genotype features, two criteria were adopted to exclude low quality data. The first criterion is that the genotype frequency of a feature should exceed 5%, where the genotype frequency means the proportion of genotype among the total samples in the dataset. The second criterion is regarding the association between the feature and the phenotype. We used χ2 test to estimate the association between the feature and the phenotype, and the p-value should be smaller than 0.01.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_genotype</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_phenotype</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>np_genotype</p>
+<blockquote>
+<div><p>2D array containing genotype data with <cite>int8</cite> type</p>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(ndarray)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step4_singleGeneEpistasis_Lasso.LassoRegressionCV">
+<code class="descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="descname">LassoRegressionCV</code><span class="sig-paren">(</span><em>np_X</em>, <em>np_y</em>, <em>int_kOfKFold=2</em>, <em>int_nJobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#LassoRegressionCV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.LassoRegressionCV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of the L1-regularized Lasso regression with k-fold cross validation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+<li><strong>int_kOfKFold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The k for k-fold cross validation (default: 2)</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 1)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>estimator.scores</p>
+<blockquote>
+<div><p>1D array containing the scores of each genetic features with <cite>float</cite> type</p>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(ndarray)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step4_singleGeneEpistasis_Lasso.RandomizedLassoRegression">
+<code class="descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="descname">RandomizedLassoRegression</code><span class="sig-paren">(</span><em>np_X</em>, <em>np_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#RandomizedLassoRegression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.RandomizedLassoRegression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of the stability selection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>estimator.scores</p>
+<blockquote>
+<div><p>1D array containing the scores of each genetic features with <cite>float</cite> type</p>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(ndarray)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step4_singleGeneEpistasis_Lasso.SingleGeneEpistasisLasso">
+<code class="descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="descname">SingleGeneEpistasisLasso</code><span class="sig-paren">(</span><em>str_inputFileName_genotype</em>, <em>str_inputFileName_phenotype</em>, <em>str_outputFilePath=''</em>, <em>int_kOfKFold=2</em>, <em>int_nJobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#SingleGeneEpistasisLasso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.SingleGeneEpistasisLasso" title="Permalink to this definition">¶</a></dt>
+<dd><p>A workflow to model a single gene containing two-element combinatorial encoding, stability selection, filtering low quality varaint and  L1-regularized Lasso regression with k-fold cross validation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str_inputFileName_genotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input genotype data</li>
+<li><strong>str_inputFileName_phenotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input phenotype data</li>
+<li><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of output file</li>
+<li><strong>int_kOfKFold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The k for k-fold cross validation (default: 2)</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 1)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>float_AVG_S_P</p>
+<blockquote>
+<div><p>The average of the Peason’s and Spearman’s correlation of the model</p>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-genepi.step4_singleGeneEpistasis_Logistic">
+<span id="step4-singlegeneepistasis-logistic"></span><h2>step4_singleGeneEpistasis_Logistic<a class="headerlink" href="#module-genepi.step4_singleGeneEpistasis_Logistic" title="Permalink to this headline">¶</a></h2>
+<p>Created on Feb 2018</p>
+<p>&#64;author: Chester (Yu-Chuan Chang)</p>
+<dl class="function">
+<dt id="genepi.step4_singleGeneEpistasis_Logistic.BatchSingleGeneEpistasisLogistic">
+<code class="descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="descname">BatchSingleGeneEpistasisLogistic</code><span class="sig-paren">(</span><em>str_inputFilePath_genotype</em>, <em>str_inputFileName_phenotype</em>, <em>str_outputFilePath=''</em>, <em>int_kOfKFold=2</em>, <em>int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#BatchSingleGeneEpistasisLogistic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.BatchSingleGeneEpistasisLogistic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Batch running for the single gene workflow.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str_inputFilePath_genotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of input genotype data</li>
+<li><strong>str_inputFileName_phenotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input phenotype data</li>
+<li><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of output file</li>
+<li><strong>int_kOfKFold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The k for k-fold cross validation (default: 2)</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 1)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul>
+<li><p class="first">Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;step4: Detect single gene epistasis. DONE!&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step4_singleGeneEpistasis_Logistic.FeatureEncoderLogistic">
+<code class="descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="descname">FeatureEncoderLogistic</code><span class="sig-paren">(</span><em>np_genotype_rsid</em>, <em>np_genotype</em>, <em>np_phenotype</em>, <em>int_dim</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#FeatureEncoderLogistic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.FeatureEncoderLogistic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of the two-element combinatorial encoding.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_genotype_rsid</strong> (<em>ndarray</em>) – 1D array containing rsid of genotype data with <cite>str</cite> type</li>
+<li><strong>np_genotype</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_phenotype</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+<li><strong>int_dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The dimension of a variant (default: 3. AA, AB and BB)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li>list_interaction_rsid (ndarray): 1D array containing rsid of genotype data with <cite>str</cite> type</li>
+<li>np_interaction (ndarray): 2D array containing genotype data with <cite>int8</cite> type</li>
+</ul>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step4_singleGeneEpistasis_Logistic.FilterInLoading">
+<code class="descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="descname">FilterInLoading</code><span class="sig-paren">(</span><em>np_genotype</em>, <em>np_phenotype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#FilterInLoading"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.FilterInLoading" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is for filtering low quality varaint. Before modeling each subset of genotype features, two criteria were adopted to exclude low quality data. The first criterion is that the genotype frequency of a feature should exceed 5%, where the genotype frequency means the proportion of genotype among the total samples in the dataset. The second criterion is regarding the association between the feature and the phenotype. We used χ2 test to estimate the association between the feature and the phenotype, and the p-value should be smaller than 0.01.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_genotype</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_phenotype</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>np_genotype</p>
+<blockquote>
+<div><p>2D array containing genotype data with <cite>int8</cite> type</p>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(ndarray)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step4_singleGeneEpistasis_Logistic.GenerateContingencyTable">
+<code class="descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="descname">GenerateContingencyTable</code><span class="sig-paren">(</span><em>np_genotype</em>, <em>np_phenotype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#GenerateContingencyTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.GenerateContingencyTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating the contingency table for chi-square test.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>np_contingency</p>
+<blockquote>
+<div><p>2D array containing the contingency table with <cite>int</cite> type</p>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(ndarray)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step4_singleGeneEpistasis_Logistic.LogisticRegressionL1CV">
+<code class="descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="descname">LogisticRegressionL1CV</code><span class="sig-paren">(</span><em>np_X</em>, <em>np_y</em>, <em>int_kOfKFold=2</em>, <em>int_nJobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#LogisticRegressionL1CV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.LogisticRegressionL1CV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of the L1-regularized Logistic regression with k-fold cross validation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+<li><strong>int_kOfKFold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The k for k-fold cross validation (default: 2)</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 1)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>estimator.scores</p>
+<blockquote>
+<div><p>1D array containing the scores of each genetic features with <cite>float</cite> type</p>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(ndarray)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step4_singleGeneEpistasis_Logistic.RandomizedLogisticRegression">
+<code class="descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="descname">RandomizedLogisticRegression</code><span class="sig-paren">(</span><em>np_X</em>, <em>np_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#RandomizedLogisticRegression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.RandomizedLogisticRegression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of the stability selection.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>estimator.scores</p>
+<blockquote>
+<div><p>1D array containing the scores of each genetic features with <cite>float</cite> type</p>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(ndarray)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step4_singleGeneEpistasis_Logistic.SingleGeneEpistasisLogistic">
+<code class="descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="descname">SingleGeneEpistasisLogistic</code><span class="sig-paren">(</span><em>str_inputFileName_genotype</em>, <em>str_inputFileName_phenotype</em>, <em>str_outputFilePath=''</em>, <em>int_kOfKFold=2</em>, <em>int_nJobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#SingleGeneEpistasisLogistic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.SingleGeneEpistasisLogistic" title="Permalink to this definition">¶</a></dt>
+<dd><p>A workflow to model a single gene containing two-element combinatorial encoding, stability selection, filtering low quality varaint and  L1-regularized Logistic regression with k-fold cross validation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str_inputFileName_genotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input genotype data</li>
+<li><strong>str_inputFileName_phenotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input phenotype data</li>
+<li><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of output file</li>
+<li><strong>int_kOfKFold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The k for k-fold cross validation (default: 2)</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 1)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>float_f1Score</p>
+<blockquote>
+<div><p>The F1 score of the model</p>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-genepi.step5_crossGeneEpistasis_Lasso">
+<span id="step5-crossgeneepistasis-lasso"></span><h2>step5_crossGeneEpistasis_Lasso<a class="headerlink" href="#module-genepi.step5_crossGeneEpistasis_Lasso" title="Permalink to this headline">¶</a></h2>
+<p>Created on Feb 2018</p>
+<p>&#64;author: Chester (Yu-Chuan Chang)</p>
+<dl class="function">
+<dt id="genepi.step5_crossGeneEpistasis_Lasso.CrossGeneEpistasisLasso">
+<code class="descclassname">genepi.step5_crossGeneEpistasis_Lasso.</code><code class="descname">CrossGeneEpistasisLasso</code><span class="sig-paren">(</span><em>str_inputFilePath_feature</em>, <em>str_inputFileName_phenotype</em>, <em>str_inputFileName_score=''</em>, <em>str_outputFilePath=''</em>, <em>int_kOfKFold=2</em>, <em>int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Lasso.html#CrossGeneEpistasisLasso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Lasso.CrossGeneEpistasisLasso" title="Permalink to this definition">¶</a></dt>
+<dd><p>A workflow to model a cross gene epistasis containing two-element combinatorial encoding, stability selection, filtering low quality varaint and  L1-regularized Lasso regression with k-fold cross validation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str_inputFilePath_feature</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of input feature files from stage 1 - singleGeneEpistasis</li>
+<li><strong>str_inputFileName_phenotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input phenotype data</li>
+<li><strong>str_inputFileName_score</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input score file from stage 1 - singleGeneEpistasis</li>
+<li><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of output file</li>
+<li><strong>int_kOfKFold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The k for k-fold cross validation (default: 2)</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 4)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li>float_AVG_S_P_train (float): The average of the Peason’s and Spearman’s correlation of the model for training set</li>
+<li>float_AVG_S_P_test (float): The average of the Peason’s and Spearman’s correlation of the model for testing set</li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p class="first">Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;step5: Detect cross gene epistasis. DONE!&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step5_crossGeneEpistasis_Lasso.LassoRegression">
+<code class="descclassname">genepi.step5_crossGeneEpistasis_Lasso.</code><code class="descname">LassoRegression</code><span class="sig-paren">(</span><em>np_X</em>, <em>np_y</em>, <em>int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Lasso.html#LassoRegression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Lasso.LassoRegression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of the L1-regularized Lasso regression with k-fold cross validation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 4)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>float_AVG_S_P</p>
+<blockquote>
+<div><p>The average of the Peason’s and Spearman’s correlation of the model</p>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step5_crossGeneEpistasis_Lasso.RegressorModelPersistence">
+<code class="descclassname">genepi.step5_crossGeneEpistasis_Lasso.</code><code class="descname">RegressorModelPersistence</code><span class="sig-paren">(</span><em>np_X</em>, <em>np_y</em>, <em>str_outputFilePath=''</em>, <em>int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Lasso.html#RegressorModelPersistence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Lasso.RegressorModelPersistence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dumping regressor for model persistence</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+<li><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of output file</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 4)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-genepi.step5_crossGeneEpistasis_Logistic">
+<span id="step5-crossgeneepistasis-logistic"></span><h2>step5_crossGeneEpistasis_Logistic<a class="headerlink" href="#module-genepi.step5_crossGeneEpistasis_Logistic" title="Permalink to this headline">¶</a></h2>
+<p>Created on Feb 2018</p>
+<p>&#64;author: Chester (Yu-Chuan Chang)</p>
+<dl class="function">
+<dt id="genepi.step5_crossGeneEpistasis_Logistic.ClassifierModelPersistence">
+<code class="descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="descname">ClassifierModelPersistence</code><span class="sig-paren">(</span><em>np_X</em>, <em>np_y</em>, <em>str_outputFilePath=''</em>, <em>int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#ClassifierModelPersistence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.ClassifierModelPersistence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dumping classifier for model persistence</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+<li><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of output file</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 4)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step5_crossGeneEpistasis_Logistic.CrossGeneEpistasisLogistic">
+<code class="descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="descname">CrossGeneEpistasisLogistic</code><span class="sig-paren">(</span><em>str_inputFilePath_feature</em>, <em>str_inputFileName_phenotype</em>, <em>str_inputFileName_score=''</em>, <em>str_outputFilePath=''</em>, <em>int_kOfKFold=2</em>, <em>int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#CrossGeneEpistasisLogistic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.CrossGeneEpistasisLogistic" title="Permalink to this definition">¶</a></dt>
+<dd><p>A workflow to model a cross gene epistasis containing two-element combinatorial encoding, stability selection, filtering low quality varaint and  L1-regularized Logistic regression with k-fold cross validation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str_inputFilePath_feature</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of input feature files from stage 1 - singleGeneEpistasis</li>
+<li><strong>str_inputFileName_phenotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input phenotype data</li>
+<li><strong>str_inputFileName_score</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input score file from stage 1 - singleGeneEpistasis</li>
+<li><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of output file</li>
+<li><strong>int_kOfKFold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The k for k-fold cross validation (default: 2)</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 4)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li>float_f1Score_train (float): The F1 score of the model for training set</li>
+<li>float_f1Score_test (float): The F1 score of the model for testing set</li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p class="first">Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;step5: Detect cross gene epistasis. DONE!&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step5_crossGeneEpistasis_Logistic.GenerateContingencyTable">
+<code class="descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="descname">GenerateContingencyTable</code><span class="sig-paren">(</span><em>np_genotype</em>, <em>np_phenotype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#GenerateContingencyTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.GenerateContingencyTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generating the contingency table for chi-square test.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>np_contingency</p>
+<blockquote>
+<div><p>2D array containing the contingency table with <cite>int</cite> type</p>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(ndarray)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step5_crossGeneEpistasis_Logistic.LogisticRegressionL1">
+<code class="descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="descname">LogisticRegressionL1</code><span class="sig-paren">(</span><em>np_X</em>, <em>np_y</em>, <em>int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#LogisticRegressionL1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.LogisticRegressionL1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of the L1-regularized Logistic regression with k-fold cross validation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 4)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>float_f1Score</p>
+<blockquote>
+<div><p>The F1 score of the model</p>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)">float</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-genepi.step6_ensembleWithCovariates">
+<span id="step6-ensemblewithcovariates"></span><h2>step6_ensembleWithCovariates<a class="headerlink" href="#module-genepi.step6_ensembleWithCovariates" title="Permalink to this headline">¶</a></h2>
+<p>Created on Feb 2018</p>
+<p>&#64;author: Chester (Yu-Chuan Chang)</p>
+<dl class="function">
+<dt id="genepi.step6_ensembleWithCovariates.ClassifierModelPersistence">
+<code class="descclassname">genepi.step6_ensembleWithCovariates.</code><code class="descname">ClassifierModelPersistence</code><span class="sig-paren">(</span><em>np_X</em>, <em>np_y</em>, <em>str_outputFilePath=''</em>, <em>int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step6_ensembleWithCovariates.html#ClassifierModelPersistence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step6_ensembleWithCovariates.ClassifierModelPersistence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dumping ensemble classifier for model persistence</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+<li><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of output file</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 4)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step6_ensembleWithCovariates.EnsembleWithCovariatesClassifier">
+<code class="descclassname">genepi.step6_ensembleWithCovariates.</code><code class="descname">EnsembleWithCovariatesClassifier</code><span class="sig-paren">(</span><em>str_inputFileName_feature</em>, <em>str_inputFileName_phenotype</em>, <em>str_outputFilePath=''</em>, <em>int_kOfKFold=2</em>, <em>int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step6_ensembleWithCovariates.html#EnsembleWithCovariatesClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step6_ensembleWithCovariates.EnsembleWithCovariatesClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>A workflow to ensemble genetic features with covariates for L1-regularized Logistic regression.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str_inputFilePath_feature</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of input feature files from stage 2 - crossGeneEpistasis</li>
+<li><strong>str_inputFileName_phenotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input phenotype data</li>
+<li><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of output file</li>
+<li><strong>int_kOfKFold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The k for k-fold cross validation (default: 2)</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 4)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li>float_f1Score_train (float): The F1 score of the model for training set</li>
+<li>float_f1Score_test (float): The F1 score of the model for testing set</li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p class="first">Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;step6: Ensemble with covariates. DONE!&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step6_ensembleWithCovariates.EnsembleWithCovariatesRegressor">
+<code class="descclassname">genepi.step6_ensembleWithCovariates.</code><code class="descname">EnsembleWithCovariatesRegressor</code><span class="sig-paren">(</span><em>str_inputFileName_feature</em>, <em>str_inputFileName_phenotype</em>, <em>str_outputFilePath=''</em>, <em>int_kOfKFold=2</em>, <em>int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step6_ensembleWithCovariates.html#EnsembleWithCovariatesRegressor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step6_ensembleWithCovariates.EnsembleWithCovariatesRegressor" title="Permalink to this definition">¶</a></dt>
+<dd><p>A workflow to ensemble genetic features with covariates for L1-regularized Lasso regression.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str_inputFilePath_feature</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of input feature files from stage 2 - crossGeneEpistasis</li>
+<li><strong>str_inputFileName_phenotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input phenotype data</li>
+<li><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of output file</li>
+<li><strong>int_kOfKFold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The k for k-fold cross validation (default: 2)</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 4)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li>float_AVG_S_P_train (float): The average of the Peason’s and Spearman’s correlation of the model for training set</li>
+<li>float_AVG_S_P_test (float): The average of the Peason’s and Spearman’s correlation of the model for testing set</li>
+</ul>
+</div></blockquote>
+<ul>
+<li><p class="first">Expected Success Response:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;step6: Ensemble with covariates. DONE!&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step6_ensembleWithCovariates.LoadDataForEnsemble">
+<code class="descclassname">genepi.step6_ensembleWithCovariates.</code><code class="descname">LoadDataForEnsemble</code><span class="sig-paren">(</span><em>str_inputFileName_feature</em>, <em>str_inputFileName_phenotype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step6_ensembleWithCovariates.html#LoadDataForEnsemble"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step6_ensembleWithCovariates.LoadDataForEnsemble" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loading genetic features for ensembling with covariates</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str_inputFilePath_feature</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of input feature files from stage 2 - crossGeneEpistasis</li>
+<li><strong>str_inputFileName_phenotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File name of input phenotype data</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p>tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li>np_genotype (ndarray): 2D array containing genotype data with <cite>int8</cite> type</li>
+<li>np_phenotype (ndarray): 2D array containing phenotype data with <cite>float</cite> type</li>
+</ul>
+</div></blockquote>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)">tuple</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="genepi.step6_ensembleWithCovariates.RegressorModelPersistence">
+<code class="descclassname">genepi.step6_ensembleWithCovariates.</code><code class="descname">RegressorModelPersistence</code><span class="sig-paren">(</span><em>np_X</em>, <em>np_y</em>, <em>str_outputFilePath=''</em>, <em>int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step6_ensembleWithCovariates.html#RegressorModelPersistence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step6_ensembleWithCovariates.RegressorModelPersistence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dumping ensemble regressor for model persistence</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</li>
+<li><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</li>
+<li><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – File path of output file</li>
+<li><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of thread (default: 4)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="history.html" class="btn btn-neutral float-right" title="Release History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="workflow.html" class="btn btn-neutral float-left" title="How it Work" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chester (Yu-Chuan Chang)
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

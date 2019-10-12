@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>I/O File Fomats &mdash; GenEpi  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="More Usage Examples" href="example.html" />
+    <link rel="prev" title="Quickstart" href="quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> GenEpi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">I/O File Fomats</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#input-genotype-data">Input: Genotype Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#input-phenotype-data">Input: Phenotype Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output-ldblock-file">Output: LDBlock File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output-snpsubsets-folder">Output: SnpSubsets Folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output-singlegeneresult-folder">Output: SingleGeneResult Folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output-crossgeneresult-folder">Output: CrossGeneResult Folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#output-porcess-log">Output: Porcess Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#seld-defined-genome-regions">Seld-defined Genome Regions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">More Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">How it Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Documentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Release History</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GenEpi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>I/O File Fomats</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/format.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="i-o-file-fomats">
+<span id="format"></span><h1>I/O File Fomats<a class="headerlink" href="#i-o-file-fomats" title="Permalink to this headline">¶</a></h1>
+<p>We provided test data <a class="reference external" href="https://github.com/Chester75321/GenEpi/raw/master/genepi/example/sample.gen">sample.gen</a> and <a class="reference external" href="https://github.com/Chester75321/GenEpi/raw/master/genepi/example/sample.csv">sample.csv</a> in <a class="reference external" href="https://github.com/Chester75321/GenEpi/raw/master/genepi/example">example folder</a>. After running a <a class="reference external" href="quickstart.html#RunningaQuickTest">quick test</a>, GenEpi will automatically copy these test data to output path and generate all of the output folders and files as following tree structure. Please see the following detail about the format of these input and output data.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>./
+├── GenEpi_Log_DATE-TIME.txt
+├── crossGeneResult
+│   ├── Feature.csv
+│   └── Result.csv
+├── sample.LDBlock
+├── sample.csv
+├── sample.gen
+├── sample_LDReduced.gen
+├── singleGeneResult
+│   ├── All_Logistic_k2.csv
+│   ├── APOC1_Feature.csv
+│   ├── APOC1_Result.csv
+│   ├── APOE_Feature.csv
+│   ├── APOE_Result.csv
+│   ├── PVRL2_Feature.csv
+│   ├── PVRL2_Result.csv
+│   ├── TOMM40_Feature.csv
+│   └── TOMM40_Result.csv
+└── snpSubsets
+    ├── APOC1_23.gen
+    ├── APOE_11.gen
+    ├── PVRL2_48.gen
+    └── TOMM40_67.gen
+</pre></div>
+</div>
+<div class="section" id="input-genotype-data">
+<h2>Input: Genotype Data<a class="headerlink" href="#input-genotype-data" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/Chester75321/GenEpi/raw/master/genepi/example/sample.gen">Sample.gen</a> is an example of genotype data. GenEpi takes the <a class="reference external" href="http://www.cog-genomics.org/plink/1.9/formats#gen">Genotype File Format</a> (.GEN) used by Oxford statistical genetics tools, such as IMPUTE2 and SNPTEST as the input format for genotype data. If your files are in <a class="reference external" href="http://www.cog-genomics.org/plink/1.9/formats">PLINK format</a> (.BED/.BIM/.FAM) or <a class="reference external" href="http://www.cog-genomics.org/plink/1.9/formats#vcf">1000 Genomes Project text Variant Call Format</a> (.VCF), you could use <a class="reference external" href="http://www.cog-genomics.org/plink/1.9/">PLINK</a> with the following command to convert them to the .GEN file.</p>
+<p>If your files are in the .BED/.BIM/.FAM format.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ plink --bfile prefixOfTheFilename --recode oxford --out prefixOfTheFilename
+</pre></div>
+</div>
+<p>If your file is in the .VCF format.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ plink --vcf filename.vcf --recode oxford --out prefixOfTheFilename
+</pre></div>
+</div>
+</div>
+<div class="section" id="input-phenotype-data">
+<h2>Input: Phenotype Data<a class="headerlink" href="#input-phenotype-data" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/Chester75321/GenEpi/raw/master/genepi/example/sample.gen">Sample.gen</a> is an example of phenotype data with environmental factor (e.g. the age of each sample). GenEpi takes the common .CSV file without header line as the input format for phenotype and environmental factor data. The last column of the file will be considered as the phenotype data (e.g. 1 or 0, which indicate case/control, respectively) and the other columns will be considered as the environmental factor data.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The sequential order of the phenotype data should be the same as that in the .GEN file.</p>
+</div>
+</div>
+<div class="section" id="output-ldblock-file">
+<h2>Output: LDBlock File<a class="headerlink" href="#output-ldblock-file" title="Permalink to this headline">¶</a></h2>
+<p>GenEpi has a moudle, which can reduce the dimension of the input feature by estimating the linkage disequilibrium (LD). After performing dimension reduction, GenEpi will generate two files, a dimension-reduced .GEN file and a file containing LD blocks (.LDBlock file). Each row in the .LDBlock file indicates a LD block (see below for examples). The SNPs in front of colon signs are the representative SNPs of each LD block, and only these SNPs will be retained in the dimension-reduced .GEN file.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>rs429358:rs429358
+rs7412:rs7412
+rs117656888:rs117656888
+rs1081105:rs1081105
+rs1081106:rs1081106,rs191315680
+</pre></div>
+</div>
+</div>
+<div class="section" id="output-snpsubsets-folder">
+<h2>Output: SnpSubsets Folder<a class="headerlink" href="#output-snpsubsets-folder" title="Permalink to this headline">¶</a></h2>
+<p>Since GenEpi is a gene-based epistasis discovering method, the input genotype will first be splited into group of each gene. The subsets of the .GEN file for each gene will be stored in the folder snpSubsets. The naming rule of the filename is GeneSymbol_NumberOfVariantsOnGene.gen</p>
+</div>
+<div class="section" id="output-singlegeneresult-folder">
+<h2>Output: SingleGeneResult Folder<a class="headerlink" href="#output-singlegeneresult-folder" title="Permalink to this headline">¶</a></h2>
+<p>In first stage of GenEpi, all the .GEN file for each gene will be modeled gene by gene. Every models will output two kins of data the GeneSymbol_Result.csv and GeneSymbol_Feature.csv. The format of GeneSymbol_Result.csv please refer to the section <a class="reference external" href="quickstart.html#InterpretingtheMainResultTable">Interpreting the Main Result Table</a>. The only difference is the GeneSymbol_Result.csv is a result table for single gene. Moreover, GeneSymbol_Feature.csv are the raw features corresponds to the episatsis in GeneSymbol_Result.csv. Beside these two types of files, there is a file named All_Logistic/Lasso.csv, which contains all the prediction scores of each gene, please see as following example.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ head All_Logistic_k2.csv
+
+GeneSymbol,F1Score
+PVRL2,0.5745454545454547
+APOC1,0.5681818181818181
+TOMM40,0.602510460251046
+APOE,0.592
+</pre></div>
+</div>
+</div>
+<div class="section" id="output-crossgeneresult-folder">
+<h2>Output: CrossGeneResult Folder<a class="headerlink" href="#output-crossgeneresult-folder" title="Permalink to this headline">¶</a></h2>
+<p>The results of the second stage of GenEpi - cross gene modeling will be generated in this folder. The formats are as same as the description in previous section <a class="reference external" href="#SingleGeneResultFolder">SingleGeneResult Folder</a></p>
+</div>
+<div class="section" id="output-porcess-log">
+<h2>Output: Porcess Log<a class="headerlink" href="#output-porcess-log" title="Permalink to this headline">¶</a></h2>
+<p>The performance of genetic feature only and genetic + environmental factor models will be logged into GenEpi_Log_DATE-TIME.txt. Other process information such as the setting of arguments, the time cost will also be recorded.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>start analysis at: 20191009-17:54:45
+
+Arguments in effect:
+        -g (input genotype filename): ./sample.gen
+        -p (input phenotype filename): ./sample.csv
+        -s (self-defined genome regions): None
+        -o (output filepath): ./
+
+        -m (model type): Classification -k (k-fold cross validation): 2
+        -t (number of threads): 4
+
+        --updatedb (enable function of update UCSC database): True
+        -b (human genome build): hg19
+
+        --compressld (enable function of LD data compression): True
+        -d (D prime threshold): 0.9
+        -r (R square threshold): 0.9
+
+Number of variants: 223
+Number of samples: 364
+Overall genetic feature performance (F1 score)
+Training: 0.6307053941908715
+Testing (2-fold CV): 0.6134453781512604
+
+Ensemble with co-variate performance (F1 score)
+Training: 0.632
+Testing (2-fold CV): 0.6016260162601627
+
+end analysis at: 20191009-17:54:58
+</pre></div>
+</div>
+</div>
+<div class="section" id="seld-defined-genome-regions">
+<h2>Seld-defined Genome Regions<a class="headerlink" href="#seld-defined-genome-regions" title="Permalink to this headline">¶</a></h2>
+<p>GenEpi supports seld-defined genome regions for first stage to subset the data. Please prepare your genome regions in .TXT with the columns [chromosome, start, end, strand, geneSymbol], for eample:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1,10873,14409,+,DDX11L1
+1,14361,30370,-,WASH7P
+1,34610,37081,-,FAM138F
+1,68090,70008,+,OR4F5
+...
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="example.html" class="btn btn-neutral float-right" title="More Usage Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="quickstart.html" class="btn btn-neutral float-left" title="Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chester (Yu-Chuan Chang)
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

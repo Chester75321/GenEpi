@@ -16,6 +16,21 @@ import numpy as np
 # define functions 
 """"""""""""""""""""""""""""""
 def EstimateAlleleFrequency(gen_snp):
+    """
+
+    A function for estimating allele frequency of a single varaint
+
+    Args:
+        gen_snp (list): The genotypes of a variant of all samples
+        
+    Returns:
+        (tuple): tuple containing:
+
+            - float_frequency_A (float): The reference allele type frequency
+            - float_frequency_B (float): The alternative allele type frequency
+    
+    """
+    
     ### get all subject's genotype
     list_snp = gen_snp.split(" ")[5:]
     ### get the number of subjects
@@ -36,6 +51,22 @@ def EstimateAlleleFrequency(gen_snp):
     return float_frequency_A, float_frequency_B
 
 def EstimatePairwiseLD(gen_snp_1, gen_snp_2):
+    """
+
+    Lewontin (1964) linkage disequilibrium (LD) estimation.
+
+    Args:
+        gen_snp_1 (list): The genotypes of first variant of all samples
+        gen_snp_2 (list): The genotypes of second variant of all samples
+
+    Returns:
+        (tuple): tuple containing:
+
+            - float_D_prime (float): The DPrime of these two variants
+            - float_R_square (float): The RSquare of these two variants
+    
+    """
+
     ### get all subject's genotype
     list_snp1 = gen_snp_1.split(" ")[5:]
     list_snp2 = gen_snp_2.split(" ")[5:]
@@ -95,6 +126,23 @@ def EstimatePairwiseLD(gen_snp_1, gen_snp_2):
 # main function
 """"""""""""""""""""""""""""""
 def EstimateLDBlock(str_inputFileName_genotype, str_outputFilePath = "", float_threshold_DPrime = 0.8, float_threshold_RSquare = 0.8):
+    """
+
+    A function for implementing linkage disequilibrium (LD) dimension reduction. In genotype data, a variant often exhibits high dependency with its nearby variants because of LD. In the practical implantation, we prefer to group these dependent features to reduce the dimension of features. In other words, we can take the advantages of LD to reduce the dimensionality of genetic features. In this regard, this function adopted the same approach developed by Lewontin (1964) to estimate LD. We used D’ and r2 as the criteria to group highly dependent genetic features as blocks. In each block, we chose the features with the largest minor allele frequency to represent other features in the same block.
+
+    Args:
+        str_inputFileName_genotype (str): File name of input genotype data
+        str_outputFilePath (str): File path of output file
+        float_threshold_DPrime (float): The Dprime threshold for discriminating a LD block (default: 0.8)
+        float_threshold_RSquare (float): The RSquare threshold for discriminating a LD block (default: 0.8)
+
+    Returns:
+        - Expected Success Response::
+
+            "step2: Estimate LD. DONE!"
+    
+    """
+    
     ### set default output path
     if str_outputFilePath == "":
         str_outputFilePath = os.path.dirname(str_inputFileName_genotype)

@@ -20,8 +20,11 @@ import numpy as np
 np.seterr(divide='ignore', invalid='ignore')
 from sklearn.feature_selection import chi2
 from sklearn import linear_model
+from scipy.sparse import coo_matrix
+from sklearn.utils import shuffle
 from sklearn.model_selection import KFold
 from sklearn.model_selection import GridSearchCV
+from sklearn.externals import joblib
 import sklearn.metrics as skMetric
 import scipy.stats as stats
 
@@ -33,6 +36,22 @@ from genepi.step4_singleGeneEpistasis_Logistic import FeatureEncoderLogistic
 # define functions 
 """"""""""""""""""""""""""""""
 def LogisticRegressionL1(np_X, np_y, int_nJobs = 4):
+    """
+
+    Implementation of the L1-regularized Logistic regression with k-fold cross validation.
+
+    Args:
+        np_X (ndarray): 2D array containing genotype data with `int8` type
+        np_y (ndarray): 2D array containing phenotype data with `float` type
+        int_nJobs (int): The number of thread (default: 4)
+
+    Returns:
+        (float): float_f1Score
+        
+            The F1 score of the model
+    
+    """
+
     X = np_X
     y = np_y
     
@@ -54,6 +73,21 @@ def LogisticRegressionL1(np_X, np_y, int_nJobs = 4):
     return float_f1Score
 
 def GenerateContingencyTable(np_genotype, np_phenotype):
+    """
+
+    Generating the contingency table for chi-square test.
+
+    Args:
+        np_X (ndarray): 2D array containing genotype data with `int8` type
+        np_y (ndarray): 2D array containing phenotype data with `float` type
+
+    Returns:
+        (ndarray): np_contingency 
+        
+            2D array containing the contingency table with `int` type
+    
+    """
+
     np_contingency = np.array([[0, 0], [0, 0]])
     for idx_subject in range(0, np_genotype.shape[0]):
         np_contingency[int(np_genotype[idx_subject]), int(np_phenotype[idx_subject])] = np_contingency[int(np_genotype[idx_subject]), int(np_phenotype[idx_subject])] + 1
@@ -62,10 +96,64 @@ def GenerateContingencyTable(np_genotype, np_phenotype):
     
     return np_contingency
 
+def ClassifierModelPersistence(np_X, np_y, str_outputFilePath = "", int_nJobs = 4):
+    """
+
+    Dumping classifier for model persistence
+
+    Args:
+        np_X (ndarray): 2D array containing genotype data with `int8` type
+        np_y (ndarray): 2D array containing phenotype data with `float` type
+        str_outputFilePath (str): File path of output file
+        int_nJobs (int): The number of thread (default: 4)
+
+    Returns:
+        None
+    
+    """
+
+    X = np_X
+    y = np_y
+    X_sparse = coo_matrix(X)
+    X, X_sparse, y = shuffle(X, X_sparse, y, random_state=0)
+    
+    cost = [2**x for x in range(-8, 8)]
+    parameters = [{'C':cost, 'penalty':['l1'], 'dual':[False], 'class_weight':['balanced']}]
+    kf_estimator = KFold(n_splits=2)
+    estimator_logistic = linear_model.LogisticRegression(max_iter=100, solver='liblinear')
+    estimator_grid = GridSearchCV(estimator_logistic, parameters, scoring='f1', n_jobs=int_nJobs, cv=kf_estimator)
+    estimator_grid.fit(X, y)
+    
+    joblib.dump(estimator_grid.best_estimator_, os.path.join(str_outputFilePath, "Classifier.pkl"))
+
 """"""""""""""""""""""""""""""
 # main function
 """"""""""""""""""""""""""""""
 def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phenotype, str_inputFileName_score = "", str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):   
+    """
+
+    A workflow to model a cross gene epistasis containing two-element combinatorial encoding, stability selection, filtering low quality varaint and  L1-regularized Logistic regression with k-fold cross validation.
+
+    Args:
+        str_inputFilePath_feature (str): File path of input feature files from stage 1 - singleGeneEpistasis
+        str_inputFileName_phenotype (str): File name of input phenotype data
+        str_inputFileName_score (str): File name of input score file from stage 1 - singleGeneEpistasis
+        str_outputFilePath (str): File path of output file
+        int_kOfKFold (int): The k for k-fold cross validation (default: 2)
+        int_nJobs (int): The number of thread (default: 4)
+
+    Returns:
+        (tuple): tuple containing:
+
+            - float_f1Score_train (float): The F1 score of the model for training set
+            - float_f1Score_test (float): The F1 score of the model for testing set
+
+        - Expected Success Response::
+
+            "step5: Detect cross gene epistasis. DONE!"
+    
+    """
+    
     ### set default output path
     if str_outputFilePath == "":
         str_outputFilePath = os.path.abspath(os.path.join(str_inputFilePath_feature, os.pardir)) + "/crossGeneResult/"
@@ -228,6 +316,11 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
         for idx_subject in range(0, np_genotype.shape[0]):
             file_outputFile.writelines(",".join(np_genotype[idx_subject, :].astype(str)) + "\n")
 
+    #-------------------------
+    # dump persistent model
+    #-------------------------
+    ClassifierModelPersistence(np_genotype, np_phenotype[:, -1].astype(int), str_outputFilePath, int_nJobs)
+    
     print("step5: Detect cross gene epistasis. DONE! (Training score:" + "{0:.2f}".format(float_f1Score_train) + "; " + str(int_kOfKFold) + "-fold Test Score:" + "{0:.2f}".format(float_f1Score_test) + ")")
     
     return float_f1Score_train, float_f1Score_test

@@ -17,6 +17,21 @@ import pymysql
 # database schema: http://hgdownload.cse.ucsc.edu/goldenpath/hg19/database/
 # human genome build could be: hg18, hg19, hg38, etc.
 def DownloadUCSCDB(str_outputFilePath = os.path.dirname(os.path.abspath(__file__)), str_hgbuild = "hg19"):
+    """
+
+    To obtain the gene information such as official gene symbols and genomic coordinates, this function is for retrieving kgXref and knownGene data table from the UCSC human genome annotation database
+
+    Args:
+        str_outputFilePath (str): File path of output database
+        str_hgbuild (str): Genome build (eg. "hg19")
+
+    Returns:
+        - Expected Success Response::
+
+            "step1: Down load UCSC Database. DONE!"
+    
+    """
+
     ### create connection
     conv = {pymysql.constants.FIELD_TYPE.LONG: int}
     conn = pymysql.Connect(host = "genome-mysql.cse.ucsc.edu", user = "genome", passwd = "",db = str_hgbuild,  local_infile = 1, conv = conv)

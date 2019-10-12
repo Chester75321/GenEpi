@@ -19,6 +19,18 @@ import genepi
 # define functions 
 """"""""""""""""""""""""""""""
 def ArgumentsParser():
+    """
+
+    To obtain and parse the arguments from user.
+
+    Args:
+        None
+
+    Returns:
+        argparse.ArgumentParser
+    
+    """
+
     ### define arguments
     str_description = ''
     'GenEpi is a package to uncover epistasis associated with phenotypes by a machine learning approach, '
@@ -53,6 +65,22 @@ def ArgumentsParser():
     return parser
 
 def InputChecking(str_inputFileName_genotype, str_inputFileName_phenotype):
+    """
+
+    To check the numbers of sample are consistent in genotype and phenotype data.
+
+    Args:
+        str_inputFileName_genotype (str): File name of input genotype data
+        str_inputFileName_phenotype (str): File name of input phenotype data
+
+    Returns:
+        (tuple): tuple containing:
+
+            - int_num_genotype (int): The sample number of genotype data
+            - int_num_phenotype (int): The sample number of phenotype data 
+    
+    """
+
     ### check file name exist
     if str_inputFileName_genotype is None:
         sys.exit("There is no input genotype file.")
@@ -76,6 +104,17 @@ def InputChecking(str_inputFileName_genotype, str_inputFileName_phenotype):
 # main function
 """"""""""""""""""""""""""""""
 def main(args=None):
+    """
+
+    Main function for obtaining user arguments, controling workflow and recording log file.
+
+    Args:
+        None
+
+    Returns:
+        None
+    
+    """
     ### obtain arguments from argument parser
     args = ArgumentsParser().parse_args(args)
     

@@ -1,0 +1,282 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to GenEpi’s docs! &mdash; GenEpi  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="install.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> GenEpi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="format.html">I/O File Fomats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">More Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">How it Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Documentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Release History</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">GenEpi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Welcome to GenEpi’s docs!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-genepi-s-docs">
+<h1>Welcome to GenEpi’s docs!<a class="headerlink" href="#welcome-to-genepi-s-docs" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://github.com/Chester75321/GenEpi">GenEpi</a><a class="footnote-reference" href="#id2" id="id1">[1]</a> is a package to uncover epistasis associated with phenotypes by a machine learning approach, developed by Yu-Chuan Chang at <a class="reference external" href="http://bioinfo.bime.ntu.edu.tw/c4lab/">c4Lab</a> of National Taiwan University and AILabs.</p>
+<div class="figure" id="id3">
+<a class="reference internal image-reference" href="_images/GenEpi.png"><img alt="Cannot link to image" src="_images/GenEpi.png" style="width: 621.0px; height: 588.15px;" /></a>
+<p class="caption"><span class="caption-text">The architecture and modules of GenEpi.</span></p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>GenEpi is designed to group SNPs by a set of loci in the gnome. For examples, a locus could be a gene. In other words, we use gene boundaries to group SNPs. A locus can be generalized to any particular regions in the genome, e.g. promoters, enhancers, etc. GenEpi first considers the genetic variants within a particular region as features in the first stage, because it is believed that SNPs within a functional region might have a higher chance to interact with each other and to influence molecular functions.</p>
+<p>GenEpi adopts two-element combinatorial encoding when producing features and models them by L1-regularized regression with stability selection In the first stage (STAGE 1) of GenEpi, the genotype features from each single gene will be combinatorically encoded and modeled independently by L1-regularized regression with stability selection. In this way, we can estimate the prediction performance of each gene and detect within-gene epistasis with a low false positive rate. In the second stage (STAGE 2), both of the individual SNP and the within-gene epistasis features selected by STAGE 1 are pooled together to generate cross-gene epistasis features, and modeled again by L1-regularized regression with stability selection as STAGE 1. Finally, the user can combine the selected genetic features with environmental factors such as clinical features to build the final prediction models.</p>
+</div>
+<div class="section" id="citing">
+<h2>Citing<a class="headerlink" href="#citing" title="Permalink to this headline">¶</a></h2>
+<p>Please considering cite the following paper (currently avaliables as a pre-print in BioRxiv) if you use GenEpi in a scientific publication:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Yu-Chuan Chang, June-Tai Wu, Ming-Yi Hong, Yi-An Tung, Ping-Han Hsieh, Sook Wah Yee, Kathleen M. Giacomini, Yen-Jen Oyang, and Chien-Yu Chen. “Genepi: Gene-Based Epistasis Discovery Using Machine Learning.” bioRxiv  (2019): 421719.</td></tr>
+</tbody>
+</table>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#how-to-install">How to Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#system-requirements">System Requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#running-a-quick-test">Running a Quick Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#interpreting-the-main-result-table">Interpreting the Main Result Table</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="format.html">I/O File Fomats</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="format.html#input-genotype-data">Input: Genotype Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="format.html#input-phenotype-data">Input: Phenotype Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="format.html#output-ldblock-file">Output: LDBlock File</a></li>
+<li class="toctree-l2"><a class="reference internal" href="format.html#output-snpsubsets-folder">Output: SnpSubsets Folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="format.html#output-singlegeneresult-folder">Output: SingleGeneResult Folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="format.html#output-crossgeneresult-folder">Output: CrossGeneResult Folder</a></li>
+<li class="toctree-l2"><a class="reference internal" href="format.html#output-porcess-log">Output: Porcess Log</a></li>
+<li class="toctree-l2"><a class="reference internal" href="format.html#seld-defined-genome-regions">Seld-defined Genome Regions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">More Usage Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="example.html#applying-on-your-data">Applying on Your Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example.html#for-quantatative-study">For Quantatative Study</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example.html#changing-the-genome-build">Changing the Genome Build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example.html#threshold-for-dimension-reduction">Threshold for Dimension Reduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="example.html#seld-defined-genome-region">Seld-defined Genome Region</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">How it Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Documentations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-genepi.GenEpi">GenEpi module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-genepi.step1_downloadUCSCDB">step1_downloadUCSCDB</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-genepi.step2_estimateLD">step2_estimateLD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-genepi.step3_splitByGene">step3_splitByGene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-genepi.step4_singleGeneEpistasis_Lasso">step4_singleGeneEpistasis_Lasso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-genepi.step4_singleGeneEpistasis_Logistic">step4_singleGeneEpistasis_Logistic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-genepi.step5_crossGeneEpistasis_Lasso">step5_crossGeneEpistasis_Lasso</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-genepi.step5_crossGeneEpistasis_Logistic">step5_crossGeneEpistasis_Logistic</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#module-genepi.step6_ensembleWithCovariates">step6_ensembleWithCovariates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">Release History</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="history.html#id1">[2.0.2] - 2019-09-18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="history.html#section-1">[2.0.1] - 2019-07-12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="history.html#id3">[1.0.3] - 2018-04-22</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="install.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chester (Yu-Chuan Chang)
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

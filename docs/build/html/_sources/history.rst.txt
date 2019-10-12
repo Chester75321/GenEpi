@@ -1,0 +1,42 @@
+.. _history:
+
+Release History
+===============
+
+All notable changes to this project will be documented in this file.
+
+[2.0.2] - 2019-09-18
+--------------------
+
+Added
+
+-  Add multiprocessing for gene batch running
+
+.. _section-1:
+
+[2.0.1] - 2019-07-12
+--------------------
+
+.. _added-1:
+
+Added
+
+-  Support self-defiend genome regions (for any species)
+-  Add argument parser (GenEpi -h)
+-  Add “GenEpi” to bin when installing
+-  Add output log
+-  Add quick test
+-  Add change log in Changelog.md
+
+Changed
+
+-  Change feature encoder for reducing memory usage
+
+Removed
+
+-  Remove random forest ensemble
+
+[1.0.3] - 2018-04-22
+--------------------
+
+First preview release

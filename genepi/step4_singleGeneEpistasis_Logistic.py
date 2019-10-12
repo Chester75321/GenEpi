@@ -37,6 +37,21 @@ from genepi.tools import randomized_l1
 # define functions 
 """"""""""""""""""""""""""""""
 def RandomizedLogisticRegression(np_X, np_y):
+    """
+
+    Implementation of the stability selection.
+
+    Args:
+        np_X (ndarray): 2D array containing genotype data with `int8` type
+        np_y (ndarray): 2D array containing phenotype data with `float` type
+
+    Returns:
+        (ndarray): estimator.scores 
+        
+            1D array containing the scores of each genetic features with `float` type
+    
+    """
+
     X = np_X
     y = np_y
     X_sparse = coo_matrix(X)
@@ -47,6 +62,23 @@ def RandomizedLogisticRegression(np_X, np_y):
     return estimator.scores_
 
 def LogisticRegressionL1CV(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1):
+    """
+
+    Implementation of the L1-regularized Logistic regression with k-fold cross validation.
+
+    Args:
+        np_X (ndarray): 2D array containing genotype data with `int8` type
+        np_y (ndarray): 2D array containing phenotype data with `float` type
+        int_kOfKFold (int): The k for k-fold cross validation (default: 2)
+        int_nJobs (int): The number of thread (default: 1)
+
+    Returns:
+        (ndarray): estimator.scores 
+        
+            1D array containing the scores of each genetic features with `float` type
+    
+    """
+
     X = np_X
     y = np_y
     X_sparse = coo_matrix(X)
@@ -75,6 +107,24 @@ def LogisticRegressionL1CV(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1):
     return float_f1Score, np_weight
 
 def FeatureEncoderLogistic(np_genotype_rsid, np_genotype, np_phenotype, int_dim):
+    """
+
+    Implementation of the two-element combinatorial encoding.
+
+    Args:
+        np_genotype_rsid (ndarray): 1D array containing rsid of genotype data with `str` type
+        np_genotype (ndarray): 2D array containing genotype data with `int8` type
+        np_phenotype (ndarray): 2D array containing phenotype data with `float` type
+        int_dim (int): The dimension of a variant (default: 3. AA, AB and BB)
+
+    Returns:
+        (tuple): tuple containing:
+
+            - list_interaction_rsid (ndarray): 1D array containing rsid of genotype data with `str` type
+            - np_interaction (ndarray): 2D array containing genotype data with `int8` type
+    
+    """
+
     ### combinatorial encoding
     np_interaction = np_genotype
     list_interaction_rsid = list(np_genotype_rsid)    
@@ -120,6 +170,21 @@ def FeatureEncoderLogistic(np_genotype_rsid, np_genotype, np_phenotype, int_dim)
     return np.array(list_interaction_rsid), np_interaction
 
 def GenerateContingencyTable(np_genotype, np_phenotype):
+    """
+
+    Generating the contingency table for chi-square test.
+
+    Args:
+        np_X (ndarray): 2D array containing genotype data with `int8` type
+        np_y (ndarray): 2D array containing phenotype data with `float` type
+
+    Returns:
+        (ndarray): np_contingency 
+        
+            2D array containing the contingency table with `int` type
+    
+    """
+
     np_contingency = np.array([[0, 0], [0, 0]])
     for idx_subject in range(0, np_genotype.shape[0]):
         np_contingency[int(np_genotype[idx_subject]), int(np_phenotype[idx_subject])] = np_contingency[int(np_genotype[idx_subject]), int(np_phenotype[idx_subject])] + 1
@@ -129,6 +194,21 @@ def GenerateContingencyTable(np_genotype, np_phenotype):
     return np_contingency
 
 def FilterInLoading(np_genotype, np_phenotype):
+    """
+
+    This function is for filtering low quality varaint. Before modeling each subset of genotype features, two criteria were adopted to exclude low quality data. The first criterion is that the genotype frequency of a feature should exceed 5%, where the genotype frequency means the proportion of genotype among the total samples in the dataset. The second criterion is regarding the association between the feature and the phenotype. We used χ2 test to estimate the association between the feature and the phenotype, and the p-value should be smaller than 0.01.
+
+    Args:
+        np_genotype (ndarray): 2D array containing genotype data with `int8` type
+        np_phenotype (ndarray): 2D array containing phenotype data with `float` type
+
+    Returns:
+        (ndarray): np_genotype
+        
+            2D array containing genotype data with `int8` type
+    
+    """
+
     try:
         ### variance check (detect variance < 0.05)
         sk_variance = VarianceThreshold(threshold=(.95 * (1 - .95)))
@@ -148,6 +228,24 @@ def FilterInLoading(np_genotype, np_phenotype):
 # main function
 """"""""""""""""""""""""""""""
 def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 1):      
+    """
+
+    A workflow to model a single gene containing two-element combinatorial encoding, stability selection, filtering low quality varaint and  L1-regularized Logistic regression with k-fold cross validation.
+
+    Args:
+        str_inputFileName_genotype (str): File name of input genotype data
+        str_inputFileName_phenotype (str): File name of input phenotype data
+        str_outputFilePath (str): File path of output file
+        int_kOfKFold (int): The k for k-fold cross validation (default: 2)
+        int_nJobs (int): The number of thread (default: 1)
+
+    Returns:
+        (float): float_f1Score
+        
+            The F1 score of the model
+    
+    """
+    
     ### set path of output file
     if str_outputFilePath == "":
         str_outputFilePath = os.path.dirname(str_inputFileName_genotype)
@@ -257,6 +355,24 @@ def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_ph
     return float_f1Score
 
 def BatchSingleGeneEpistasisLogistic(str_inputFilePath_genotype, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = mp.cpu_count()):
+    """
+
+    Batch running for the single gene workflow.
+
+    Args:
+        str_inputFilePath_genotype (str): File path of input genotype data
+        str_inputFileName_phenotype (str): File name of input phenotype data
+        str_outputFilePath (str): File path of output file
+        int_kOfKFold (int): The k for k-fold cross validation (default: 2)
+        int_nJobs (int): The number of thread (default: 1)
+
+    Returns:
+        - Expected Success Response::
+
+            "step4: Detect single gene epistasis. DONE!"
+    
+    """
+
     ### set default output path
     if str_outputFilePath == "":
         str_outputFilePath = os.path.abspath(os.path.join(str_inputFilePath_genotype, os.pardir)) + "/singleGeneResult/"

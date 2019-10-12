@@ -1,0 +1,523 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>genepi.step5_crossGeneEpistasis_Logistic &mdash; GenEpi  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> GenEpi
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">I/O File Fomats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../example.html">More Usage Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../workflow.html">How it Work</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Documentations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../history.html">Release History</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">GenEpi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>genepi.step5_crossGeneEpistasis_Logistic</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for genepi.step5_crossGeneEpistasis_Logistic</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Created on Feb 2018</span>
+
+<span class="sd">@author: Chester (Yu-Chuan Chang)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<span class="c1"># import libraries</span>
+<span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="c1"># ignore all warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;PYTHONWARNINGS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;ignore&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="k">import</span> <span class="n">chi2</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">linear_model</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="k">import</span> <span class="n">coo_matrix</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="k">import</span> <span class="n">shuffle</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">KFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="k">import</span> <span class="n">joblib</span>
+<span class="kn">import</span> <span class="nn">sklearn.metrics</span> <span class="k">as</span> <span class="nn">skMetric</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
+
+<span class="kn">from</span> <span class="nn">genepi.step4_singleGeneEpistasis_Logistic</span> <span class="k">import</span> <span class="n">RandomizedLogisticRegression</span>
+<span class="kn">from</span> <span class="nn">genepi.step4_singleGeneEpistasis_Logistic</span> <span class="k">import</span> <span class="n">LogisticRegressionL1CV</span>
+<span class="kn">from</span> <span class="nn">genepi.step4_singleGeneEpistasis_Logistic</span> <span class="k">import</span> <span class="n">FeatureEncoderLogistic</span>
+
+<span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<span class="c1"># define functions </span>
+<span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="LogisticRegressionL1"><a class="viewcode-back" href="../../api.html#genepi.step5_crossGeneEpistasis_Logistic.LogisticRegressionL1">[docs]</a><span class="k">def</span> <span class="nf">LogisticRegressionL1</span><span class="p">(</span><span class="n">np_X</span><span class="p">,</span> <span class="n">np_y</span><span class="p">,</span> <span class="n">int_nJobs</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Implementation of the L1-regularized Logistic regression with k-fold cross validation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        np_X (ndarray): 2D array containing genotype data with `int8` type</span>
+<span class="sd">        np_y (ndarray): 2D array containing phenotype data with `float` type</span>
+<span class="sd">        int_nJobs (int): The number of thread (default: 4)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (float): float_f1Score</span>
+<span class="sd">        </span>
+<span class="sd">            The F1 score of the model</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np_X</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np_y</span>
+    
+    <span class="n">list_target</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">list_predict</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="n">cost</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="o">**</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)]</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span><span class="n">cost</span><span class="p">,</span> <span class="s1">&#39;penalty&#39;</span><span class="p">:[</span><span class="s1">&#39;l1&#39;</span><span class="p">],</span> <span class="s1">&#39;dual&#39;</span><span class="p">:[</span><span class="kc">False</span><span class="p">],</span> <span class="s1">&#39;class_weight&#39;</span><span class="p">:[</span><span class="s1">&#39;balanced&#39;</span><span class="p">]}]</span>
+    <span class="n">kf_estimator</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">estimator_logistic</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">&#39;liblinear&#39;</span><span class="p">)</span>
+    <span class="n">estimator_grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator_logistic</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;f1&#39;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">int_nJobs</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf_estimator</span><span class="p">)</span>
+    <span class="n">estimator_grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">list_label</span> <span class="o">=</span> <span class="n">estimator_grid</span><span class="o">.</span><span class="n">best_estimator_</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">idx_y</span><span class="p">,</span> <span class="n">idx_label</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">list_label</span><span class="p">):</span>
+        <span class="n">list_target</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">idx_y</span><span class="p">))</span>
+        <span class="n">list_predict</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx_label</span><span class="p">)</span>
+    <span class="n">float_f1Score</span> <span class="o">=</span> <span class="n">skMetric</span><span class="o">.</span><span class="n">f1_score</span><span class="p">(</span><span class="n">list_target</span><span class="p">,</span> <span class="n">list_predict</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">float_f1Score</span></div>
+
+<div class="viewcode-block" id="GenerateContingencyTable"><a class="viewcode-back" href="../../api.html#genepi.step5_crossGeneEpistasis_Logistic.GenerateContingencyTable">[docs]</a><span class="k">def</span> <span class="nf">GenerateContingencyTable</span><span class="p">(</span><span class="n">np_genotype</span><span class="p">,</span> <span class="n">np_phenotype</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Generating the contingency table for chi-square test.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        np_X (ndarray): 2D array containing genotype data with `int8` type</span>
+<span class="sd">        np_y (ndarray): 2D array containing phenotype data with `float` type</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (ndarray): np_contingency </span>
+<span class="sd">        </span>
+<span class="sd">            2D array containing the contingency table with `int` type</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">np_contingency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+    <span class="k">for</span> <span class="n">idx_subject</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np_genotype</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">np_contingency</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">np_genotype</span><span class="p">[</span><span class="n">idx_subject</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">np_phenotype</span><span class="p">[</span><span class="n">idx_subject</span><span class="p">])]</span> <span class="o">=</span> <span class="n">np_contingency</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">np_genotype</span><span class="p">[</span><span class="n">idx_subject</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">np_phenotype</span><span class="p">[</span><span class="n">idx_subject</span><span class="p">])]</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">np_contingency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="n">np_contingency</span><span class="p">)</span>
+    <span class="n">np_contingency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rot90</span><span class="p">(</span><span class="n">np_contingency</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">np_contingency</span></div>
+
+<div class="viewcode-block" id="ClassifierModelPersistence"><a class="viewcode-back" href="../../api.html#genepi.step5_crossGeneEpistasis_Logistic.ClassifierModelPersistence">[docs]</a><span class="k">def</span> <span class="nf">ClassifierModelPersistence</span><span class="p">(</span><span class="n">np_X</span><span class="p">,</span> <span class="n">np_y</span><span class="p">,</span> <span class="n">str_outputFilePath</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">int_nJobs</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Dumping classifier for model persistence</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        np_X (ndarray): 2D array containing genotype data with `int8` type</span>
+<span class="sd">        np_y (ndarray): 2D array containing phenotype data with `float` type</span>
+<span class="sd">        str_outputFilePath (str): File path of output file</span>
+<span class="sd">        int_nJobs (int): The number of thread (default: 4)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np_X</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np_y</span>
+    <span class="n">X_sparse</span> <span class="o">=</span> <span class="n">coo_matrix</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">X_sparse</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X_sparse</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="n">cost</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="o">**</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)]</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;C&#39;</span><span class="p">:</span><span class="n">cost</span><span class="p">,</span> <span class="s1">&#39;penalty&#39;</span><span class="p">:[</span><span class="s1">&#39;l1&#39;</span><span class="p">],</span> <span class="s1">&#39;dual&#39;</span><span class="p">:[</span><span class="kc">False</span><span class="p">],</span> <span class="s1">&#39;class_weight&#39;</span><span class="p">:[</span><span class="s1">&#39;balanced&#39;</span><span class="p">]}]</span>
+    <span class="n">kf_estimator</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">estimator_logistic</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">&#39;liblinear&#39;</span><span class="p">)</span>
+    <span class="n">estimator_grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator_logistic</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;f1&#39;</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="n">int_nJobs</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">kf_estimator</span><span class="p">)</span>
+    <span class="n">estimator_grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    
+    <span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">estimator_grid</span><span class="o">.</span><span class="n">best_estimator_</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">str_outputFilePath</span><span class="p">,</span> <span class="s2">&quot;Classifier.pkl&quot;</span><span class="p">))</span></div>
+
+<span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<span class="c1"># main function</span>
+<span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="CrossGeneEpistasisLogistic"><a class="viewcode-back" href="../../api.html#genepi.step5_crossGeneEpistasis_Logistic.CrossGeneEpistasisLogistic">[docs]</a><span class="k">def</span> <span class="nf">CrossGeneEpistasisLogistic</span><span class="p">(</span><span class="n">str_inputFilePath_feature</span><span class="p">,</span> <span class="n">str_inputFileName_phenotype</span><span class="p">,</span> <span class="n">str_inputFileName_score</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">str_outputFilePath</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">int_kOfKFold</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">int_nJobs</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>   
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    A workflow to model a cross gene epistasis containing two-element combinatorial encoding, stability selection, filtering low quality varaint and  L1-regularized Logistic regression with k-fold cross validation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        str_inputFilePath_feature (str): File path of input feature files from stage 1 - singleGeneEpistasis</span>
+<span class="sd">        str_inputFileName_phenotype (str): File name of input phenotype data</span>
+<span class="sd">        str_inputFileName_score (str): File name of input score file from stage 1 - singleGeneEpistasis</span>
+<span class="sd">        str_outputFilePath (str): File path of output file</span>
+<span class="sd">        int_kOfKFold (int): The k for k-fold cross validation (default: 2)</span>
+<span class="sd">        int_nJobs (int): The number of thread (default: 4)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (tuple): tuple containing:</span>
+
+<span class="sd">            - float_f1Score_train (float): The F1 score of the model for training set</span>
+<span class="sd">            - float_f1Score_test (float): The F1 score of the model for testing set</span>
+
+<span class="sd">        - Expected Success Response::</span>
+
+<span class="sd">            &quot;step5: Detect cross gene epistasis. DONE!&quot;</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="c1">### set default output path</span>
+    <span class="k">if</span> <span class="n">str_outputFilePath</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="n">str_outputFilePath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">str_inputFilePath_feature</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;/crossGeneResult/&quot;</span>
+    <span class="c1">### if output folder doesn&#39;t exist then create it</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">str_outputFilePath</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">str_outputFilePath</span><span class="p">)</span>
+    
+    <span class="c1">### set default score file name</span>
+    <span class="k">if</span> <span class="n">str_inputFileName_score</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">str_fileName</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">str_inputFilePath_feature</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">str_fileName</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;All_Logistic&quot;</span><span class="p">):</span>
+                <span class="n">str_inputFileName_score</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">str_inputFilePath_feature</span><span class="p">,</span> <span class="n">str_fileName</span><span class="p">)</span>
+
+    <span class="c1">#-------------------------</span>
+    <span class="c1"># load data</span>
+    <span class="c1">#-------------------------</span>
+    <span class="c1">### scan score file and exclude useless genes</span>
+    <span class="n">dict_score</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">str_inputFileName_score</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_inputFile</span><span class="p">:</span>
+        <span class="n">file_inputFile</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file_inputFile</span><span class="p">:</span>
+            <span class="n">list_thisScore</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">list_thisScore</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;MemErr&quot;</span> <span class="ow">or</span> <span class="nb">float</span><span class="p">(</span><span class="n">list_thisScore</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dict_score</span><span class="p">[</span><span class="n">list_thisScore</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">list_thisScore</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    
+    <span class="c1">### get all the file names of feature file</span>
+    <span class="n">list_featureFileName</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">str_fileName</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">str_inputFilePath_feature</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s2">&quot;Feature.csv&quot;</span> <span class="ow">in</span> <span class="n">str_fileName</span><span class="p">:</span>
+            <span class="n">list_featureFileName</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">str_fileName</span><span class="p">)</span>
+    
+    <span class="c1">### get all selected snp ids</span>
+    <span class="n">list_genotype_rsid</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">list_featureFileName</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">str_inputFilePath_feature</span><span class="p">,</span> <span class="n">item</span><span class="p">),</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_inputFile</span><span class="p">:</span>
+            <span class="c1">### grep the header</span>
+            <span class="n">list_rsids</span> <span class="o">=</span> <span class="n">file_inputFile</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">rsid</span> <span class="ow">in</span> <span class="n">list_rsids</span><span class="p">:</span>
+                <span class="n">list_genotype_rsid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rsid</span><span class="p">)</span>
+    <span class="n">np_genotype_rsid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">list_genotype_rsid</span><span class="p">)</span>
+    
+    <span class="c1">### count lines of input files</span>
+    <span class="n">int_num_genotype</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np_genotype_rsid</span><span class="p">)</span>
+    <span class="n">int_num_phenotype</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">str_inputFileName_phenotype</span><span class="p">))</span>
+    
+    <span class="c1">### get phenotype file</span>
+    <span class="n">list_phenotype</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">str_inputFileName_phenotype</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_inputFile</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file_inputFile</span><span class="p">:</span>
+            <span class="n">list_phenotype</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">))</span>
+    <span class="n">np_phenotype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">list_phenotype</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">list_phenotype</span>
+    
+    <span class="c1">### get genotype file</span>
+    <span class="c1">### declare a dictionary for mapping snp and gene</span>
+    <span class="n">dict_geneMap</span> <span class="o">=</span><span class="p">{}</span>
+    <span class="n">idx_genotype_rsid</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">np_genotype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">int_num_phenotype</span><span class="p">,</span> <span class="n">int_num_genotype</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int8&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">list_featureFileName</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">str_inputFilePath_feature</span><span class="p">,</span> <span class="n">item</span><span class="p">),</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_inputFile</span><span class="p">:</span>
+            <span class="c1">### grep feature from header of feature file</span>
+            <span class="n">list_rsids</span> <span class="o">=</span> <span class="n">file_inputFile</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">rsid</span> <span class="ow">in</span> <span class="n">list_rsids</span><span class="p">:</span>
+                <span class="c1">### key: rsIDs of a feature; value: gene symbol</span>
+                <span class="n">dict_geneMap</span><span class="p">[</span><span class="n">rsid</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">idx_phenotype</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="c1">### read feaure and write into np_genotype</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file_inputFile</span><span class="p">:</span>
+                <span class="n">np_genotype</span><span class="p">[</span><span class="n">idx_phenotype</span><span class="p">,</span> <span class="n">idx_genotype_rsid</span><span class="p">:</span><span class="n">idx_genotype_rsid</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_rsids</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+                <span class="n">idx_phenotype</span> <span class="o">=</span> <span class="n">idx_phenotype</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">idx_genotype_rsid</span> <span class="o">=</span> <span class="n">idx_genotype_rsid</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_rsids</span><span class="p">)</span>
+    
+    <span class="c1">#-------------------------</span>
+    <span class="c1"># preprocess data</span>
+    <span class="c1">#-------------------------</span>
+    <span class="c1">### select degree 1 feature</span>
+    <span class="n">np_genotype_rsid_degree</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np_genotype_rsid</span><span class="p">])</span>
+    <span class="n">np_selectedIdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np_genotype_rsid_degree</span><span class="p">])</span>
+    <span class="n">np_genotype_degree1</span> <span class="o">=</span> <span class="n">np_genotype</span><span class="p">[:,</span> <span class="n">np_selectedIdx</span><span class="p">]</span>
+    <span class="n">np_genotype_degree1_rsid</span> <span class="o">=</span> <span class="n">np_genotype_rsid</span><span class="p">[</span><span class="n">np_selectedIdx</span><span class="p">]</span>
+    
+    <span class="c1">### remove redundant polynomial features</span>
+    <span class="n">np_genotype_degree1</span><span class="p">,</span> <span class="n">np_selectedIdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np_genotype_degree1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">np_genotype_degree1_rsid</span> <span class="o">=</span> <span class="n">np_genotype_degree1_rsid</span><span class="p">[</span><span class="n">np_selectedIdx</span><span class="p">]</span>
+    
+    <span class="c1">### generate cross gene interations</span>
+    <span class="n">np_genotype_crossGene_rsid</span><span class="p">,</span> <span class="n">np_genotype_crossGene</span> <span class="o">=</span> <span class="n">FeatureEncoderLogistic</span><span class="p">(</span><span class="n">np_genotype_degree1_rsid</span><span class="p">,</span> <span class="n">np_genotype_degree1</span><span class="p">,</span> <span class="n">np_phenotype</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1">### remove degree 1 feature from dataset</span>
+    <span class="n">np_selectedIdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span> <span class="o">!=</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np_genotype_rsid_degree</span><span class="p">])</span>
+    <span class="n">np_genotype</span> <span class="o">=</span> <span class="n">np_genotype</span><span class="p">[:,</span> <span class="n">np_selectedIdx</span><span class="p">]</span>
+    <span class="n">np_genotype_rsid</span> <span class="o">=</span> <span class="n">np_genotype_rsid</span><span class="p">[</span><span class="n">np_selectedIdx</span><span class="p">]</span>
+    
+    <span class="c1">### concatenate cross gene interations</span>
+    <span class="k">if</span> <span class="n">np_genotype_degree1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">np_genotype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np_genotype</span><span class="p">,</span> <span class="n">np_genotype_crossGene</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">np_genotype_rsid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np_genotype_rsid</span><span class="p">,</span> <span class="n">np_genotype_crossGene_rsid</span><span class="p">))</span>
+    
+    <span class="c1">#-------------------------</span>
+    <span class="c1"># select feature</span>
+    <span class="c1">#-------------------------    </span>
+    <span class="c1">### random logistic feature selection</span>
+    <span class="n">np_randWeight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">RandomizedLogisticRegression</span><span class="p">(</span><span class="n">np_genotype</span><span class="p">,</span> <span class="n">np_phenotype</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)))</span>    
+    <span class="n">np_selectedIdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mf">0.25</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np_randWeight</span><span class="p">])</span>
+    <span class="n">np_randWeight</span> <span class="o">=</span> <span class="n">np_randWeight</span><span class="p">[</span><span class="n">np_selectedIdx</span><span class="p">]</span>
+    <span class="n">np_genotype</span> <span class="o">=</span> <span class="n">np_genotype</span><span class="p">[:,</span> <span class="n">np_selectedIdx</span><span class="p">]</span>
+    <span class="n">np_genotype_rsid</span> <span class="o">=</span> <span class="n">np_genotype_rsid</span><span class="p">[</span><span class="n">np_selectedIdx</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">np_genotype_rsid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    
+    <span class="c1">#-------------------------</span>
+    <span class="c1"># build model</span>
+    <span class="c1">#-------------------------</span>
+    <span class="n">float_f1Score_test</span><span class="p">,</span> <span class="n">np_weight</span> <span class="o">=</span> <span class="n">LogisticRegressionL1CV</span><span class="p">(</span><span class="n">np_genotype</span><span class="p">,</span> <span class="n">np_phenotype</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">int_kOfKFold</span><span class="p">,</span> <span class="n">int_nJobs</span><span class="p">)</span>
+    <span class="n">float_f1Score_train</span> <span class="o">=</span> <span class="n">LogisticRegressionL1</span><span class="p">(</span><span class="n">np_genotype</span><span class="p">,</span> <span class="n">np_phenotype</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">int_nJobs</span><span class="p">)</span>
+    
+    <span class="c1">### filter out zero-weight features</span>
+    <span class="n">np_selectedIdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span> <span class="o">!=</span> <span class="mf">0.0</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np_weight</span><span class="p">])</span>
+    <span class="n">np_weight</span> <span class="o">=</span> <span class="n">np_weight</span><span class="p">[</span><span class="n">np_selectedIdx</span><span class="p">]</span>
+    <span class="n">np_genotype</span> <span class="o">=</span> <span class="n">np_genotype</span><span class="p">[:,</span> <span class="n">np_selectedIdx</span><span class="p">]</span>
+    <span class="n">np_genotype_rsid</span> <span class="o">=</span> <span class="n">np_genotype_rsid</span><span class="p">[</span><span class="n">np_selectedIdx</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">np_genotype_rsid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    
+    <span class="c1">#-------------------------</span>
+    <span class="c1"># analyze result</span>
+    <span class="c1">#-------------------------</span>
+    <span class="c1">### calculate chi-square p-value</span>
+    <span class="n">np_chi2</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">chi2</span><span class="p">(</span><span class="n">np_genotype</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">np_phenotype</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">list_oddsRatio</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">idx_feature</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np_genotype</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">np_contingency</span> <span class="o">=</span> <span class="n">GenerateContingencyTable</span><span class="p">(</span><span class="n">np_genotype</span><span class="p">[:,</span> <span class="n">idx_feature</span><span class="p">],</span> <span class="n">np_phenotype</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">oddsratio</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">fisher_exact</span><span class="p">(</span><span class="n">np_contingency</span><span class="p">)</span>
+        <span class="n">list_oddsRatio</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">oddsratio</span><span class="p">)</span>
+        
+    <span class="c1">### calculate genotype frequency</span>
+    <span class="n">np_genotypeFreq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np_genotype</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="o">/</span> <span class="n">np_genotype</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="c1">#-------------------------</span>
+    <span class="c1"># output results</span>
+    <span class="c1">#-------------------------</span>
+    <span class="c1">### output statistics of features</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">str_outputFilePath</span><span class="p">,</span> <span class="s2">&quot;Result.csv&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_outputFile</span><span class="p">:</span>
+        <span class="n">file_outputFile</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="s2">&quot;rsid,weight,chi-square_log_p-value,odds_ratio,genotype_frequency,geneSymbol,singleGeneScore&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idx_feature</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np_genotype_rsid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="c1">### if this feature is single gene epistasis</span>
+            <span class="k">if</span> <span class="n">np_genotype_rsid</span><span class="p">[</span><span class="n">idx_feature</span><span class="p">,]</span> <span class="ow">in</span> <span class="n">dict_geneMap</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">str_thisOutput</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">np_genotype_rsid</span><span class="p">[</span><span class="n">idx_feature</span><span class="p">,])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np_weight</span><span class="p">[</span><span class="n">idx_feature</span><span class="p">,])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np_chi2</span><span class="p">[</span><span class="n">idx_feature</span><span class="p">,])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">list_oddsRatio</span><span class="p">[</span><span class="n">idx_feature</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np_genotypeFreq</span><span class="p">[</span><span class="n">idx_feature</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dict_geneMap</span><span class="p">[</span><span class="n">np_genotype_rsid</span><span class="p">[</span><span class="n">idx_feature</span><span class="p">,]])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dict_score</span><span class="p">[</span><span class="n">dict_geneMap</span><span class="p">[</span><span class="n">np_genotype_rsid</span><span class="p">[</span><span class="n">idx_feature</span><span class="p">,]]])</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="n">file_outputFile</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">str_thisOutput</span><span class="p">)</span>
+            <span class="c1">### else this feature is cross gene epistasis</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">str_thisOutput</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">np_genotype_rsid</span><span class="p">[</span><span class="n">idx_feature</span><span class="p">,])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np_weight</span><span class="p">[</span><span class="n">idx_feature</span><span class="p">,])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np_chi2</span><span class="p">[</span><span class="n">idx_feature</span><span class="p">,])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">list_oddsRatio</span><span class="p">[</span><span class="n">idx_feature</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">np_genotypeFreq</span><span class="p">[</span><span class="n">idx_feature</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dict_geneMap</span><span class="p">[</span><span class="n">np_genotype_rsid</span><span class="p">[</span><span class="n">idx_feature</span><span class="p">,]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]])</span> <span class="o">+</span> <span class="s2">&quot;*&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dict_geneMap</span><span class="p">[</span><span class="n">np_genotype_rsid</span><span class="p">[</span><span class="n">idx_feature</span><span class="p">,]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]])</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="n">file_outputFile</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">str_thisOutput</span><span class="p">)</span>
+            
+    <span class="c1">### output feature</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">str_outputFilePath</span><span class="p">,</span> <span class="s2">&quot;Feature.csv&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file_outputFile</span><span class="p">:</span>
+        <span class="n">file_outputFile</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">np_genotype_rsid</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idx_subject</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np_genotype</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">file_outputFile</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">np_genotype</span><span class="p">[</span><span class="n">idx_subject</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1">#-------------------------</span>
+    <span class="c1"># dump persistent model</span>
+    <span class="c1">#-------------------------</span>
+    <span class="n">ClassifierModelPersistence</span><span class="p">(</span><span class="n">np_genotype</span><span class="p">,</span> <span class="n">np_phenotype</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> <span class="n">str_outputFilePath</span><span class="p">,</span> <span class="n">int_nJobs</span><span class="p">)</span>
+    
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;step5: Detect cross gene epistasis. DONE! (Training score:&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">float_f1Score_train</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">int_kOfKFold</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;-fold Test Score:&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="si">{0:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">float_f1Score_test</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">float_f1Score_train</span><span class="p">,</span> <span class="n">float_f1Score_test</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Chester (Yu-Chuan Chang)
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

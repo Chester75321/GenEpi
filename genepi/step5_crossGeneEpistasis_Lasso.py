@@ -20,8 +20,11 @@ import numpy as np
 np.seterr(divide='ignore', invalid='ignore')
 from sklearn.feature_selection import f_regression
 from sklearn import linear_model
+from scipy.sparse import coo_matrix
+from sklearn.utils import shuffle
 from sklearn.model_selection import KFold
 from sklearn.model_selection import GridSearchCV
+from sklearn.externals import joblib
 import scipy.stats as stats
 
 from genepi.step4_singleGeneEpistasis_Lasso import RandomizedLassoRegression
@@ -32,6 +35,22 @@ from genepi.step4_singleGeneEpistasis_Lasso import FeatureEncoderLasso
 # define functions 
 """"""""""""""""""""""""""""""
 def LassoRegression(np_X, np_y, int_nJobs = 4):
+    """
+
+    Implementation of the L1-regularized Lasso regression with k-fold cross validation.
+
+    Args:
+        np_X (ndarray): 2D array containing genotype data with `int8` type
+        np_y (ndarray): 2D array containing phenotype data with `float` type
+        int_nJobs (int): The number of thread (default: 4)
+
+    Returns:
+        (float): float_AVG_S_P
+        
+            The average of the Peason's and Spearman's correlation of the model
+    
+    """
+
     X = np_X
     y = np_y
     
@@ -53,10 +72,64 @@ def LassoRegression(np_X, np_y, int_nJobs = 4):
     
     return (float_pearson + float_spearman) / 2
 
+def RegressorModelPersistence(np_X, np_y, str_outputFilePath = "", int_nJobs = 4):
+    """
+
+    Dumping regressor for model persistence
+
+    Args:
+        np_X (ndarray): 2D array containing genotype data with `int8` type
+        np_y (ndarray): 2D array containing phenotype data with `float` type
+        str_outputFilePath (str): File path of output file
+        int_nJobs (int): The number of thread (default: 4)
+
+    Returns:
+        None
+    
+    """
+
+    X = np_X
+    y = np_y
+    X_sparse = coo_matrix(X)
+    X, X_sparse, y = shuffle(X, X_sparse, y, random_state=0)
+    
+    alpha = np.logspace(-10, 10, 200)
+    parameters = [{'alpha':alpha}]
+    kf_estimator = KFold(n_splits=2)
+    estimator_lasso = linear_model.Lasso(max_iter=1000)
+    estimator_grid = GridSearchCV(estimator_lasso, parameters, scoring='neg_mean_squared_error', n_jobs=int_nJobs, cv=kf_estimator)
+    estimator_grid.fit(X, y)
+    
+    joblib.dump(estimator_grid.best_estimator_, os.path.join(str_outputFilePath, "Regressor.pkl"))
+
 """"""""""""""""""""""""""""""
 # main function
 """"""""""""""""""""""""""""""
 def CrossGeneEpistasisLasso(str_inputFilePath_feature, str_inputFileName_phenotype, str_inputFileName_score = "", str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):
+    """
+
+    A workflow to model a cross gene epistasis containing two-element combinatorial encoding, stability selection, filtering low quality varaint and  L1-regularized Lasso regression with k-fold cross validation.
+
+    Args:
+        str_inputFilePath_feature (str): File path of input feature files from stage 1 - singleGeneEpistasis
+        str_inputFileName_phenotype (str): File name of input phenotype data
+        str_inputFileName_score (str): File name of input score file from stage 1 - singleGeneEpistasis
+        str_outputFilePath (str): File path of output file
+        int_kOfKFold (int): The k for k-fold cross validation (default: 2)
+        int_nJobs (int): The number of thread (default: 4)
+
+    Returns:
+        (tuple): tuple containing:
+
+            - float_AVG_S_P_train (float): The average of the Peason's and Spearman's correlation of the model for training set
+            - float_AVG_S_P_test (float): The average of the Peason's and Spearman's correlation of the model for testing set
+
+        - Expected Success Response::
+
+            "step5: Detect cross gene epistasis. DONE!"
+    
+    """
+    
     ### set default output path
     if str_outputFilePath == "":
         str_outputFilePath = os.path.abspath(os.path.join(str_inputFilePath_feature, os.pardir)) + "/crossGeneResult/"
@@ -213,6 +286,11 @@ def CrossGeneEpistasisLasso(str_inputFilePath_feature, str_inputFileName_phenoty
         file_outputFile.writelines(",".join(np_genotype_rsid) + "\n")
         for idx_subject in range(0, np_genotype.shape[0]):
             file_outputFile.writelines(",".join(np_genotype[idx_subject, :].astype(str)) + "\n")
+
+    #-------------------------
+    # dump persistent model
+    #-------------------------
+    RegressorModelPersistence(np_genotype, np_phenotype[:, -1].astype(int), str_outputFilePath, int_nJobs)
 
     print("step5: Detect cross gene epistasis. DONE! (Training score:" + "{0:.2f}".format(float_AVG_S_P_train) + "; " + str(int_kOfKFold) + "-fold Test Score:" + "{0:.2f}".format(float_AVG_S_P_test) + ")")
     

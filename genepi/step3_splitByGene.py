@@ -15,6 +15,25 @@ import numpy as np
 # main function
 """"""""""""""""""""""""""""""
 def SplitByGene(str_inputFileName_genotype, str_inputFileName_UCSCDB = os.path.dirname(os.path.abspath(__file__)) + "/UCSCGenomeDatabase.txt", str_outputFilePath = ""):
+    """
+
+    In order to extract genetic features for a gene, this function used the start and end positions of each gene from the local UCSC database to split the genetic features. Then, generate the .GEN files for each gene in the folder named snpSubsets.
+
+    Args:
+        str_inputFileName_genotype (str): File name of input genotype data
+        str_inputFileName_UCSCDB (str): File name of input genome regions
+        str_outputFilePath (str): File path of output file
+
+    Returns:
+        - Expected Success Response::
+
+            "step3: Split by gene. DONE!"
+    
+    Warnings:
+        "Warning of step3: .gen file should be sorted by chromosome and position"
+    
+    """
+    
     print("Warning of step3: .gen file should be sorted by chromosome and position")
     
     ### set default output path
