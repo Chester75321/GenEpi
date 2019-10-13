@@ -78,11 +78,6 @@ compress data by LD block:
   -r R            threshold for compression: R square
 ```
 
-
-**4\. Model Persistance**
-
-The final models of the step five and step six will be persisted in the folder **crossGeneResult** as **RFClassifier/Regressor.pkl** and **RFClassifier/Regressor_Covariates.pkl**, respectively. You could keep these models for future use without reconstructing them.
-
 ## Meta
 Chester (Yu-Chuan Chang) - chester75321@gmail.com  
 Distributed under the MIT license. See ``LICENSE`` for more information.  
