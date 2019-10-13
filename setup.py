@@ -23,6 +23,11 @@ setup(
     author = 'Chester (Yu-Chuan Chang)',
     author_email = 'chester75321@gmail.com',
     license = 'MIT',
+    project_urls={
+        "Source Code": "https://github.com/Chester75321/GenEpi",
+        "Documentation": "https://genepi.readthedocs.io/en/latest/",
+        "Bug Tracker": "https://github.com/Chester75321/GenEpi/issues",
+    },
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Science/Research',
