@@ -162,11 +162,11 @@
             
   <div class="section" id="quickstart">
 <span id="id1"></span><h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
-<p>This section gets you started quickly, the I/O format described in format, more usage examples please find in example, discussing each of the sub-modules introduced in How GenEpi work.</p>
+<p>This section gets you started quickly, the I/O described in <a class="reference external" href="format.html">I/O File Fomats</a>, more usage examples please find in <a class="reference external" href="example.html">More Usage Examples</a>, discussing each of the sub-modules introduced in <a class="reference external" href="workflow.html">How it Work</a>.</p>
 <div class="section" id="running-a-quick-test">
 <h2>Running a Quick Test<a class="headerlink" href="#running-a-quick-test" title="Permalink to this headline">¶</a></h2>
-<p>Please use following command to run a quick test, you will obtain all the outputs of GenEpi in your current folder.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ GenEpi -g example -p example -o ./
+<p>Please use following command to run a quick test, you will obtain all the outputs of GenEpi in your current folder.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ GenEpi -g example -p example -o ./
 </pre></div>
 </div>
 <p>The progress will print on console:</p>
@@ -179,10 +179,12 @@ step5: Detect cross gene epistasis. DONE! (Training score:0.63; 2-fold Test Scor
 step6: Ensemble with covariates. DONE! (Training score:0.63; 2-fold Test Score:0.60)
 </pre></div>
 </div>
-<p>GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, crossGeneResult) in output path (arg: -o). The following tree structure is the contents of the output folder. You could go to the folder <strong>crossGeneResult</strong> directly to obtain your main result table for episatasis in <strong>Result.csv</strong>.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>./
+<p>GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, crossGeneResult) in output path (arg: -o). The following tree structure is the contents of the output folder. You could go to the folder <strong>crossGeneResult</strong> directly to obtain your main result table for episatasis in <strong>Result.csv</strong>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./
 ├── GenEpi_Log_DATE-TIME.txt
 ├── crossGeneResult
+│   ├── Classifier.pkl
+│   ├── Classifier_Covariates.pkl
 │   ├── Feature.csv
 │   └── Result.csv
 ├── sample.LDBlock

@@ -3,11 +3,15 @@
 I/O File Fomats
 ===============
 
-We provided test data `sample.gen`_ and `sample.csv`_ in `example folder`_. After running a `quick test <quickstart\.html#Running a Quick Test>`_, GenEpi will automatically copy these test data to output path and generate all of the output folders and files as following tree structure. Please see the following detail about the format of these input and output data.::
-  
+We provided test data `sample.gen`_ and `sample.csv`_ in `example folder`_. After running a `quick test <quickstart\.html#Running a Quick Test>`_, GenEpi will automatically copy these test data to output path and generate all of the output folders and files as following tree structure. Please see the following detail about the format of these input and output data.
+
+.. code-block:: none
+
    ./
    ├── GenEpi_Log_DATE-TIME.txt
    ├── crossGeneResult
+   │   ├── Classifier.pkl
+   │   ├── Classifier_Covariates.pkl
    │   ├── Feature.csv
    │   └── Result.csv
    ├── sample.LDBlock
@@ -40,11 +44,15 @@ Input: Genotype Data
 
 `Sample.gen`_ is an example of genotype data. GenEpi takes the `Genotype File Format`_ (.GEN) used by Oxford statistical genetics tools, such as IMPUTE2 and SNPTEST as the input format for genotype data. If your files are in `PLINK format`_ (.BED/.BIM/.FAM) or `1000 Genomes Project text Variant Call Format`_ (.VCF), you could use `PLINK`_ with the following command to convert them to the .GEN file.
 
-If your files are in the .BED/.BIM/.FAM format.::
+If your files are in the .BED/.BIM/.FAM format.
+
+.. code-block:: none
 
    $ plink --bfile prefixOfTheFilename --recode oxford --out prefixOfTheFilename
 
-If your file is in the .VCF format.::
+If your file is in the .VCF format.
+
+.. code-block:: none
 
    $ plink --vcf filename.vcf --recode oxford --out prefixOfTheFilename
 
@@ -99,7 +107,7 @@ In first stage of GenEpi, all the .GEN file for each gene will be modeled gene b
 Output: CrossGeneResult Folder
 ------------------------------
 
-The results of the second stage of GenEpi - cross gene modeling will be generated in this folder. The formats are as same as the description in previous section `SingleGeneResult Folder <#SingleGeneResult Folder>`_
+The results of the second stage of GenEpi - cross gene modeling will be generated in this folder. The formats are as same as the description in previous section `SingleGeneResult Folder <#SingleGeneResult Folder>`_. Moreover, the final models will be persisted in this folder as Classifier/Regressor.pkl and Classifier/Regressor_Covariates.pkl, respectively. You could keep these models for future use without reconstructing them.
 
 Output: Porcess Log
 -------------------

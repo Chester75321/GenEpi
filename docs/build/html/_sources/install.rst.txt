@@ -6,11 +6,15 @@ Installation
 How to Install
 --------------
 
-GenEpi supports Python 3.7 and up. Use pip to install GenEpi and its dependencies::
+GenEpi supports Python 3.7 and up. Use pip to install GenEpi and its dependencies.
+
+.. code-block:: none
 
    $ pip install GenEpi
 
-Check that you installed the GenEpi sucessfully::
+Check that you installed the GenEpi sucessfully.
+
+.. code-block:: none
 
    $ GenEpi --help
 

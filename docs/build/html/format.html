@@ -168,10 +168,12 @@
             
   <div class="section" id="i-o-file-fomats">
 <span id="format"></span><h1>I/O File Fomats<a class="headerlink" href="#i-o-file-fomats" title="Permalink to this headline">¶</a></h1>
-<p>We provided test data <a class="reference external" href="https://github.com/Chester75321/GenEpi/raw/master/genepi/example/sample.gen">sample.gen</a> and <a class="reference external" href="https://github.com/Chester75321/GenEpi/raw/master/genepi/example/sample.csv">sample.csv</a> in <a class="reference external" href="https://github.com/Chester75321/GenEpi/raw/master/genepi/example">example folder</a>. After running a <a class="reference external" href="quickstart.html#RunningaQuickTest">quick test</a>, GenEpi will automatically copy these test data to output path and generate all of the output folders and files as following tree structure. Please see the following detail about the format of these input and output data.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>./
+<p>We provided test data <a class="reference external" href="https://github.com/Chester75321/GenEpi/raw/master/genepi/example/sample.gen">sample.gen</a> and <a class="reference external" href="https://github.com/Chester75321/GenEpi/raw/master/genepi/example/sample.csv">sample.csv</a> in <a class="reference external" href="https://github.com/Chester75321/GenEpi/raw/master/genepi/example">example folder</a>. After running a <a class="reference external" href="quickstart.html#RunningaQuickTest">quick test</a>, GenEpi will automatically copy these test data to output path and generate all of the output folders and files as following tree structure. Please see the following detail about the format of these input and output data.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>./
 ├── GenEpi_Log_DATE-TIME.txt
 ├── crossGeneResult
+│   ├── Classifier.pkl
+│   ├── Classifier_Covariates.pkl
 │   ├── Feature.csv
 │   └── Result.csv
 ├── sample.LDBlock
@@ -198,12 +200,12 @@
 <div class="section" id="input-genotype-data">
 <h2>Input: Genotype Data<a class="headerlink" href="#input-genotype-data" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://github.com/Chester75321/GenEpi/raw/master/genepi/example/sample.gen">Sample.gen</a> is an example of genotype data. GenEpi takes the <a class="reference external" href="http://www.cog-genomics.org/plink/1.9/formats#gen">Genotype File Format</a> (.GEN) used by Oxford statistical genetics tools, such as IMPUTE2 and SNPTEST as the input format for genotype data. If your files are in <a class="reference external" href="http://www.cog-genomics.org/plink/1.9/formats">PLINK format</a> (.BED/.BIM/.FAM) or <a class="reference external" href="http://www.cog-genomics.org/plink/1.9/formats#vcf">1000 Genomes Project text Variant Call Format</a> (.VCF), you could use <a class="reference external" href="http://www.cog-genomics.org/plink/1.9/">PLINK</a> with the following command to convert them to the .GEN file.</p>
-<p>If your files are in the .BED/.BIM/.FAM format.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ plink --bfile prefixOfTheFilename --recode oxford --out prefixOfTheFilename
+<p>If your files are in the .BED/.BIM/.FAM format.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ plink --bfile prefixOfTheFilename --recode oxford --out prefixOfTheFilename
 </pre></div>
 </div>
-<p>If your file is in the .VCF format.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ plink --vcf filename.vcf --recode oxford --out prefixOfTheFilename
+<p>If your file is in the .VCF format.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ plink --vcf filename.vcf --recode oxford --out prefixOfTheFilename
 </pre></div>
 </div>
 </div>
@@ -245,7 +247,7 @@ APOE,0.592
 </div>
 <div class="section" id="output-crossgeneresult-folder">
 <h2>Output: CrossGeneResult Folder<a class="headerlink" href="#output-crossgeneresult-folder" title="Permalink to this headline">¶</a></h2>
-<p>The results of the second stage of GenEpi - cross gene modeling will be generated in this folder. The formats are as same as the description in previous section <a class="reference external" href="#SingleGeneResultFolder">SingleGeneResult Folder</a></p>
+<p>The results of the second stage of GenEpi - cross gene modeling will be generated in this folder. The formats are as same as the description in previous section <a class="reference external" href="#SingleGeneResultFolder">SingleGeneResult Folder</a>. Moreover, the final models will be persisted in this folder as Classifier/Regressor.pkl and Classifier/Regressor_Covariates.pkl, respectively. You could keep these models for future use without reconstructing them.</p>
 </div>
 <div class="section" id="output-porcess-log">
 <h2>Output: Porcess Log<a class="headerlink" href="#output-porcess-log" title="Permalink to this headline">¶</a></h2>

@@ -3,12 +3,14 @@
 Quickstart
 ==========
 
-This section gets you started quickly, the I/O format described in format, more usage examples please find in example, discussing each of the sub-modules introduced in How GenEpi work.
+This section gets you started quickly, the I/O described in `I/O File Fomats <format\.html>`_, more usage examples please find in `More Usage Examples <example\.html>`_, discussing each of the sub-modules introduced in `How it Work <workflow\.html>`_.
 
 Running a Quick Test
 --------------------
 
-Please use following command to run a quick test, you will obtain all the outputs of GenEpi in your current folder.::
+Please use following command to run a quick test, you will obtain all the outputs of GenEpi in your current folder.
+
+.. code-block:: none
 
    $ GenEpi -g example -p example -o ./
 
@@ -24,11 +26,15 @@ The progress will print on console:
    step5: Detect cross gene epistasis. DONE! (Training score:0.63; 2-fold Test Score:0.61)
    step6: Ensemble with covariates. DONE! (Training score:0.63; 2-fold Test Score:0.60)
 
-GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, crossGeneResult) in output path (arg: -o). The following tree structure is the contents of the output folder. You could go to the folder **crossGeneResult** directly to obtain your main result table for episatasis in **Result.csv**.::
-   
+GenEpi will automatically generate three folders (snpSubsets, singleGeneResult, crossGeneResult) in output path (arg: -o). The following tree structure is the contents of the output folder. You could go to the folder **crossGeneResult** directly to obtain your main result table for episatasis in **Result.csv**.
+
+.. code-block:: none
+
    ./
    ├── GenEpi_Log_DATE-TIME.txt
    ├── crossGeneResult
+   │   ├── Classifier.pkl
+   │   ├── Classifier_Covariates.pkl
    │   ├── Feature.csv
    │   └── Result.csv
    ├── sample.LDBlock

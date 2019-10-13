@@ -5,6 +5,15 @@ Release History
 
 All notable changes to this project will be documented in this file.
 
+[2.0.3] - 2019-10-13
+--------------------
+
+Added
+
+-  Add GenEpi's documentation to Read the Docs
+-  Add model persistance for classifier and regressor
+
+
 [2.0.2] - 2019-09-18
 --------------------
 
@@ -12,12 +21,9 @@ Added
 
 -  Add multiprocessing for gene batch running
 
-.. _section-1:
 
 [2.0.1] - 2019-07-12
 --------------------
-
-.. _added-1:
 
 Added
 

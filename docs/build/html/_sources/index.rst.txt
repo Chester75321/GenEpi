@@ -27,7 +27,7 @@ GenEpi adopts two-element combinatorial encoding when producing features and mod
 Citing
 ------
 
-Please considering cite the following paper (currently avaliables as a pre-print in BioRxiv) if you use GenEpi in a scientific publication:
+Please considering cite the following paper (currently avaliables as a pre-print in BioRxiv) if you use GenEpi in a scientific publication.
 
 .. [1] Yu-Chuan Chang, June-Tai Wu, Ming-Yi Hong, Yi-An Tung, Ping-Han Hsieh, Sook Wah Yee, Kathleen M. Giacomini, Yen-Jen Oyang, and Chien-Yu Chen. "Genepi: Gene-Based Epistasis Discovery Using Machine Learning." bioRxiv  (2019): 421719.
 

@@ -3,7 +3,7 @@
 More Usage Examples
 ===================
 
-For checking all the optional arguments, please use --help:
+For checking all the optional arguments, please use --help.
 
 .. code-block:: none
 
@@ -56,7 +56,7 @@ GenEpi can support both case/control and quantitative studies, for quantitative 
 Changing the Genome Build
 -------------------------
 
-For changing the build of USCS genome browser, please modify the parameter -b:
+For changing the build of USCS genome browser, please modify the parameter -b.
 
 .. code-block:: none
 
@@ -65,7 +65,7 @@ For changing the build of USCS genome browser, please modify the parameter -b:
 Threshold for Dimension Reduction  
 ---------------------------------
 
-You could modify the threshold for Linkage Disequilibrium dimension reduction by following command:
+You could modify the threshold for Linkage Disequilibrium dimension reduction by following command.
 
 .. code-block:: none
 
