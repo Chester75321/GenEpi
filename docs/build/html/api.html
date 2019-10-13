@@ -245,7 +245,7 @@
 <p>&#64;author: Chester (Yu-Chuan Chang)</p>
 <dl class="function">
 <dt id="genepi.step1_downloadUCSCDB.DownloadUCSCDB">
-<code class="descclassname">genepi.step1_downloadUCSCDB.</code><code class="descname">DownloadUCSCDB</code><span class="sig-paren">(</span><em>str_outputFilePath='/Users/chester/anaconda3/lib/python3.7/site-packages/genepi'</em>, <em>str_hgbuild='hg19'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step1_downloadUCSCDB.html#DownloadUCSCDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step1_downloadUCSCDB.DownloadUCSCDB" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">genepi.step1_downloadUCSCDB.</code><code class="descname">DownloadUCSCDB</code><span class="sig-paren">(</span><em>str_outputFilePath='/Users/chester/Projects/bmcbioinformatics/GenEpi/genepi'</em>, <em>str_hgbuild='hg19'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step1_downloadUCSCDB.html#DownloadUCSCDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step1_downloadUCSCDB.DownloadUCSCDB" title="Permalink to this definition">¶</a></dt>
 <dd><p>To obtain the gene information such as official gene symbols and genomic coordinates, this function is for retrieving kgXref and knownGene data table from the UCSC human genome annotation database</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -368,7 +368,7 @@
 <p>&#64;author: Chester (Yu-Chuan Chang)</p>
 <dl class="function">
 <dt id="genepi.step3_splitByGene.SplitByGene">
-<code class="descclassname">genepi.step3_splitByGene.</code><code class="descname">SplitByGene</code><span class="sig-paren">(</span><em>str_inputFileName_genotype</em>, <em>str_inputFileName_UCSCDB='/Users/chester/anaconda3/lib/python3.7/site-packages/genepi/UCSCGenomeDatabase.txt'</em>, <em>str_outputFilePath=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step3_splitByGene.html#SplitByGene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step3_splitByGene.SplitByGene" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">genepi.step3_splitByGene.</code><code class="descname">SplitByGene</code><span class="sig-paren">(</span><em>str_inputFileName_genotype</em>, <em>str_inputFileName_UCSCDB='/Users/chester/Projects/bmcbioinformatics/GenEpi/genepi/UCSCGenomeDatabase.txt'</em>, <em>str_outputFilePath=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step3_splitByGene.html#SplitByGene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step3_splitByGene.SplitByGene" title="Permalink to this definition">¶</a></dt>
 <dd><p>In order to extract genetic features for a gene, this function used the start and end positions of each gene from the local UCSC database to split the genetic features. Then, generate the .GEN files for each gene in the folder named snpSubsets.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

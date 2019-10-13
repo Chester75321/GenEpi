@@ -13,7 +13,7 @@ import time
 import os
 import sys
 import multiprocessing as mp
-import genepi
+from . import *
 
 """"""""""""""""""""""""""""""
 # define functions 
@@ -137,9 +137,9 @@ def main(args=None):
             int_thread = int(args.t)
         
     if str_inputFileName_genotype == "example" and str_inputFileName_phenotype == "example":
-        str_command = "cp " + os.path.join(os.path.dirname(genepi.__file__), "example", "sample.csv") + " " + str_outputFilePath
+        str_command = "cp " + os.path.join(os.path.dirname(__file__), "example", "sample.csv") + " " + str_outputFilePath
         os.system(str_command)
-        str_command = "cp " + os.path.join(os.path.dirname(genepi.__file__), "example", "sample.gen") + " " + str_outputFilePath
+        str_command = "cp " + os.path.join(os.path.dirname(__file__), "example", "sample.gen") + " " + str_outputFilePath
         os.system(str_command)
         str_command = "GenEpi -g " + os.path.join(str_outputFilePath, "sample.gen") + " "
         str_command += "-p " + os.path.join(str_outputFilePath, "sample.csv") + " "
@@ -179,42 +179,42 @@ def main(args=None):
         
         ### step1_downloadUCSCDB
         if args.updatedb:
-            genepi.DownloadUCSCDB(str_hgbuild=args.b)
+            DownloadUCSCDB(str_hgbuild=args.b)
     
         ### step2_estimateLD
         if args.compressld:
-            genepi.EstimateLDBlock(str_inputFileName_genotype, str_outputFilePath=str_outputFilePath, float_threshold_DPrime=float(args.d), float_threshold_RSquare=float(args.r))
+            EstimateLDBlock(str_inputFileName_genotype, str_outputFilePath=str_outputFilePath, float_threshold_DPrime=float(args.d), float_threshold_RSquare=float(args.r))
             str_inputFileName_genotype = os.path.join(str_outputFilePath, os.path.basename(str_inputFileName_genotype.replace(".gen", "_LDReduced.gen")))
         
         ### step3_splitByGene
         if str_inputFileName_regions == "None":
-            genepi.SplitByGene(str_inputFileName_genotype, str_outputFilePath=os.path.join(str_outputFilePath, "snpSubsets"))
+            SplitByGene(str_inputFileName_genotype, str_outputFilePath=os.path.join(str_outputFilePath, "snpSubsets"))
         else:
-            genepi.SplitByGene(str_inputFileName_genotype, str_inputFileName_UCSCDB=str_inputFileName_regions, str_outputFilePath=os.path.join(str_outputFilePath, "snpSubsets"))
+            SplitByGene(str_inputFileName_genotype, str_inputFileName_UCSCDB=str_inputFileName_regions, str_outputFilePath=os.path.join(str_outputFilePath, "snpSubsets"))
         
         if args.m=="c":
             ### step4_singleGeneEpistasis_Logistic (for case/control trial)
-            genepi.BatchSingleGeneEpistasisLogistic(os.path.join(str_outputFilePath, "snpSubsets"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
+            BatchSingleGeneEpistasisLogistic(os.path.join(str_outputFilePath, "snpSubsets"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
             ### step5_crossGeneEpistasis_Logistic (for case/control trial)
-            float_score_train, float_score_test = genepi.CrossGeneEpistasisLogistic(os.path.join(str_outputFilePath, "singleGeneResult"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
+            float_score_train, float_score_test = CrossGeneEpistasisLogistic(os.path.join(str_outputFilePath, "singleGeneResult"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
             file_outputFile.writelines("Overall genetic feature performance (F1 score)" + "\n")
             file_outputFile.writelines("Training: " + str(float_score_train) + "\n")
             file_outputFile.writelines("Testing (" + str(args.k) + "-fold CV): " + str(float_score_test) + "\n" + "\n")
             ### step6_ensembleWithCovariates (for case/control trial)
-            float_score_train, float_score_test = genepi.EnsembleWithCovariatesClassifier(os.path.join(str_outputFilePath, "crossGeneResult", "Feature.csv"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
+            float_score_train, float_score_test = EnsembleWithCovariatesClassifier(os.path.join(str_outputFilePath, "crossGeneResult", "Feature.csv"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
             file_outputFile.writelines("Ensemble with co-variate performance (F1 score)" + "\n")
             file_outputFile.writelines("Training: " + str(float_score_train) + "\n")
             file_outputFile.writelines("Testing (" + str(args.k) + "-fold CV): " + str(float_score_test) + "\n" + "\n")
         else:
             ### step4_singleGeneEpistasis_Lasso (for quantitative trial)
-            genepi.BatchSingleGeneEpistasisLasso(os.path.join(str_outputFilePath, "snpSubsets"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
+            BatchSingleGeneEpistasisLasso(os.path.join(str_outputFilePath, "snpSubsets"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
             ### step5_crossGeneEpistasis_Lasso (for quantitative trial)
-            float_score_train, float_score_test = genepi.CrossGeneEpistasisLasso(os.path.join(str_outputFilePath, "singleGeneResult"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
+            float_score_train, float_score_test = CrossGeneEpistasisLasso(os.path.join(str_outputFilePath, "singleGeneResult"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
             file_outputFile.writelines("Overall genetic feature performance (Average of the Pearson and Spearman correlation)" + "\n")
             file_outputFile.writelines("Training: " + str(float_score_train) + "\n")
             file_outputFile.writelines("Testing (" + str(args.k) + "-fold CV): " + str(float_score_test) + "\n" + "\n")
             ### step6_ensembleWithCovariates (for quantitative trial)
-            float_score_train, float_score_test = genepi.EnsembleWithCovariatesRegressor(os.path.join(str_outputFilePath, "crossGeneResult", "Feature.csv"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
+            float_score_train, float_score_test = EnsembleWithCovariatesRegressor(os.path.join(str_outputFilePath, "crossGeneResult", "Feature.csv"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
             file_outputFile.writelines("Ensemble with co-variate performance (Average of the Pearson and Spearman correlation)" + "\n")
             file_outputFile.writelines("Training: " + str(float_score_train) + "\n")
             file_outputFile.writelines("Testing (" + str(args.k) + "-fold CV): " + str(float_score_test) + "\n" + "\n")
