@@ -92,7 +92,7 @@ Since GenEpi is a gene-based epistasis discovering method, the input genotype wi
 Output: SingleGeneResult Folder
 -------------------------------
 
-In first stage of GenEpi, all the .GEN file for each gene will be modeled gene by gene. Every models will output two kins of data the GeneSymbol_Result.csv and GeneSymbol_Feature.csv. The format of GeneSymbol_Result.csv please refer to the section `Interpreting the Main Result Table <quickstart\.html#Interpreting the Main Result Table>`_. The only difference is the GeneSymbol_Result.csv is a result table for single gene. Moreover, GeneSymbol_Feature.csv are the raw features corresponds to the episatsis in GeneSymbol_Result.csv. Beside these two types of files, there is a file named All_Logistic/Lasso.csv, which contains all the prediction scores of each gene, please see as following example.
+In first stage of GenEpi, all the .GEN file for each gene will be modeled gene by gene. Every models will output two kinds of data the GeneSymbol_Result.csv and GeneSymbol_Feature.csv. The format of GeneSymbol_Result.csv please refer to the section `Interpreting the Main Result Table <quickstart\.html#Interpreting the Main Result Table>`_. The only difference is the GeneSymbol_Result.csv is a result table for single gene. Moreover, GeneSymbol_Feature.csv are the raw features corresponds to the episatsis in GeneSymbol_Result.csv. Beside these two types of files, there is a file named All_Logistic/Lasso.csv, which contains all the prediction scores of each gene, please see as following example.
 
 .. code-block:: none
 

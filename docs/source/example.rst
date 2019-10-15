@@ -42,7 +42,7 @@ Applying on Your Data
 
    $ GenEpi -g full_path_of_your_.GEN_file -p full_path_of_your_.CSV_file -o ./
 
-For Quantatative Study
+For Quantitative Study
 ----------------------
 
 GenEpi can support both case/control and quantitative studies, for quantitative studies please modify the parameter -m. You could download the `test data`_ and excute the following command.
@@ -71,10 +71,10 @@ You could modify the threshold for Linkage Disequilibrium dimension reduction by
 
    $ GenEpi -g example -p example -o ./ --compressld -d 0.9 -r 0.9
 
-Seld-defined Genome Region
+Self-defined Genome Region
 --------------------------
 
-Please prepare your seld-defined genome region in this `format <format\.html#Seld-defined Genome Regions>`_. Then, use the parameter -s for applying it on your data.
+Please prepare your self-defined genome region in this `format <format\.html#Seld-defined Genome Regions>`_. Then, use the parameter -s for applying it on your data.
 
 .. code-block:: none
 

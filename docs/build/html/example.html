@@ -90,10 +90,10 @@
 <li class="toctree-l1"><a class="reference internal" href="format.html">I/O File Fomats</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">More Usage Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#applying-on-your-data">Applying on Your Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#for-quantatative-study">For Quantatative Study</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#for-quantitative-study">For Quantitative Study</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#changing-the-genome-build">Changing the Genome Build</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#threshold-for-dimension-reduction">Threshold for Dimension Reduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#seld-defined-genome-region">Seld-defined Genome Region</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#self-defined-genome-region">Self-defined Genome Region</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="workflow.html">How it Works</a></li>
@@ -199,8 +199,8 @@ compress data by LD block:
 </pre></div>
 </div>
 </div>
-<div class="section" id="for-quantatative-study">
-<h2>For Quantatative Study<a class="headerlink" href="#for-quantatative-study" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="for-quantitative-study">
+<h2>For Quantitative Study<a class="headerlink" href="#for-quantitative-study" title="Permalink to this headline">¶</a></h2>
 <p>GenEpi can support both case/control and quantitative studies, for quantitative studies please modify the parameter -m. You could download the <a class="reference external" href="https://github.com/Chester75321/GenEpi/raw/master/genepi/example">test data</a> and excute the following command.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ GenEpi -g sample.gen -p sample_q.csv -o ./ -m r
 </pre></div>
@@ -220,9 +220,9 @@ compress data by LD block:
 </pre></div>
 </div>
 </div>
-<div class="section" id="seld-defined-genome-region">
-<h2>Seld-defined Genome Region<a class="headerlink" href="#seld-defined-genome-region" title="Permalink to this headline">¶</a></h2>
-<p>Please prepare your seld-defined genome region in this <a class="reference external" href="format.html#Seld-definedGenomeRegions">format</a>. Then, use the parameter -s for applying it on your data.</p>
+<div class="section" id="self-defined-genome-region">
+<h2>Self-defined Genome Region<a class="headerlink" href="#self-defined-genome-region" title="Permalink to this headline">¶</a></h2>
+<p>Please prepare your self-defined genome region in this <a class="reference external" href="format.html#Seld-definedGenomeRegions">format</a>. Then, use the parameter -s for applying it on your data.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ GenEpi -s full_path_of_your_genome_region_file -g full_path_of_your_.GEN_file -p full_path_of_your_.CSV_file -o ./
 </pre></div>
 </div>
