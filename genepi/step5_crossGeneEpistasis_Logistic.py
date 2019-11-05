@@ -17,6 +17,7 @@ os.environ["PYTHONWARNINGS"] = "ignore"
 
 import os
 import numpy as np
+import scipy as sp
 np.seterr(divide='ignore', invalid='ignore')
 from sklearn.feature_selection import chi2
 from sklearn import linear_model
@@ -27,6 +28,10 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.externals import joblib
 import sklearn.metrics as skMetric
 import scipy.stats as stats
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
 
 from genepi.step4_singleGeneEpistasis_Logistic import RandomizedLogisticRegression
 from genepi.step4_singleGeneEpistasis_Logistic import LogisticRegressionL1CV
@@ -125,6 +130,105 @@ def ClassifierModelPersistence(np_X, np_y, str_outputFilePath = "", int_nJobs = 
     estimator_grid.fit(X, y)
     
     joblib.dump(estimator_grid.best_estimator_, os.path.join(str_outputFilePath, "Classifier.pkl"))
+
+def fsigmoid(x, a, b):
+    float_return = 1.0/(1.0+np.exp(-a*(x-b)))
+    return float_return
+
+def PlotPolygenicScore(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1, str_outputFilePath=""):
+    """
+
+    Plot figure for polygenic score, including group distribution and prevalence to PGS
+
+    Args:
+        np_X (ndarray): 2D array containing genotype data with `int8` type
+        np_y (ndarray): 2D array containing phenotype data with `float` type
+        int_kOfKFold (int): The k for k-fold cross validation (default: 2)
+        int_nJobs (int): The number of thread (default: 1)
+
+    Returns:
+        None
+    
+    """
+
+    X = np_X
+    y = np_y
+    X_sparse = coo_matrix(X)
+    X, X_sparse, y = shuffle(X, X_sparse, y, random_state=0)
+    kf = KFold(n_splits=int_kOfKFold)
+
+    list_target = []
+    list_predict = []
+    list_proba = []
+    for idxTr, idxTe in kf.split(X):
+        cost = [2**x for x in range(-8, 8)]
+        parameters = [{'C':cost, 'penalty':['l1'], 'dual':[False], 'class_weight':['balanced']}]
+        kf_estimator = KFold(n_splits=2)
+        estimator_logistic = linear_model.LogisticRegression(max_iter=100, solver='liblinear')
+        estimator_grid = GridSearchCV(estimator_logistic, parameters, scoring='f1', n_jobs=1, cv=kf_estimator)
+        estimator_grid.fit(X[idxTr], y[idxTr])
+        list_predict_this = estimator_grid.best_estimator_.predict(X[idxTe])
+        list_proba_this = estimator_grid.best_estimator_.predict_proba(X[idxTe])
+        for idx_y, idx_predict, idx_proba in zip(list(y[idxTe]), list_predict_this, list_proba_this):
+            list_target.append(float(idx_y))
+            list_predict.append(idx_predict)
+            list_proba.append(idx_proba)
+        
+    float_f1Score = skMetric.f1_score(list_target, list_predict)
+
+    #-------------------------
+    # group distribution
+    #-------------------------
+    pd_pgs = pd.concat([pd.DataFrame(list_target), pd.DataFrame(list_predict), pd.DataFrame(np.array(list_proba)[:,1])], axis=1)
+    pd_pgs.columns = ['target', 'predict', 'proba']
+
+    pd_case = pd_pgs[pd_pgs.target == 1.0]
+    sns.distplot(pd_case['proba'],  kde=True, bins=25, label='Case', color="#c9474b")
+    pd_control = pd_pgs[pd_pgs.target == 0.0]
+    sns.distplot(pd_control['proba'],  kde=True, bins=25, label='Control', color="#4e7e91")
+
+    # plot formatting
+    str_method = "GenEpi"
+    plt.legend(prop={'size': 12})
+    plt.title(str_method + ' on ADNI: ' + "%.4f" % float_f1Score + ' (F1 Score)')
+    plt.xlim(0, 1)
+    plt.ylim(0, 15)
+    plt.xlabel('Polygenic Score')
+    plt.ylabel('Frequency')
+    plt.savefig(os.path.join(str_outputFilePath, str_method + "_PGS_.png"), dpi=300)
+    plt.close('all')
+
+    #-------------------------
+    # prevalence to PGS
+    #-------------------------
+    int_step = 5
+    np_percentile = np.percentile(pd_pgs['proba'], q=list(range(0, 100 + int_step, int_step)))
+    pd_pgs['percentile'] = np.searchsorted(np_percentile, pd_pgs['proba'], side='left') * int_step
+
+    pd_prevalence_obs = pd_pgs.groupby('percentile').sum()[['target']]
+    pd_prevalence_obs_count = pd_pgs.groupby('percentile').count()[['target']]
+    pd_prevalence_obs = pd_prevalence_obs/pd_prevalence_obs_count
+    pd_prevalence_obs.columns = ['obs']
+    pd_prevalence_pre = pd_pgs.groupby('percentile').mean()[['proba']]
+    pd_prevalence_pre.columns = ['pre']
+
+    pd_rr_ingroup_case = pd_pgs.groupby('percentile').sum()[['target']]
+    pd_rr_ingroup_sum = pd_pgs.groupby('percentile').count()[['target']]
+    pd_rr = (pd_rr_ingroup_case / pd_rr_ingroup_sum) / (pd_pgs.sum()[['target']] / pd_pgs.count()[['target']])
+    pd_rr.columns = ['Relative Risk']
+
+    sns.scatterplot(x=pd_prevalence_obs.index, y=pd_prevalence_obs['obs'], hue=pd_rr['Relative Risk'], palette=sns.cubehelix_palette(8, start=.5, rot=-.75, as_cmap=True))
+    popt, pcov = sp.optimize.curve_fit(fsigmoid, pd_prevalence_pre.index, pd_prevalence_pre['pre'], method='dogbox', bounds=([0., 0.],[1., 100.]))
+    sns.lineplot(x=pd_prevalence_pre.index, y=fsigmoid(pd_prevalence_pre.index, *popt), color="black")
+
+    plt.legend(prop={'size': 12}, loc='upper left')
+    plt.title(str_method + ' on ADNI: ' + "%.4f" % float_f1Score + ' (F1 Score)')
+    plt.xlim(0, 100)
+    plt.ylim(0, 1)
+    plt.xlabel('Polygenic Score Percentile')
+    plt.ylabel('Prevalence of Percentile Group')
+    plt.savefig(os.path.join(str_outputFilePath, str_method + "_Prevalence.png"), dpi=300)
+    plt.close('all')
 
 """"""""""""""""""""""""""""""
 # main function
@@ -315,6 +419,9 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
         file_outputFile.writelines(",".join(np_genotype_rsid) + "\n")
         for idx_subject in range(0, np_genotype.shape[0]):
             file_outputFile.writelines(",".join(np_genotype[idx_subject, :].astype(str)) + "\n")
+
+    ### output figures
+    PlotPolygenicScore(np_genotype, np_phenotype[:, -1].astype(int), int_nJobs, str_outputFilePath)
 
     #-------------------------
     # dump persistent model
