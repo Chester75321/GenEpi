@@ -429,7 +429,7 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
             file_outputFile.writelines(",".join(np_genotype[idx_subject, :].astype(str)) + "\n")
 
     ### output figures
-    PlotPolygenicScore(np_genotype, np_phenotype[:, -1].astype(int), int_nJobs, str_outputFilePath)
+    PlotPolygenicScore(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs, str_outputFilePath)
 
     #-------------------------
     # dump persistent model
