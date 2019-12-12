@@ -14,6 +14,44 @@ import numpy as np
 """"""""""""""""""""""""""""""
 # main function
 """"""""""""""""""""""""""""""
+def SplitMegaGene(list_snpsOnGene, int_window, int_step, str_outputFilePath, str_outputFileName):
+    """
+
+    In order to extract genetic features for a gene, this function used the start and end positions of each gene from the local UCSC database to split the genetic features. Then, generate the .GEN files for each gene in the folder named snpSubsets.
+
+    Args:
+        list_snpsOnGene (list): A list contains SNPs on a gene
+        int_window (int): The size of the sliding window
+        int_step (int): The step of the sliding window
+        str_outputFilePath (str): File path of output file
+        str_outputFileName (str): File name of output file
+
+    Returns:
+        None
+    
+    """
+    
+    ### write to gen file if this gene is not mega gene
+    int_total_window = int((len(list_snpsOnGene)-int_window)/int_step)
+    if int_total_window <= 0:
+        with open(os.path.join(str_outputFilePath, str_outputFileName + ".gen"), "w") as file_outputFile:
+            for item in list_snpsOnGene:
+                file_outputFile.writelines(item)
+
+    ### write gen file of each window on current gene (output file name: geneSymbol_numOfSNPOnGene@windowNum.gen)
+    else: 
+        for idx_w in range(int_total_window):
+            with open(os.path.join(str_outputFilePath, str_outputFileName.split("_")[0] + "@" + str(idx_w) + "_" + str_outputFileName.split("_")[1] + ".gen"), "w") as file_outputFile:
+                for item in list_snpsOnGene[int_step*idx_w:int_step*idx_w+int_window]:
+                    file_outputFile.writelines(item)
+        
+        ### write reminder SNPs to gen file
+        with open(os.path.join(str_outputFilePath, str_outputFileName.split("_")[0] + "@" + str(int_total_window) + "_" + str_outputFileName.split("_")[1] + ".gen"), "w") as file_outputFile:
+            for item in list_snpsOnGene[int_step*int_total_window:]:
+                file_outputFile.writelines(item)
+    
+    return
+
 def SplitByGene(str_inputFileName_genotype, str_inputFileName_UCSCDB = os.path.dirname(os.path.abspath(__file__)) + "/UCSCGenomeDatabase.txt", str_outputFilePath = ""):
     """
 
@@ -35,6 +73,9 @@ def SplitByGene(str_inputFileName_genotype, str_inputFileName_UCSCDB = os.path.d
     """
     
     print("Warning of step3: .gen file should be sorted by chromosome and position")
+
+    int_window = 1000
+    int_step = 200
     
     ### set default output path
     if str_outputFilePath == "":
@@ -66,11 +107,13 @@ def SplitByGene(str_inputFileName_genotype, str_inputFileName_UCSCDB = os.path.d
             ### current snp of genotype data is in next chromosome
             elif int_chromosome > int(np_UCSCGenomeDatabase[idx_gene, 0]):
                 if len(list_snpsOnGene) != 0:
-                    ### write gen file of current gene (output file name: geneSymbol_numOfSNPOnGene.gen)
-                    str_outputFileName = str(np_UCSCGenomeDatabase[idx_gene, 4]) + "_" + str(len(list_snpsOnGene)) + ".gen"
-                    with open(os.path.join(str_outputFilePath, str_outputFileName), "w") as file_outputFile:
-                        for item in list_snpsOnGene:
-                            file_outputFile.writelines(item)
+                    #### write gen file of current gene (output file name: geneSymbol_numOfSNPOnGene.gen)
+                    #str_outputFileName = str(np_UCSCGenomeDatabase[idx_gene, 4]) + "_" + str(len(list_snpsOnGene)) + ".gen"
+                    #with open(os.path.join(str_outputFilePath, str_outputFileName), "w") as file_outputFile:
+                    #    for item in list_snpsOnGene:
+                    #        file_outputFile.writelines(item)
+                    str_outputFileName = str(np_UCSCGenomeDatabase[idx_gene, 4]) + "_" + str(len(list_snpsOnGene))
+                    SplitMegaGene(list_snpsOnGene, int_window, int_step, str_outputFilePath, str_outputFileName)
                 list_snpsOnGene = []
                 while int_chromosome > int(np_UCSCGenomeDatabase[idx_gene, 0]):
                     ### jump to next gene
@@ -90,11 +133,13 @@ def SplitByGene(str_inputFileName_genotype, str_inputFileName_UCSCDB = os.path.d
                 ### snp position exceed this gene
                 elif int_position > int(np_UCSCGenomeDatabase[idx_gene, 2]):
                     if len(list_snpsOnGene) != 0:
-                        ### write gen file of current gene (output file name: geneSymbol_numOfSNPOnGene.gen)
-                        str_outputFileName = str(np_UCSCGenomeDatabase[idx_gene, 4]) + "_" + str(len(list_snpsOnGene)) + ".gen"
-                        with open(os.path.join(str_outputFilePath, str_outputFileName), "w") as file_outputFile:
-                            for item in list_snpsOnGene:
-                                file_outputFile.writelines(item)
+                        #### write gen file of current gene (output file name: geneSymbol_numOfSNPOnGene.gen)
+                        #str_outputFileName = str(np_UCSCGenomeDatabase[idx_gene, 4]) + "_" + str(len(list_snpsOnGene)) + ".gen"
+                        #with open(os.path.join(str_outputFilePath, str_outputFileName), "w") as file_outputFile:
+                        #    for item in list_snpsOnGene:
+                        #        file_outputFile.writelines(item)
+                        str_outputFileName = str(np_UCSCGenomeDatabase[idx_gene, 4]) + "_" + str(len(list_snpsOnGene))
+                        SplitMegaGene(list_snpsOnGene, int_window, int_step, str_outputFilePath, str_outputFileName)
                     list_snpsOnGene = []
                     while int_position > int(np_UCSCGenomeDatabase[idx_gene, 2]) and int_chromosome == int(np_UCSCGenomeDatabase[idx_gene, 0]):
                         ### jump to next gene

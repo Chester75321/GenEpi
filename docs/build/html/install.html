@@ -203,33 +203,32 @@ compress data by LD block:
 <p>Here is the dependency list for running GenEpi. pip takes care of these dependencies automatically when you install GenEpi.</p>
 <blockquote>
 <div><ul class="simple">
-<li>numpy &gt;= 1.13.0</li>
-<li>psutil &gt;= 4.3.0</li>
-<li>pymysql &gt;= 0.8.0</li>
-<li>scipy &gt;= 0.19.0</li>
-<li>scikit-learn&gt;=0.21.2</li>
+<li><p>numpy &gt;= 1.13.0</p></li>
+<li><p>psutil &gt;= 4.3.0</p></li>
+<li><p>pymysql &gt;= 0.8.0</p></li>
+<li><p>scipy &gt;= 0.19.0</p></li>
+<li><p>scikit-learn&gt;=0.21.2</p></li>
 </ul>
 </div></blockquote>
 </div>
 <div class="section" id="system-requirements">
 <h2>System Requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h2>
 <p>For running a quick test, you could install GenEpi on any laptop e.g. a MacBook. When applying GenEpi on a real whole genome-wide dataset, here are recommended system requirements:</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Processor:</th><td class="field-body">2.3 GHz Intel XEON® E5-2673 v4 * 32</td>
-</tr>
-<tr class="field-even field"><th class="field-name">RAM:</th><td class="field-body">256 GiB</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Storage:</th><td class="field-body">500 GiB</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Processor</dt>
+<dd class="field-odd"><p>2.3 GHz Intel XEON® E5-2673 v4 * 32</p>
+</dd>
+<dt class="field-even">RAM</dt>
+<dd class="field-even"><p>256 GiB</p>
+</dd>
+<dt class="field-odd">Storage</dt>
+<dd class="field-odd"><p>500 GiB</p>
+</dd>
+</dl>
 <p>These requirements are refer to the specification of Microsoft Azure E32 v3.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">GenEpi is a memory-consuming package, which might cause memory errors when calculating the epistasis of a gene containing a large number of SNPs. We recommend that the memory for running GenEpi should be over 256 GB.</p>
+<p class="admonition-title">Note</p>
+<p>GenEpi is a memory-consuming package, which might cause memory errors when calculating the epistasis of a gene containing a large number of SNPs. We recommend that the memory for running GenEpi should be over 256 GB.</p>
 </div>
 </div>
 </div>

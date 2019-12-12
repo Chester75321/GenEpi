@@ -5,6 +5,13 @@ Release History
 
 All notable changes to this project will be documented in this file.
 
+[2.0.4] - 2019-12-12
+--------------------
+
+Added
+
+- Add sliding windows scanning to deal with mega genes
+
 [2.0.3] - 2019-10-13
 --------------------
 

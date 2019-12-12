@@ -207,6 +207,14 @@ def CrossGeneEpistasisLasso(str_inputFilePath_feature, str_inputFileName_phenoty
     #-------------------------
     # preprocess data
     #-------------------------
+    ### f regression feature selection
+    np_fRegression = -np.log10(f_regression(np_genotype.astype(int), np_phenotype[:, -1].astype(float))[1])
+    np_selectedIdx = np.array([x > 5 for x in np_fRegression])
+    np_genotype = np_genotype[:, np_selectedIdx]
+    np_genotype_rsid = np_genotype_rsid[np_selectedIdx]
+    if np_genotype_rsid.shape[0] == 0:
+        return 0.0
+
     ### select degree 1 feature
     np_genotype_rsid_degree = np.array([str(x).count('*') + 1 for x in np_genotype_rsid])
     np_selectedIdx = np.array([x == 1 for x in np_genotype_rsid_degree])
@@ -274,11 +282,11 @@ def CrossGeneEpistasisLasso(str_inputFilePath_feature, str_inputFileName_phenoty
         for idx_feature in range(0, np_genotype_rsid.shape[0]):
             ### if this feature is single gene epistasis
             if np_genotype_rsid[idx_feature,] in dict_geneMap.keys():
-                str_thisOutput = str(np_genotype_rsid[idx_feature,]) + "," + str(np_weight[idx_feature,]) + "," + str(np_fRegression[idx_feature,]) + "," + str(np_genotypeFreq[idx_feature]) + "," + str(dict_geneMap[np_genotype_rsid[idx_feature,]]) + "," + str(dict_score[dict_geneMap[np_genotype_rsid[idx_feature,]]]) + "\n"
+                str_thisOutput = str(np_genotype_rsid[idx_feature,]) + "," + str(np_weight[idx_feature,]) + "," + str(np_fRegression[idx_feature,]) + "," + str(np_genotypeFreq[idx_feature]) + "," + str(dict_geneMap[np_genotype_rsid[idx_feature,]]).split("@")[0] + "," + str(dict_score[dict_geneMap[np_genotype_rsid[idx_feature,]]]) + "\n"
                 file_outputFile.writelines(str_thisOutput)
             ### else this feature is cross gene epistasis
             else:
-                str_thisOutput = str(np_genotype_rsid[idx_feature,]) + "," + str(np_weight[idx_feature,]) + "," + str(np_fRegression[idx_feature,]) + "," + str(np_genotypeFreq[idx_feature]) + "," + str(dict_geneMap[np_genotype_rsid[idx_feature,].split("*")[0]]) + "*" + str(dict_geneMap[np_genotype_rsid[idx_feature,].split("*")[1]]) + ", " + "\n"
+                str_thisOutput = str(np_genotype_rsid[idx_feature,]) + "," + str(np_weight[idx_feature,]) + "," + str(np_fRegression[idx_feature,]) + "," + str(np_genotypeFreq[idx_feature]) + "," + str(dict_geneMap[np_genotype_rsid[idx_feature,].split("*")[0]]).split("@")[0] + "*" + str(dict_geneMap[np_genotype_rsid[idx_feature,].split("*")[1]]).split("@")[0] + ", " + "\n"
                 file_outputFile.writelines(str_thisOutput)
 
     ### output feature

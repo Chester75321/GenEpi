@@ -195,7 +195,7 @@ def PlotPolygenicScore(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1, str_outputFi
     plt.ylim(0, 15)
     plt.xlabel('Polygenic Score')
     plt.ylabel('Frequency')
-    plt.savefig(os.path.join(str_outputFilePath, str_method + "_PGS_.png"), dpi=300)
+    plt.savefig(os.path.join(str_outputFilePath, str_method + "_PGS.png"), dpi=300)
     plt.close('all')
 
     #-------------------------
@@ -335,6 +335,14 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
     #-------------------------
     # preprocess data
     #-------------------------
+    ### chi-square test selection
+    np_chi2 = -np.log10(chi2(np_genotype.astype(int), np_phenotype[:, -1].astype(int))[1])
+    np_selectedIdx = np.array([x > 5 for x in np_chi2])
+    np_genotype = np_genotype[:, np_selectedIdx]
+    np_genotype_rsid = np_genotype_rsid[np_selectedIdx]
+    if np_genotype_rsid.shape[0] == 0:
+        return 0.0
+
     ### select degree 1 feature
     np_genotype_rsid_degree = np.array([str(x).count('*') + 1 for x in np_genotype_rsid])
     np_selectedIdx = np.array([x == 1 for x in np_genotype_rsid_degree])
@@ -407,13 +415,13 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
         for idx_feature in range(0, np_genotype_rsid.shape[0]):
             ### if this feature is single gene epistasis
             if np_genotype_rsid[idx_feature,] in dict_geneMap.keys():
-                str_thisOutput = str(np_genotype_rsid[idx_feature,]) + "," + str(np_weight[idx_feature,]) + "," + str(np_chi2[idx_feature,]) + "," + str(list_oddsRatio[idx_feature]) + "," + str(np_genotypeFreq[idx_feature]) + "," + str(dict_geneMap[np_genotype_rsid[idx_feature,]]) + "," + str(dict_score[dict_geneMap[np_genotype_rsid[idx_feature,]]]) + "\n"
+                str_thisOutput = str(np_genotype_rsid[idx_feature,]) + "," + str(np_weight[idx_feature,]) + "," + str(np_chi2[idx_feature,]) + "," + str(list_oddsRatio[idx_feature]) + "," + str(np_genotypeFreq[idx_feature]) + "," + str(dict_geneMap[np_genotype_rsid[idx_feature,]]).split("@")[0] + "," + str(dict_score[dict_geneMap[np_genotype_rsid[idx_feature,]]]) + "\n"
                 file_outputFile.writelines(str_thisOutput)
             ### else this feature is cross gene epistasis
             else:
-                str_thisOutput = str(np_genotype_rsid[idx_feature,]) + "," + str(np_weight[idx_feature,]) + "," + str(np_chi2[idx_feature,]) + "," + str(list_oddsRatio[idx_feature]) + "," + str(np_genotypeFreq[idx_feature]) + "," + str(dict_geneMap[np_genotype_rsid[idx_feature,].split("*")[0]]) + "*" + str(dict_geneMap[np_genotype_rsid[idx_feature,].split("*")[1]]) + ", " + "\n"
-                file_outputFile.writelines(str_thisOutput)
-            
+                str_thisOutput = str(np_genotype_rsid[idx_feature,]) + "," + str(np_weight[idx_feature,]) + "," + str(np_chi2[idx_feature,]) + "," + str(list_oddsRatio[idx_feature]) + "," + str(np_genotypeFreq[idx_feature]) + "," + str(dict_geneMap[np_genotype_rsid[idx_feature,].split("*")[0]]).split("@")[0] + "*" + str(dict_geneMap[np_genotype_rsid[idx_feature,].split("*")[1]]).split("@")[0] + ", " + "\n"
+                file_outputFile.writelines(str_thisOutput)            
+ 
     ### output feature
     with open(os.path.join(str_outputFilePath, "Feature.csv"), "w") as file_outputFile:
         file_outputFile.writelines(",".join(np_genotype_rsid) + "\n")
