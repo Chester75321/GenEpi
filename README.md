@@ -15,11 +15,11 @@ GenEpi adopts two-element combinatorial encoding when producing features and mod
 (Latest News!) The standalone and installation free app - AppGenEpi (v.beta) is now released. Have fun~
 
 | OS    |  Version |                                                Link                                                        |
-|-------|:--------:|:----------------------------------------------------------------------------------------------------------:|
+|-------|:--------:|-----------------------------------------------------------------------------------------------------------:|
 | MacOS | Catalina | [AppGenEpi_MacOS_beta](https://drive.google.com/file/d/1jOn3gOCpXW_OlpxNkpDzuRxt2_fIM8UM/view?usp=sharing) |
 | Linux | CentOS 7 | [AppGenEpi_Linux_beta](https://drive.google.com/file/d/1hDpaoOgVXXYtHlBwx3QZ111OiyCqXSEE/view?usp=sharing) |
 
-<img src="https://github.com/Chester75321/GenEpi/raw/master/AppGenEpi.png" width="90%" height="90%">
+<img src="https://github.com/Chester75321/GenEpi/raw/master/AppGenEpi.png" width="100%" height="100%">
 
 The snapshot of AppGenEpi.
 
