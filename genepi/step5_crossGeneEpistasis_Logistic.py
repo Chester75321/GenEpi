@@ -182,6 +182,7 @@ def PlotPolygenicScore(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1, str_outputFi
     pd_pgs = pd.concat([pd.DataFrame(list_target), pd.DataFrame(list_predict), pd.DataFrame(np.array(list_proba)[:,1])], axis=1)
     pd_pgs.columns = ['target', 'predict', 'proba']
 
+    plt.figure(figsize=(5,5))
     pd_case = pd_pgs[pd_pgs.target == 1.0]
     sns.distplot(pd_case['proba'],  kde=True, bins=25, label='Case', color="#c9474b")
     pd_control = pd_pgs[pd_pgs.target == 0.0]
@@ -190,12 +191,12 @@ def PlotPolygenicScore(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1, str_outputFi
     # plot formatting
     str_method = "GenEpi"
     plt.legend(prop={'size': 12})
-    plt.title(str_method + ' on ADNI: ' + "%.4f" % float_f1Score + ' (F1 Score)')
+    plt.title(str_method + ' Predicting F1 Score: ' + "%.4f" % float_f1Score + ' ')
     plt.xlim(0, 1)
     plt.ylim(0, 15)
     plt.xlabel('Polygenic Score')
     plt.ylabel('Frequency')
-    plt.savefig(os.path.join(str_outputFilePath, str_method + "_PGS.png"), dpi=300)
+    plt.savefig(os.path.join(str_outputFilePath, "GenEpi_PGS.jpg"), dpi=300)
     plt.close('all')
 
     #-------------------------
@@ -217,17 +218,18 @@ def PlotPolygenicScore(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1, str_outputFi
     pd_rr = (pd_rr_ingroup_case / pd_rr_ingroup_sum) / (pd_pgs.sum()[['target']] / pd_pgs.count()[['target']])
     pd_rr.columns = ['Relative Risk']
 
+    plt.figure(figsize=(5,5))
     sns.scatterplot(x=pd_prevalence_obs.index, y=pd_prevalence_obs['obs'], hue=pd_rr['Relative Risk'], palette=sns.cubehelix_palette(8, start=.5, rot=-.75, as_cmap=True))
     popt, pcov = sp.optimize.curve_fit(fsigmoid, pd_prevalence_pre.index, pd_prevalence_pre['pre'], method='dogbox', bounds=([0., 0.],[1., 100.]))
     sns.lineplot(x=pd_prevalence_pre.index, y=fsigmoid(pd_prevalence_pre.index, *popt), color="black")
 
     plt.legend(prop={'size': 12}, loc='upper left')
-    plt.title(str_method + ' on ADNI: ' + "%.4f" % float_f1Score + ' (F1 Score)')
+    plt.title(str_method + ' Predicting F1 Score: ' + "%.4f" % float_f1Score + ' ')
     plt.xlim(0, 100)
     plt.ylim(0, 1)
     plt.xlabel('Polygenic Score Percentile')
     plt.ylabel('Prevalence of Percentile Group')
-    plt.savefig(os.path.join(str_outputFilePath, str_method + "_Prevalence.png"), dpi=300)
+    plt.savefig(os.path.join(str_outputFilePath, "GenEpi_Prevalence.jpg"), dpi=300)
     plt.close('all')
 
 """"""""""""""""""""""""""""""
