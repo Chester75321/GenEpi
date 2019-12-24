@@ -40,6 +40,9 @@ def ArgumentsParser():
     '(https://www.biorxiv.org/content/10.1101/421719v5) '
     parser = argparse.ArgumentParser(prog='GenEpi', description=str_description)
     
+    ### define arguments for app
+    parser.add_argument('--app', action='store_true', default=False, help="open AppGenEpi")
+
     ### define arguments for I/O
     parser.add_argument("-g", required=True, help="filename of the input .gen file")
     parser.add_argument("-p", required=True, help="filename of the input phenotype")
@@ -115,9 +118,16 @@ def main(args=None):
         None
     
     """
+
+    ### open app if need
+    if '--app' in sys.argv:
+        str_command = "python " + os.path.join(os.path.dirname(__file__), "AppGenEpi.py")
+        os.system(str_command)
+        return
+
     ### obtain arguments from argument parser
     args = ArgumentsParser().parse_args(args)
-    
+
     ### get arguments for I/O
     str_inputFileName_genotype = args.g
     str_inputFileName_phenotype = args.p
@@ -126,10 +136,10 @@ def main(args=None):
         str_inputFileName_regions = args.s
     else:
         str_inputFileName_regions = "None"
-    str_outputFilePath = ""
+    str_outputFilePath = os.getcwd()
     if args.o is not None:
         str_outputFilePath = args.o
-    else:
+    elif str_inputFileName_genotype != "example":
         str_outputFilePath = os.path.dirname(str_inputFileName_genotype)
     int_thread = mp.cpu_count()
     if int(args.t) is not None:

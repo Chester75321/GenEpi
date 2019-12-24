@@ -5,6 +5,15 @@ Release History
 
 All notable changes to this project will be documented in this file.
 
+[2.0.5] - 2019-12-24
+--------------------
+
+Added
+
+- Add AppGenEpi (GUI)
+- Add polygenic risk score calculation for classifier
+
+
 [2.0.4] - 2019-12-12
 --------------------
 

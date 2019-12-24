@@ -15,7 +15,7 @@ with open('README.md') as f:
 
 setup(
     name = 'genepi',
-    version = '2.0.4',
+    version = '2.0.5',
     description = 'A package for detecting epsitasis by machine learning',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -48,6 +48,7 @@ setup(
         'matplotlib>=3.1.1',
         'pandas>=0.25.2',
         'seaborn>=0.9.0',
+        'PyQt5>=5.14.0',
     ],
     python_requires='>=3',
     include_package_data = True,
