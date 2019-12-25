@@ -5,6 +5,18 @@ Release History
 
 All notable changes to this project will be documented in this file.
 
+[2.0.6] - 2019-12-25
+--------------------
+
+Fixed
+
+- Fix file path bug for ploting PRS 
+
+Removed
+
+-  Remove unused PIL import
+
+
 [2.0.5] - 2019-12-24
 --------------------
 

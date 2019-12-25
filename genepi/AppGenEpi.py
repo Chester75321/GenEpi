@@ -5,14 +5,12 @@ import sys
 import re
 import csv
 
-from PIL import Image
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_AppGenEpi(object):
     ### *******************************************************
     def __init__(self):
-        self.cwd = os.getcwd()
-        self.out = os.getcwd()
+        self.out = os.path.expanduser("~")
         self.cmd_exec = "GenEpi"
         self.cmd_args = ["-g", "example", "-p", "example", "-o", "./"]
         self.process = QtCore.QProcess()
@@ -430,7 +428,7 @@ class Ui_AppGenEpi(object):
 
     def btn_chooseGenoFile(self):
         ### open file dialog by specific extension
-        fileName_choose, filetype = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "Choose a file", self.cwd, "Genotype Files (*.gen);;All Files (*)")
+        fileName_choose, filetype = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "Choose a file", self.out, "Genotype Files (*.gen);;All Files (*)")
         ### if no file choosed than break
         if fileName_choose == "":
             return
@@ -439,7 +437,7 @@ class Ui_AppGenEpi(object):
 
     def btn_choosePhenoFile(self):
         ### open file dialog by specific extension
-        fileName_choose, filetype = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "Choose a file", self.cwd, "Phenotype Files (*.csv);;All Files (*)")
+        fileName_choose, filetype = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "Choose a file", self.out, "Phenotype Files (*.csv);;All Files (*)")
         ### if no file choosed than break
         if fileName_choose == "":
             return
@@ -448,7 +446,7 @@ class Ui_AppGenEpi(object):
     
     def btn_chooseOutDir(self):
         ### open directory dialog by specific extension
-        dir_choose = QtWidgets.QFileDialog.getExistingDirectory(self.centralwidget, "Choose a directory", self.cwd)
+        dir_choose = QtWidgets.QFileDialog.getExistingDirectory(self.centralwidget, "Choose a directory", self.out)
         ### if no directory choosed than break
         if dir_choose == "":
             return
@@ -457,7 +455,7 @@ class Ui_AppGenEpi(object):
     
     def btn_chooseRegionFile(self):
         ### open file dialog by specific extension
-        fileName_choose, filetype = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "Choose a file", self.cwd, "Self-defined Regions Files (*.txt);;All Files (*)")
+        fileName_choose, filetype = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "Choose a file", self.out, "Self-defined Regions Files (*.txt);;All Files (*)")
         ### if no file choosed than break
         if fileName_choose == "":
             return
@@ -487,7 +485,7 @@ class Ui_AppGenEpi(object):
 
         list_command.append("-o")    
         if self.tx_out.toPlainText() == "":
-            list_command.append(self.cwd)
+            list_command.append(self.out)
         else:
             list_command.append(self.tx_out.toPlainText())
 
@@ -543,9 +541,6 @@ class Ui_AppGenEpi(object):
     
     def presentResult(self):
         ### load histogram
-        #im_hist = Image.open(os.path.join(self.out, "crossGeneResult", "GenEpi_PGS.png"))
-        #im_hist = im_hist.convert('RGB')
-        #im_hist.save(os.path.join(self.out, "crossGeneResult", "GenEpi_PGS.jpg"))
         pm_hist = QtGui.QPixmap(os.path.join(self.out, "crossGeneResult", "GenEpi_PGS.jpg"))
         if pm_hist.isNull():
             QtWidgets.QMessageBox.information(self.centralwidget, "Image Viewer", "Cannot load %s." % os.path.join(self.out, "crossGeneResult", "GenEpi_PGS.png"))
@@ -559,9 +554,6 @@ class Ui_AppGenEpi(object):
         self.lb_hist.show()
 
         ### load prevalence
-        #im_prs = Image.open(os.path.join(self.out, "crossGeneResult", "GenEpi_Prevalence.png"))
-        #im_prs = im_prs.convert('RGB')
-        #im_prs.save(os.path.join(self.out, "crossGeneResult", "GenEpi_Prevalence.jpg"))
         pm_prs = QtGui.QPixmap(os.path.join(self.out, "crossGeneResult", "GenEpi_Prevalence.jpg"))
         if pm_prs.isNull():
             QtWidgets.QMessageBox.information(self.centralwidget, "Image Viewer", "Cannot load %s." % os.path.join(self.out, "crossGeneResult", "GenEpi_Prevalence.png"))
