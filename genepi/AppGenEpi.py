@@ -577,7 +577,7 @@ class Ui_AppGenEpi(object):
                 list_line = [QtGui.QStandardItem(field) for field in list_line]
                 self.model.appendRow(list_line)
         self.tv_result.setSortingEnabled(True)
-        self.tv_result.setStyleSheet("background-color: white; border: none;")
+        self.tv_result.setStyleSheet("")
 
         ### move cursor to the end of console
         cursor = self.tx_console.textCursor()
