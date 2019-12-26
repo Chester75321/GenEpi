@@ -44,7 +44,7 @@ def DrawRegressionPlot(df_variant, df_data, float_threshold, str_outputFilePath)
     for idx_y in df_data["order"]:
         plt.axhline(y=idx_y, color="#CCCCCC", linewidth=1)
     plt.axvline(x=float_threshold, color="#CCCCCC", linewidth=1)
-    plt.savefig(os.path.join(str_outputFilePath, "vcf2plot.jpg"), bbox_inches='tight', dpi=100)
+    plt.savefig(os.path.join(str_outputFilePath, "vcf2plot.png"), bbox_inches='tight', dpi=100)
 
 def DrawClassificationPlot(df_variant, df_data, str_outputFilePath):
     ### count the number of mutations in each variant
@@ -60,7 +60,7 @@ def DrawClassificationPlot(df_variant, df_data, str_outputFilePath):
     for idx_y in df_data["order"]:
         plt.axhline(y=idx_y + float_barwidth * 1, color="#CCCCCC", linewidth=1)
     plt.legend() 
-    plt.savefig(os.path.join(str_outputFilePath, "vcf2plot.jpg"), bbox_inches='tight', dpi=100)
+    plt.savefig(os.path.join(str_outputFilePath, "vcf2plot.png"), bbox_inches='tight', dpi=100)
 
 """"""""""""""""""""""""""""""
 # main function

@@ -541,7 +541,7 @@ class Ui_AppGenEpi(object):
     
     def presentResult(self):
         ### load histogram
-        pm_hist = QtGui.QPixmap(os.path.join(self.out, "crossGeneResult", "GenEpi_PGS.jpg"))
+        pm_hist = QtGui.QPixmap(os.path.join(self.out, "crossGeneResult", "GenEpi_PGS.png"))
         if pm_hist.isNull():
             QtWidgets.QMessageBox.information(self.centralwidget, "Image Viewer", "Cannot load %s." % os.path.join(self.out, "crossGeneResult", "GenEpi_PGS.png"))
             return
@@ -554,7 +554,7 @@ class Ui_AppGenEpi(object):
         self.lb_hist.show()
 
         ### load prevalence
-        pm_prs = QtGui.QPixmap(os.path.join(self.out, "crossGeneResult", "GenEpi_Prevalence.jpg"))
+        pm_prs = QtGui.QPixmap(os.path.join(self.out, "crossGeneResult", "GenEpi_Prevalence.png"))
         if pm_prs.isNull():
             QtWidgets.QMessageBox.information(self.centralwidget, "Image Viewer", "Cannot load %s." % os.path.join(self.out, "crossGeneResult", "GenEpi_Prevalence.png"))
             return

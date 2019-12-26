@@ -196,7 +196,7 @@ def PlotPolygenicScore(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1, str_outputFi
     plt.ylim(0, 15)
     plt.xlabel('Polygenic Score')
     plt.ylabel('Frequency')
-    plt.savefig(os.path.join(str_outputFilePath, "GenEpi_PGS.jpg"), dpi=300)
+    plt.savefig(os.path.join(str_outputFilePath, "GenEpi_PGS.png"), dpi=300)
     plt.close('all')
 
     #-------------------------
@@ -229,7 +229,7 @@ def PlotPolygenicScore(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1, str_outputFi
     plt.ylim(0, 1)
     plt.xlabel('Polygenic Score Percentile')
     plt.ylabel('Prevalence of Percentile Group')
-    plt.savefig(os.path.join(str_outputFilePath, "GenEpi_Prevalence.jpg"), dpi=300)
+    plt.savefig(os.path.join(str_outputFilePath, "GenEpi_Prevalence.png"), dpi=300)
     plt.close('all')
 
 """"""""""""""""""""""""""""""
