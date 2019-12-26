@@ -121,7 +121,7 @@ def main(args=None):
 
     ### open app if need
     if '--app' in sys.argv:
-        str_command = "python " + os.path.join(os.path.dirname(__file__), "AppGenEpi.py")
+        str_command = str(sys.executable) + " " + os.path.join(os.path.dirname(__file__), "AppGenEpi.py")
         os.system(str_command)
         return
 

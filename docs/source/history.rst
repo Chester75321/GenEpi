@@ -5,6 +5,14 @@ Release History
 
 All notable changes to this project will be documented in this file.
 
+[2.0.7] - 2019-12-26
+--------------------
+
+Fixed
+
+- Fix executable python for AppGenEpi
+
+
 [2.0.6] - 2019-12-25
 --------------------
 
