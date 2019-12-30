@@ -40,7 +40,7 @@ from genepi.step4_singleGeneEpistasis_Logistic import FeatureEncoderLogistic
 """"""""""""""""""""""""""""""
 # define functions 
 """"""""""""""""""""""""""""""
-def LogisticRegressionL1(np_X, np_y, int_nJobs = 4):
+def LogisticRegressionL1(np_X, np_y, int_nJobs = 1):
     """
 
     Implementation of the L1-regularized Logistic regression with k-fold cross validation.
@@ -48,7 +48,7 @@ def LogisticRegressionL1(np_X, np_y, int_nJobs = 4):
     Args:
         np_X (ndarray): 2D array containing genotype data with `int8` type
         np_y (ndarray): 2D array containing phenotype data with `float` type
-        int_nJobs (int): The number of thread (default: 4)
+        int_nJobs (int): The number of thread (default: 1)
 
     Returns:
         (float): float_f1Score
@@ -101,7 +101,7 @@ def GenerateContingencyTable(np_genotype, np_phenotype):
     
     return np_contingency
 
-def ClassifierModelPersistence(np_X, np_y, str_outputFilePath = "", int_nJobs = 4):
+def ClassifierModelPersistence(np_X, np_y, str_outputFilePath = "", int_nJobs = 1):
     """
 
     Dumping classifier for model persistence
@@ -110,7 +110,7 @@ def ClassifierModelPersistence(np_X, np_y, str_outputFilePath = "", int_nJobs = 
         np_X (ndarray): 2D array containing genotype data with `int8` type
         np_y (ndarray): 2D array containing phenotype data with `float` type
         str_outputFilePath (str): File path of output file
-        int_nJobs (int): The number of thread (default: 4)
+        int_nJobs (int): The number of thread (default: 1)
 
     Returns:
         None
@@ -235,7 +235,7 @@ def PlotPolygenicScore(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1, str_outputFi
 """"""""""""""""""""""""""""""
 # main function
 """"""""""""""""""""""""""""""
-def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phenotype, str_inputFileName_score = "", str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):   
+def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phenotype, str_inputFileName_score = "", str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 1):   
     """
 
     A workflow to model a cross gene epistasis containing two-element combinatorial encoding, stability selection, filtering low quality varaint and  L1-regularized Logistic regression with k-fold cross validation.
@@ -246,7 +246,7 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
         str_inputFileName_score (str): File name of input score file from stage 1 - singleGeneEpistasis
         str_outputFilePath (str): File path of output file
         int_kOfKFold (int): The k for k-fold cross validation (default: 2)
-        int_nJobs (int): The number of thread (default: 4)
+        int_nJobs (int): The number of thread (default: 1)
 
     Returns:
         (tuple): tuple containing:

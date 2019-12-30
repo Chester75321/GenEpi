@@ -92,7 +92,7 @@ def LoadDataForEnsemble(str_inputFileName_feature, str_inputFileName_phenotype):
     
     return np_genotype, np_phenotype
 
-def ClassifierModelPersistence(np_X, np_y, str_outputFilePath = "", int_nJobs = 4):
+def ClassifierModelPersistence(np_X, np_y, str_outputFilePath = "", int_nJobs = 1):
     """
 
     Dumping ensemble classifier for model persistence
@@ -101,7 +101,7 @@ def ClassifierModelPersistence(np_X, np_y, str_outputFilePath = "", int_nJobs = 
         np_X (ndarray): 2D array containing genotype data with `int8` type
         np_y (ndarray): 2D array containing phenotype data with `float` type
         str_outputFilePath (str): File path of output file
-        int_nJobs (int): The number of thread (default: 4)
+        int_nJobs (int): The number of thread (default: 1)
 
     Returns:
         None
@@ -122,7 +122,7 @@ def ClassifierModelPersistence(np_X, np_y, str_outputFilePath = "", int_nJobs = 
     
     joblib.dump(estimator_grid.best_estimator_, os.path.join(str_outputFilePath, "Classifier_Covariates.pkl"))
 
-def RegressorModelPersistence(np_X, np_y, str_outputFilePath = "", int_nJobs = 4):
+def RegressorModelPersistence(np_X, np_y, str_outputFilePath = "", int_nJobs = 1):
     """
 
     Dumping ensemble regressor for model persistence
@@ -131,7 +131,7 @@ def RegressorModelPersistence(np_X, np_y, str_outputFilePath = "", int_nJobs = 4
         np_X (ndarray): 2D array containing genotype data with `int8` type
         np_y (ndarray): 2D array containing phenotype data with `float` type
         str_outputFilePath (str): File path of output file
-        int_nJobs (int): The number of thread (default: 4)
+        int_nJobs (int): The number of thread (default: 1)
 
     Returns:
         None
@@ -155,7 +155,7 @@ def RegressorModelPersistence(np_X, np_y, str_outputFilePath = "", int_nJobs = 4
 """"""""""""""""""""""""""""""
 # main function
 """"""""""""""""""""""""""""""
-def EnsembleWithCovariatesClassifier(str_inputFileName_feature, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):
+def EnsembleWithCovariatesClassifier(str_inputFileName_feature, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 1):
     """
 
     A workflow to ensemble genetic features with covariates for L1-regularized Logistic regression.
@@ -165,7 +165,7 @@ def EnsembleWithCovariatesClassifier(str_inputFileName_feature, str_inputFileNam
         str_inputFileName_phenotype (str): File name of input phenotype data
         str_outputFilePath (str): File path of output file
         int_kOfKFold (int): The k for k-fold cross validation (default: 2)
-        int_nJobs (int): The number of thread (default: 4)
+        int_nJobs (int): The number of thread (default: 1)
 
     Returns:
         (tuple): tuple containing:
@@ -205,7 +205,7 @@ def EnsembleWithCovariatesClassifier(str_inputFileName_feature, str_inputFileNam
 
     return float_f1Score_train, float_f1Score_test
 
-def EnsembleWithCovariatesRegressor(str_inputFileName_feature, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 4):
+def EnsembleWithCovariatesRegressor(str_inputFileName_feature, str_inputFileName_phenotype, str_outputFilePath = "", int_kOfKFold = 2, int_nJobs = 1):
     """
 
     A workflow to ensemble genetic features with covariates for L1-regularized Lasso regression.
@@ -215,7 +215,7 @@ def EnsembleWithCovariatesRegressor(str_inputFileName_feature, str_inputFileName
         str_inputFileName_phenotype (str): File name of input phenotype data
         str_outputFilePath (str): File path of output file
         int_kOfKFold (int): The k for k-fold cross validation (default: 2)
-        int_nJobs (int): The number of thread (default: 4)
+        int_nJobs (int): The number of thread (default: 1)
 
     Returns:
         (tuple): tuple containing:

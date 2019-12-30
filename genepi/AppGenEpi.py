@@ -1,18 +1,27 @@
 # -*- coding: utf-8 -*-
+"""
+Created on Dec 2019
+@author: Chester (Yu-Chuan Chang)
+"""
 
+""""""""""""""""""""""""""""""
+# import libraries
+""""""""""""""""""""""""""""""
 import os
 import sys
-import re
-import csv
+import pymysql
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+""""""""""""""""""""""""""""""
+# design UI
+""""""""""""""""""""""""""""""
 class Ui_AppGenEpi(object):
     ### *******************************************************
     def __init__(self):
-        self.out = os.path.expanduser("~")
-        self.cmd_exec = "GenEpi"
-        self.cmd_args = ["-g", "example", "-p", "example", "-o", "./"]
+        #self.rootdir = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+        self.rootdir = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir))
+        self.outdir = os.path.expanduser("~")
         self.process = QtCore.QProcess()
         self.process.readyRead.connect(self.dataReady)
         self.process.started.connect(lambda: self.bt_run.setEnabled(False))
@@ -366,7 +375,6 @@ class Ui_AppGenEpi(object):
         self.lb_fold.setText(_translate("AppGenEpi", "K-fold CV:"))
         self.lb_thread.setText(_translate("AppGenEpi", "Threads:"))
         self.cb_model.setItemText(0, _translate("AppGenEpi", "Classification"))
-        #self.cb_model.setItemText(1, _translate("AppGenEpi", "Regression"))
         self.cb_fold.setItemText(0, _translate("AppGenEpi", "2"))
         self.cb_fold.setItemText(1, _translate("AppGenEpi", "4"))
         self.cb_fold.setItemText(2, _translate("AppGenEpi", "8"))
@@ -415,7 +423,7 @@ class Ui_AppGenEpi(object):
         str_help += "\r\n"
         str_help += "update UCSC database:\r\n"
         str_help += "  --updatedb\t\tenable this function\r\n"
-        str_help += "  -b {hg19,hg38}\thuman genome build\r\n"
+        str_help += "  -b {hg19,hg38}\t\thuman genome build\r\n"
         str_help += "\r\n"
         str_help += "\r\n"
         str_help += "compress data by LD block:\r\n"
@@ -428,7 +436,7 @@ class Ui_AppGenEpi(object):
 
     def btn_chooseGenoFile(self):
         ### open file dialog by specific extension
-        fileName_choose, filetype = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "Choose a file", self.out, "Genotype Files (*.gen);;All Files (*)")
+        fileName_choose, filetype = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "Choose a file", self.outdir, "Genotype Files (*.gen);;All Files (*)")
         ### if no file choosed than break
         if fileName_choose == "":
             return
@@ -437,7 +445,7 @@ class Ui_AppGenEpi(object):
 
     def btn_choosePhenoFile(self):
         ### open file dialog by specific extension
-        fileName_choose, filetype = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "Choose a file", self.out, "Phenotype Files (*.csv);;All Files (*)")
+        fileName_choose, filetype = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "Choose a file", self.outdir, "Phenotype Files (*.csv);;All Files (*)")
         ### if no file choosed than break
         if fileName_choose == "":
             return
@@ -446,7 +454,7 @@ class Ui_AppGenEpi(object):
     
     def btn_chooseOutDir(self):
         ### open directory dialog by specific extension
-        dir_choose = QtWidgets.QFileDialog.getExistingDirectory(self.centralwidget, "Choose a directory", self.out)
+        dir_choose = QtWidgets.QFileDialog.getExistingDirectory(self.centralwidget, "Choose a directory", self.outdir)
         ### if no directory choosed than break
         if dir_choose == "":
             return
@@ -455,7 +463,7 @@ class Ui_AppGenEpi(object):
     
     def btn_chooseRegionFile(self):
         ### open file dialog by specific extension
-        fileName_choose, filetype = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "Choose a file", self.out, "Self-defined Regions Files (*.txt);;All Files (*)")
+        fileName_choose, filetype = QtWidgets.QFileDialog.getOpenFileName(self.centralwidget, "Choose a file", self.outdir, "Self-defined Regions Files (*.txt);;All Files (*)")
         ### if no file choosed than break
         if fileName_choose == "":
             return
@@ -473,20 +481,30 @@ class Ui_AppGenEpi(object):
         self.tx_console.ensureCursorVisible()
         self.tx_console.moveCursor(cursor.End)
     
-    def btn_callProgram(self):
-        ### concatenate command
+    def getCommand(self):
+        ### concatenate command by the inputs on the UI
         list_command = []
 
+        ### when using example as input, redirect genotype file to sample.gen
         list_command.append("-g")
-        list_command.append(self.tx_geno.toPlainText())
+        if self.tx_geno.toPlainText() == "example":
+            list_command.append(os.path.join(".", self.rootdir, "genepi", "example", "sample.gen"))
+        else:
+            list_command.append(self.tx_geno.toPlainText())
     
+        ### when using example as input, redirect phenotype file to sample.csv
         list_command.append("-p")
-        list_command.append(self.tx_pheno.toPlainText())
+        if self.tx_pheno.toPlainText() == "example":
+            list_command.append(os.path.join(".", self.rootdir, "genepi", "example", "sample.csv"))
+        else:
+            list_command.append(self.tx_pheno.toPlainText())
 
+        ### if no output directory, use the home directory as default
         list_command.append("-o")    
         if self.tx_out.toPlainText() == "":
-            list_command.append(self.out)
+            list_command.append(self.outdir)
         else:
+            self.outdir = self.tx_out.toPlainText()
             list_command.append(self.tx_out.toPlainText())
 
         list_command.append("-m")
@@ -501,14 +519,19 @@ class Ui_AppGenEpi(object):
         list_command.append("-t")
         list_command.append(self.cb_thread.currentText())
 
+        ### using the default UCSCGenomeDatabase if user does not provide any self-defined regions.
         if self.ck_region.isChecked():
             list_command.append("-s")
             list_command.append(self.tx_region.toPlainText())
+        else:
+            list_command.append("-s")
+            list_command.append(os.path.join(".", self.rootdir, "genepi", "UCSCGenomeDatabase.txt"))
         
+        ### call the download database function of genepi for updating local database
+        str_update_msg = ""
         if self.ck_db.isChecked():
-            list_command.append("--updatedb")
-            list_command.append("-b")
-            list_command.append(self.cb_db.currentText())
+            str_update_msg = "--updatedb -b " + self.cb_db.currentText()
+            DownloadUCSCDB(os.path.join(".", self.rootdir, "genepi", "UCSCGenomeDatabase.txt"), self.cb_db.currentText())
         
         if self.ck_ld.isChecked():
             list_command.append("--compressld")
@@ -517,15 +540,18 @@ class Ui_AppGenEpi(object):
             list_command.append("-r")
             list_command.append(str(self.sb_r.value()))
 
-        if self.tx_out.toPlainText() != "":
-            self.out = self.tx_out.toPlainText()
+        return list_command, str_update_msg
+
+    def btn_callProgram(self):
+        ### get command
+        list_command, str_update_msg = self.getCommand()
         
         ### move cursor to the end of console
         cursor = self.tx_console.textCursor()
         cursor.movePosition(cursor.End)
         ### print command to console
         cursor.insertText("\r\n")
-        cursor.insertText("GenEpi command: GenEpi " + " ".join(list_command))
+        cursor.insertText("GenEpi command: GenEpi " + " ".join(list_command) + str_update_msg)
         cursor.insertText("\r\n")
         cursor.insertText("\r\n")
         cursor.insertText("GenEpi analysis started")
@@ -536,14 +562,16 @@ class Ui_AppGenEpi(object):
         self.tx_console.moveCursor(cursor.End)
 
         ### start process
+        #str_genepi_path = os.path.join(self.rootdir, "bin", "genepi")
+        str_genepi_path = os.path.join("GenEpi")
         self.process.setProcessChannelMode(QtCore.QProcess.MergedChannels)
-        self.process.start("GenEpi", list_command)
+        self.process.start(str_genepi_path, list_command)
     
     def presentResult(self):
         ### load histogram
-        pm_hist = QtGui.QPixmap(os.path.join(self.out, "crossGeneResult", "GenEpi_PGS.png"))
+        pm_hist = QtGui.QPixmap(os.path.join(self.outdir, "crossGeneResult", "GenEpi_PGS.png"))
         if pm_hist.isNull():
-            QtWidgets.QMessageBox.information(self.centralwidget, "Image Viewer", "Cannot load %s." % os.path.join(self.out, "crossGeneResult", "GenEpi_PGS.png"))
+            QtWidgets.QMessageBox.information(self.centralwidget, "Image Viewer", "Cannot load %s." % os.path.join(self.outdir, "crossGeneResult", "GenEpi_PGS.png"))
             return
         
         ### plot histogram
@@ -554,9 +582,9 @@ class Ui_AppGenEpi(object):
         self.lb_hist.show()
 
         ### load prevalence
-        pm_prs = QtGui.QPixmap(os.path.join(self.out, "crossGeneResult", "GenEpi_Prevalence.png"))
+        pm_prs = QtGui.QPixmap(os.path.join(self.outdir, "crossGeneResult", "GenEpi_Prevalence.png"))
         if pm_prs.isNull():
-            QtWidgets.QMessageBox.information(self.centralwidget, "Image Viewer", "Cannot load %s." % os.path.join(self.out, "crossGeneResult", "GenEpi_Prevalence.png"))
+            QtWidgets.QMessageBox.information(self.centralwidget, "Image Viewer", "Cannot load %s." % os.path.join(self.outdir, "crossGeneResult", "GenEpi_Prevalence.png"))
             return
         
         ### plot prevalence
@@ -569,7 +597,7 @@ class Ui_AppGenEpi(object):
         ### show table
         self.model = QtGui.QStandardItemModel(self.centralwidget)
         self.tv_result.setModel(self.model)
-        with open(os.path.join(self.out, "crossGeneResult", "Result.csv"), "r") as file_inputFile:
+        with open(os.path.join(self.outdir, "crossGeneResult", "Result.csv"), "r") as file_inputFile:
             list_header = file_inputFile.readline().strip().split(",")
             self.model.setHorizontalHeaderLabels(list_header)
             for line in file_inputFile: 
@@ -594,6 +622,46 @@ class Ui_AppGenEpi(object):
         ### release the run button
         self.bt_run.setEnabled(True)
 
+""""""""""""""""""""""""""""""
+# genepi module
+""""""""""""""""""""""""""""""
+# database schema: http://hgdownload.cse.ucsc.edu/goldenpath/hg19/database/
+# human genome build could be: hg18, hg19, hg38, etc.
+def DownloadUCSCDB(str_outputFilePath = os.path.dirname(os.path.abspath(__file__)), str_hgbuild = "hg19"):
+    """
+    To obtain the gene information such as official gene symbols and genomic coordinates, this function is for retrieving kgXref and knownGene data table from the UCSC human genome annotation database
+    Args:
+        str_outputFilePath (str): File path of output database
+        str_hgbuild (str): Genome build (eg. "hg19")
+    Returns:
+        - Expected Success Response::
+            "step1: Down load UCSC Database. DONE!"
+    
+    """
+
+    ### create connection
+    conv = {pymysql.constants.FIELD_TYPE.LONG: int}
+    conn = pymysql.Connect(host = "genome-mysql.cse.ucsc.edu", user = "genome", passwd = "",db = str_hgbuild,  local_infile = 1, conv = conv)
+    
+    ### execute sql command
+    str_sqlCommand = "SELECT chr, CASE WHEN strand='+' THEN txStart-1000 ELSE txStart END AS txStart, CASE WHEN strand='-' THEN txEnd+1000 ELSE txEnd END AS txEnd, strand, geneSymbol FROM "
+    str_sqlCommand = str_sqlCommand + "(SELECT REPLACE(chr, 'chr', '') AS chr, txStart, txEnd, strand, geneSymbol, MAX(ABS(txEnd-txStart)) FROM ( "
+    str_sqlCommand = str_sqlCommand + "SELECT knownGene.chrom AS chr, knownGene.txStart AS txStart, knownGene.txEnd AS txEnd, knownGene.strand AS strand, kgXref.geneSymbol AS geneSymbol FROM kgXref INNER JOIN knownGene ON kgXref.kgID=knownGene.name WHERE LEFT(kgXref.mRNA, 2) IN ('NR', 'NM')) AS L1 "
+    str_sqlCommand = str_sqlCommand + "GROUP BY geneSymbol) AS L2 WHERE LEFT(chr, 1) NOT IN ('X', 'Y', 'M', 'U') AND chr NOT LIKE '%\_%' ORDER BY CAST(chr AS UNSIGNED), txStart"
+    cur = conn.cursor()
+    cur.execute(str_sqlCommand)
+    db_result = cur.fetchall()
+    cur.close()
+    conn.close()
+
+    ### output database
+    with open(str_outputFilePath + "/UCSCGenomeDatabase.txt", "w") as file_outputFile:
+        for item in db_result:
+            file_outputFile.writelines(",".join(item) + "\n")
+
+""""""""""""""""""""""""""""""
+# main function
+""""""""""""""""""""""""""""""
 if __name__ == '__main__':  
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
