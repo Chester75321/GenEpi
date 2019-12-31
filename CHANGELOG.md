@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.9] - 2019-12-31
+### Added
+- Add standalone AppGenEpi.app
+### Fixed
+- Fix the bug of joblib multithreading
+
 ## [2.0.8] - 2019-12-26
 ### Fixed
 - Fix unsupported image format for ploting PRS

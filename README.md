@@ -12,7 +12,16 @@ GenEpi is designed to group SNPs by a set of loci in the gnome. For examples, a 
 GenEpi adopts two-element combinatorial encoding when producing features and models them by L1-regularized regression with stability selection In the first stage (STAGE 1) of GenEpi, the genotype features from each single gene will be combinatorically encoded and modeled independently by L1-regularized regression with stability selection. In this way, we can estimate the prediction performance of each gene and detect within-gene epistasis with a low false positive rate. In the second stage (STAGE 2), both of the individual SNP and the within-gene epistasis features selected by STAGE 1 are pooled together to generate cross-gene epistasis features, and modeled again by L1-regularized regression with stability selection as STAGE 1. Finally, the user can combine the selected genetic features with environmental factors such as clinical features to build the final prediction models.
 
 ## Standalone App
-(Latest Update!) The standalone and installation free app - AppGenEpi (v.beta) is now released. Just download it then 1) chmod +x ./AppGenEpi_MacOS_beta and 2) sudo ./AppGenEpi_MacOS_beta for executing. Have fun~
+(Latest Update!) The standalone and installation free app - AppGenEpi (v.beta) is now released. Just download it and have fun.
+
+### For MacOS
+1. unzip AppGenEpi_MacOS_beta.zip
+2. drag AppGenEpi.app to Applications
+3. allow permission for running AppGenEpi.app by setting System Preferences > Security & Privacy (We are not identified developers so far.)
+
+### For Linux
+1. change the directory to AppGenEpi
+2. use ./AppGenEpi to run it
 
 | OS    |  Version |                                                Link                                                        |
 |-------|:--------:|-----------------------------------------------------------------------------------------------------------:|
