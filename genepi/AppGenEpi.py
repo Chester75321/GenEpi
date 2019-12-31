@@ -427,7 +427,7 @@ class Ui_AppGenEpi(object):
         str_help += "\r\n"
         str_help += "\r\n"
         str_help += "compress data by LD block:\r\n"
-        str_help += "  --compressld\tenable this function\r\n"
+        str_help += "  --compressld\t\tenable this function\r\n"
         str_help += "  -d D\t\tthreshold for compression: D prime\r\n"
         str_help += "  -r R\t\tthreshold for compression: R square\r\n"
         str_help += "\r\n"
