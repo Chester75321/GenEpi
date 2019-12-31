@@ -15,13 +15,10 @@ GenEpi adopts two-element combinatorial encoding when producing features and mod
 (Latest Update!) The standalone and installation free app - AppGenEpi (v.beta) is now released. Just download it and have fun.
 
 ### For MacOS
-1. unzip AppGenEpi_MacOS_beta.zip
-2. drag AppGenEpi.app to Applications
-3. allow permission for running AppGenEpi.app by setting System Preferences > Security & Privacy (We are not identified developers so far.)
+1) unzip AppGenEpi_MacOS_beta.zip; 2) drag AppGenEpi.app to Applications; 3) allow permission for running AppGenEpi.app by setting System Preferences > Security & Privacy (We are not identified developers so far.).
 
 ### For Linux
-1. change the directory to AppGenEpi
-2. use ./AppGenEpi to run it
+1) change the directory to AppGenEpi; 2) use ./AppGenEpi to run it.
 
 | OS    |  Version |                                                Link                                                        |
 |-------|:--------:|-----------------------------------------------------------------------------------------------------------:|
