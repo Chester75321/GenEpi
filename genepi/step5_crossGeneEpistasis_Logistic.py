@@ -28,6 +28,8 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.externals import joblib
 import sklearn.metrics as skMetric
 import scipy.stats as stats
+from scipy.optimize import curve_fit
+from scipy.stats import norm
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -59,6 +61,8 @@ def LogisticRegressionL1(np_X, np_y, int_nJobs = 1):
 
     X = np_X
     y = np_y
+    X_sparse = coo_matrix(X)
+    X, X_sparse, y = shuffle(X, X_sparse, y, random_state=0)
     
     list_target = []
     list_predict = []
@@ -131,6 +135,9 @@ def ClassifierModelPersistence(np_X, np_y, str_outputFilePath = "", int_nJobs = 
     
     joblib.dump(estimator_grid.best_estimator_, os.path.join(str_outputFilePath, "Classifier.pkl"))
 
+def gaussian(x, mean, amplitude, standard_deviation):
+    return amplitude * np.exp( - ((x - mean) / standard_deviation) ** 2)
+
 def fsigmoid(x, a, b):
     float_return = 1.0/(1.0+np.exp(-a*(x-b)))
     return float_return
@@ -182,20 +189,39 @@ def PlotPolygenicScore(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1, str_outputFi
     pd_pgs = pd.concat([pd.DataFrame(list_target), pd.DataFrame(list_predict), pd.DataFrame(np.array(list_proba)[:,1])], axis=1)
     pd_pgs.columns = ['target', 'predict', 'proba']
 
+    int_bin = 25
     plt.figure(figsize=(5,5))
+
+    # plot case
     pd_case = pd_pgs[pd_pgs.target == 1.0]
-    sns.distplot(pd_case['proba'],  kde=True, bins=25, label='Case', color="#c9474b")
+    plt.hist(pd_case['proba'], bins=int_bin, label='Case', color="#e68fac", weights=np.ones_like(pd_case['proba'])/float(len(pd_case['proba'])))
+    bin_heights, bin_borders = np.histogram(pd_case['proba'], bins=int_bin)
+    bin_heights = bin_heights / float(len(pd_case['proba']))
+    bin_widths = np.diff(bin_borders)
+    bin_centers = bin_borders[:-1] + bin_widths / 2
+    popt, _ = curve_fit(gaussian, bin_centers, bin_heights, maxfev=100000000)
+    x_interval_for_fit = np.linspace(bin_borders[0], bin_borders[-1], 10000)
+    plt.plot(x_interval_for_fit, gaussian(x_interval_for_fit, *popt), c="#b3446c")
+
+    # plot control
     pd_control = pd_pgs[pd_pgs.target == 0.0]
-    sns.distplot(pd_control['proba'],  kde=True, bins=25, label='Control', color="#4e7e91")
+    plt.hist(pd_control['proba'], bins=int_bin, label='Control', color="#4997d0", weights=np.ones_like(pd_control['proba'])/float(len(pd_control['proba'])))
+    bin_heights, bin_borders = np.histogram(pd_control['proba'], bins=int_bin)
+    bin_heights = bin_heights / float(len(pd_control['proba']))
+    bin_widths = np.diff(bin_borders)
+    bin_centers = bin_borders[:-1] + bin_widths / 2
+    popt, _ = curve_fit(gaussian, bin_centers, bin_heights, maxfev=100000000)
+    x_interval_for_fit = np.linspace(bin_borders[0], bin_borders[-1], 10000)
+    plt.plot(x_interval_for_fit, gaussian(x_interval_for_fit, *popt), c="#00416a")
 
     # plot formatting
     str_method = "GenEpi"
     plt.legend(prop={'size': 12})
     plt.title(str_method + ' Predicting F1 Score: ' + "%.4f" % float_f1Score + ' ')
     plt.xlim(0, 1)
-    plt.ylim(0, 15)
+    plt.ylim(0, 1)
     plt.xlabel('Polygenic Score')
-    plt.ylabel('Frequency')
+    plt.ylabel('Fraction of samples by group')
     plt.savefig(os.path.join(str_outputFilePath, "GenEpi_PGS.png"), dpi=300)
     plt.close('all')
 

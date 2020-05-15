@@ -53,6 +53,8 @@ def LassoRegression(np_X, np_y, int_nJobs = 1):
 
     X = np_X
     y = np_y
+    X_sparse = coo_matrix(X)
+    X, X_sparse, y = shuffle(X, X_sparse, y, random_state=0)
     
     list_target = []
     list_predict = []
