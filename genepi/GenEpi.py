@@ -12,6 +12,7 @@ import argparse
 import time
 import os
 import sys
+import numpy as np
 import multiprocessing as mp
 from . import *
 
@@ -67,7 +68,7 @@ def ArgumentsParser():
  
     return parser
 
-def InputChecking(str_inputFileName_genotype, str_inputFileName_phenotype):
+def InputChecking(str_inputFileName_genotype, str_inputFileName_phenotype, args):
     """
 
     To check the numbers of sample are consistent in genotype and phenotype data.
@@ -101,6 +102,17 @@ def InputChecking(str_inputFileName_genotype, str_inputFileName_phenotype):
         if int_num_genotype_sample != int_num_phenotype:
             sys.exit("The number of samples in genotype file does not match the number of samples in phenotype file.")
     
+    ### get phenotype file
+    if args.m=="c":
+        list_phenotype = []
+        with open(str_inputFileName_phenotype, 'r') as file_inputFile:
+            for line in file_inputFile:
+                list_phenotype.append(line.strip().split(","))
+        np_phenotype = np.array(list_phenotype, dtype=np.float)
+        del list_phenotype
+        if set(list(np_phenotype[:,-1])) != {0.0, 1.0}:
+            sys.exit("The phenotype value should be 1=control or 2=case in classification mode.")
+
     return int_num_genotype, int_num_phenotype
 
 """"""""""""""""""""""""""""""
@@ -181,7 +193,7 @@ def main(args=None):
         file_outputFile.writelines("\t" + "-r (R square threshold): " + str(args.r) + "\n" + "\n")
         
         ### check input format
-        int_num_genotype, int_num_phenotype = InputChecking(str_inputFileName_genotype, str_inputFileName_phenotype)
+        int_num_genotype, int_num_phenotype = InputChecking(str_inputFileName_genotype, str_inputFileName_phenotype, args)
         file_outputFile.writelines("Number of variants: " + str(int_num_genotype) + "\n")
         file_outputFile.writelines("Number of samples: " + str(int_num_phenotype) + "\n")
         print("Number of variants: " + str(int_num_genotype))

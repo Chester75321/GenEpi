@@ -34,7 +34,7 @@ def DownloadUCSCDB(str_outputFilePath = os.path.dirname(os.path.abspath(__file__
 
     ### create connection
     conv = {pymysql.constants.FIELD_TYPE.LONG: int}
-    conn = pymysql.Connect(host = "genome-mysql.cse.ucsc.edu", user = "genome", passwd = "",db = str_hgbuild,  local_infile = 1, conv = conv)
+    conn = pymysql.Connect(host = "genome-mysql.soe.ucsc.edu", user = "genome", passwd = "",db = str_hgbuild,  local_infile = 1, conv = conv)
     
     ### execute sql command
     str_sqlCommand = "SELECT chr, CASE WHEN strand='+' THEN txStart-1000 ELSE txStart END AS txStart, CASE WHEN strand='-' THEN txEnd+1000 ELSE txEnd END AS txEnd, strand, geneSymbol FROM "

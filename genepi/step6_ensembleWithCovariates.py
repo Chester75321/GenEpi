@@ -51,6 +51,11 @@ def LoadDataForEnsemble(str_inputFileName_feature, str_inputFileName_phenotype):
     
     """
 
+    ### check feature file exist
+    if not os.path.isfile(str_inputFileName_feature):
+        print("step6: There is no variant remained in previous step.")
+        return None, None
+
     ### get all selected snp ids
     list_genotype_rsid = []
     with open(str_inputFileName_feature, "r") as file_inputFile:

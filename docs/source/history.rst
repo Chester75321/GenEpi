@@ -5,6 +5,24 @@ Release History
 
 All notable changes to this project will be documented in this file.
 
+[2.0.10] - 2019-07-29
+--------------------
+
+Added
+
+- Add genome database for intergenic region (hg19, hg38)
+- Add functions for modeling intergenic region
+- Add warning message if there is no variant past the feature selection
+- Add warning message if there is no variant remained in previous step
+
+Fixed
+
+- Update the UCSC mysql host
+- Fix error when modeling empty feature set (step5)
+- Fix error when modeling empty feature set (step6)
+- Refine PRS plot
+
+
 [2.0.9] - 2019-12-31
 --------------------
 

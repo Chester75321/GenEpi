@@ -369,7 +369,8 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
     np_genotype = np_genotype[:, np_selectedIdx]
     np_genotype_rsid = np_genotype_rsid[np_selectedIdx]
     if np_genotype_rsid.shape[0] == 0:
-        return 0.0
+        print("step5: There is no variant past the chi-square test selection.")
+        return 0.0, 0.0
 
     ### select degree 1 feature
     np_genotype_rsid_degree = np.array([str(x).count('*') + 1 for x in np_genotype_rsid])
@@ -378,11 +379,13 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
     np_genotype_degree1_rsid = np_genotype_rsid[np_selectedIdx]
     
     ### remove redundant polynomial features
-    np_genotype_degree1, np_selectedIdx = np.unique(np_genotype_degree1, axis=1, return_index=True)
-    np_genotype_degree1_rsid = np_genotype_degree1_rsid[np_selectedIdx]
+    if np_genotype_degree1.shape[1] > 0:
+        np_genotype_degree1, np_selectedIdx = np.unique(np_genotype_degree1, axis=1, return_index=True)
+        np_genotype_degree1_rsid = np_genotype_degree1_rsid[np_selectedIdx]
     
     ### generate cross gene interations
-    np_genotype_crossGene_rsid, np_genotype_crossGene = FeatureEncoderLogistic(np_genotype_degree1_rsid, np_genotype_degree1, np_phenotype, 1)
+    if np_genotype_degree1.shape[1] > 0:
+        np_genotype_crossGene_rsid, np_genotype_crossGene = FeatureEncoderLogistic(np_genotype_degree1_rsid, np_genotype_degree1, np_phenotype, 1)
     
     ### remove degree 1 feature from dataset
     np_selectedIdx = np.array([x != 1 for x in np_genotype_rsid_degree])
@@ -404,7 +407,8 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
     np_genotype = np_genotype[:, np_selectedIdx]
     np_genotype_rsid = np_genotype_rsid[np_selectedIdx]
     if np_genotype_rsid.shape[0] == 0:
-        return 0.0
+        print("step5: There is no variant past the chi-square test selection.")
+        return 0.0, 0.0
     
     #-------------------------
     # build model
@@ -418,7 +422,8 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
     np_genotype = np_genotype[:, np_selectedIdx]
     np_genotype_rsid = np_genotype_rsid[np_selectedIdx]
     if np_genotype_rsid.shape[0] == 0:
-        return 0.0
+        print("step5: There is no variant past the random logistic feature selection.")
+        return 0.0, 0.0
     
     #-------------------------
     # analyze result
