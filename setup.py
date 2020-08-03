@@ -48,7 +48,7 @@ setup(
         'matplotlib>=3.1.1',
         'pandas>=0.25.2',
         'seaborn>=0.9.0',
-        'PyQt5>=5.14.0',
+        'PyQt5==5.14.0',
     ],
     python_requires='>=3.7',
     include_package_data = True,
