@@ -34,7 +34,7 @@ The snapshot of AppGenEpi.
 
 Please considering cite the following paper if you use GenEpi in a scientific publication:
 
-[1] [Yu-Chuan Chang, June-Tai Wu, Ming-Yi Hong, Yi-An Tung, Ping-Han Hsieh, Sook Wah Yee, Kathleen M. Giacomini, Yen-Jen Oyang, and Chien-Yu Chen. "Genepi: Gene-Based Epistasis Discovery Using Machine Learning." BMC Bioinformatics 21, 68 (2020). https://doi.org/10.1186/s12859-020-3368-2] (https://doi.org/10.1186/s12859-020-3368-2)
+[1] Yu-Chuan Chang, June-Tai Wu, Ming-Yi Hong, Yi-An Tung, Ping-Han Hsieh, Sook Wah Yee, Kathleen M. Giacomini, Yen-Jen Oyang, and Chien-Yu Chen. "Genepi: Gene-Based Epistasis Discovery Using Machine Learning." BMC Bioinformatics 21, 68 (2020). https://doi.org/10.1186/s12859-020-3368-2
 
 ## Quickstart
 This section gets you started quickly. The completed GenEpi's documentation please find on [Welcome to GenEpi’s docs!](https://genepi.readthedocs.io/en/latest/)
