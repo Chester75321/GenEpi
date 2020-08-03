@@ -19,11 +19,11 @@ sys.path.insert(0, os.path.abspath('../../../GenEpi/'))
 # -- Project information -----------------------------------------------------
 
 project = 'GenEpi'
-copyright = '2019, Chester (Yu-Chuan Chang)'
+copyright = '2020, Chester (Yu-Chuan Chang)'
 author = 'Chester (Yu-Chuan Chang)'
 
 # The short X.Y version
-version = '2.0.2'
+version = '2.0.10'
 # The full version, including alpha/beta/rc tags
 release = ''
 

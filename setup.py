@@ -50,7 +50,7 @@ setup(
         'seaborn>=0.9.0',
         'PyQt5>=5.14.0',
     ],
-    python_requires='>=3',
+    python_requires='>=3.7',
     include_package_data = True,
     zip_safe = False,
     entry_points = {

@@ -5,8 +5,9 @@ Release History
 
 All notable changes to this project will be documented in this file.
 
+
 [2.0.10] - 2019-07-29
---------------------
+---------------------
 
 Added
 

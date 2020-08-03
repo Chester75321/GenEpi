@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,29 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Release History" href="history.html" />
@@ -50,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> GenEpi
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> GenEpi
           
 
           
@@ -60,7 +61,7 @@
             
             
               <div class="version">
-                2.0.2
+                2.0.10
               </div>
             
           
@@ -77,6 +78,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -108,6 +110,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -146,7 +149,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>API Documentations</li>
     
@@ -175,7 +178,7 @@
 <span id="genepi-module"></span><h2>GenEpi module<a class="headerlink" href="#module-genepi.GenEpi" title="Permalink to this headline">¶</a></h2>
 <p>Created on Apr 2019</p>
 <p>&#64;author: Chester (Yu-Chuan Chang)</p>
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.GenEpi.ArgumentsParser">
 <code class="sig-prename descclassname">genepi.GenEpi.</code><code class="sig-name descname">ArgumentsParser</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/GenEpi.html#ArgumentsParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.GenEpi.ArgumentsParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>To obtain and parse the arguments from user.</p>
@@ -189,9 +192,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.GenEpi.InputChecking">
-<code class="sig-prename descclassname">genepi.GenEpi.</code><code class="sig-name descname">InputChecking</code><span class="sig-paren">(</span><em class="sig-param">str_inputFileName_genotype</em>, <em class="sig-param">str_inputFileName_phenotype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/GenEpi.html#InputChecking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.GenEpi.InputChecking" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.GenEpi.</code><code class="sig-name descname">InputChecking</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">str_inputFileName_genotype</span></em>, <em class="sig-param"><span class="n">str_inputFileName_phenotype</span></em>, <em class="sig-param"><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/GenEpi.html#InputChecking"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.GenEpi.InputChecking" title="Permalink to this definition">¶</a></dt>
 <dd><p>To check the numbers of sample are consistent in genotype and phenotype data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -216,9 +219,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.GenEpi.main">
-<code class="sig-prename descclassname">genepi.GenEpi.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param">args=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/GenEpi.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.GenEpi.main" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.GenEpi.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">args</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/GenEpi.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.GenEpi.main" title="Permalink to this definition">¶</a></dt>
 <dd><p>Main function for obtaining user arguments, controling workflow and recording log file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -235,9 +238,9 @@
 <span id="step1-downloaducscdb"></span><h2>step1_downloadUCSCDB<a class="headerlink" href="#module-genepi.step1_downloadUCSCDB" title="Permalink to this headline">¶</a></h2>
 <p>Created on Feb 2018</p>
 <p>&#64;author: Chester (Yu-Chuan Chang)</p>
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step1_downloadUCSCDB.DownloadUCSCDB">
-<code class="sig-prename descclassname">genepi.step1_downloadUCSCDB.</code><code class="sig-name descname">DownloadUCSCDB</code><span class="sig-paren">(</span><em class="sig-param">str_outputFilePath='/Users/chester/Projects/bmcbioinformatics/GenEpi/genepi'</em>, <em class="sig-param">str_hgbuild='hg19'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step1_downloadUCSCDB.html#DownloadUCSCDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step1_downloadUCSCDB.DownloadUCSCDB" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step1_downloadUCSCDB.</code><code class="sig-name descname">DownloadUCSCDB</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">'/Users/chester/Project/github-genepi/GenEpi/genepi'</span></em>, <em class="sig-param"><span class="n">str_hgbuild</span><span class="o">=</span><span class="default_value">'hg19'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step1_downloadUCSCDB.html#DownloadUCSCDB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step1_downloadUCSCDB.DownloadUCSCDB" title="Permalink to this definition">¶</a></dt>
 <dd><p>To obtain the gene information such as official gene symbols and genomic coordinates, this function is for retrieving kgXref and knownGene data table from the UCSC human genome annotation database</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -264,9 +267,9 @@
 <span id="step2-estimateld"></span><h2>step2_estimateLD<a class="headerlink" href="#module-genepi.step2_estimateLD" title="Permalink to this headline">¶</a></h2>
 <p>Created on Feb 2018</p>
 <p>&#64;author: Chester (Yu-Chuan Chang)</p>
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step2_estimateLD.EstimateAlleleFrequency">
-<code class="sig-prename descclassname">genepi.step2_estimateLD.</code><code class="sig-name descname">EstimateAlleleFrequency</code><span class="sig-paren">(</span><em class="sig-param">gen_snp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step2_estimateLD.html#EstimateAlleleFrequency"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step2_estimateLD.EstimateAlleleFrequency" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step2_estimateLD.</code><code class="sig-name descname">EstimateAlleleFrequency</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gen_snp</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step2_estimateLD.html#EstimateAlleleFrequency"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step2_estimateLD.EstimateAlleleFrequency" title="Permalink to this definition">¶</a></dt>
 <dd><p>A function for estimating allele frequency of a single varaint</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -288,9 +291,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step2_estimateLD.EstimateLDBlock">
-<code class="sig-prename descclassname">genepi.step2_estimateLD.</code><code class="sig-name descname">EstimateLDBlock</code><span class="sig-paren">(</span><em class="sig-param">str_inputFileName_genotype</em>, <em class="sig-param">str_outputFilePath=''</em>, <em class="sig-param">float_threshold_DPrime=0.8</em>, <em class="sig-param">float_threshold_RSquare=0.8</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step2_estimateLD.html#EstimateLDBlock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step2_estimateLD.EstimateLDBlock" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step2_estimateLD.</code><code class="sig-name descname">EstimateLDBlock</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">str_inputFileName_genotype</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">float_threshold_DPrime</span><span class="o">=</span><span class="default_value">0.8</span></em>, <em class="sig-param"><span class="n">float_threshold_RSquare</span><span class="o">=</span><span class="default_value">0.8</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step2_estimateLD.html#EstimateLDBlock"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step2_estimateLD.EstimateLDBlock" title="Permalink to this definition">¶</a></dt>
 <dd><p>A function for implementing linkage disequilibrium (LD) dimension reduction. In genotype data, a variant often exhibits high dependency with its nearby variants because of LD. In the practical implantation, we prefer to group these dependent features to reduce the dimension of features. In other words, we can take the advantages of LD to reduce the dimensionality of genetic features. In this regard, this function adopted the same approach developed by Lewontin (1964) to estimate LD. We used D’ and r2 as the criteria to group highly dependent genetic features as blocks. In each block, we chose the features with the largest minor allele frequency to represent other features in the same block.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -314,9 +317,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step2_estimateLD.EstimatePairwiseLD">
-<code class="sig-prename descclassname">genepi.step2_estimateLD.</code><code class="sig-name descname">EstimatePairwiseLD</code><span class="sig-paren">(</span><em class="sig-param">gen_snp_1</em>, <em class="sig-param">gen_snp_2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step2_estimateLD.html#EstimatePairwiseLD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step2_estimateLD.EstimatePairwiseLD" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step2_estimateLD.</code><code class="sig-name descname">EstimatePairwiseLD</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gen_snp_1</span></em>, <em class="sig-param"><span class="n">gen_snp_2</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step2_estimateLD.html#EstimatePairwiseLD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step2_estimateLD.EstimatePairwiseLD" title="Permalink to this definition">¶</a></dt>
 <dd><p>Lewontin (1964) linkage disequilibrium (LD) estimation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -346,9 +349,9 @@
 <span id="step3-splitbygene"></span><h2>step3_splitByGene<a class="headerlink" href="#module-genepi.step3_splitByGene" title="Permalink to this headline">¶</a></h2>
 <p>Created on Feb 2018</p>
 <p>&#64;author: Chester (Yu-Chuan Chang)</p>
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step3_splitByGene.SplitByGene">
-<code class="sig-prename descclassname">genepi.step3_splitByGene.</code><code class="sig-name descname">SplitByGene</code><span class="sig-paren">(</span><em class="sig-param">str_inputFileName_genotype</em>, <em class="sig-param">str_inputFileName_UCSCDB='/Users/chester/Projects/bmcbioinformatics/GenEpi/genepi/UCSCGenomeDatabase.txt'</em>, <em class="sig-param">str_outputFilePath=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step3_splitByGene.html#SplitByGene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step3_splitByGene.SplitByGene" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step3_splitByGene.</code><code class="sig-name descname">SplitByGene</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">str_inputFileName_genotype</span></em>, <em class="sig-param"><span class="n">str_inputFileName_UCSCDB</span><span class="o">=</span><span class="default_value">'/Users/chester/Project/github-genepi/GenEpi/genepi/UCSCGenomeDatabase.txt'</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step3_splitByGene.html#SplitByGene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step3_splitByGene.SplitByGene" title="Permalink to this definition">¶</a></dt>
 <dd><p>In order to extract genetic features for a gene, this function used the start and end positions of each gene from the local UCSC database to split the genetic features. Then, generate the .GEN files for each gene in the folder named snpSubsets.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -375,9 +378,9 @@
 </div>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step3_splitByGene.SplitMegaGene">
-<code class="sig-prename descclassname">genepi.step3_splitByGene.</code><code class="sig-name descname">SplitMegaGene</code><span class="sig-paren">(</span><em class="sig-param">list_snpsOnGene</em>, <em class="sig-param">int_window</em>, <em class="sig-param">int_step</em>, <em class="sig-param">str_outputFilePath</em>, <em class="sig-param">str_outputFileName</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step3_splitByGene.html#SplitMegaGene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step3_splitByGene.SplitMegaGene" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step3_splitByGene.</code><code class="sig-name descname">SplitMegaGene</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_snpsOnGene</span></em>, <em class="sig-param"><span class="n">int_window</span></em>, <em class="sig-param"><span class="n">int_step</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span></em>, <em class="sig-param"><span class="n">str_outputFileName</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step3_splitByGene.html#SplitMegaGene"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step3_splitByGene.SplitMegaGene" title="Permalink to this definition">¶</a></dt>
 <dd><p>In order to extract genetic features for a gene, this function used the start and end positions of each gene from the local UCSC database to split the genetic features. Then, generate the .GEN files for each gene in the folder named snpSubsets.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -400,9 +403,9 @@
 <span id="step4-singlegeneepistasis-lasso"></span><h2>step4_singleGeneEpistasis_Lasso<a class="headerlink" href="#module-genepi.step4_singleGeneEpistasis_Lasso" title="Permalink to this headline">¶</a></h2>
 <p>Created on Feb 2018</p>
 <p>&#64;author: Chester (Yu-Chuan Chang)</p>
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step4_singleGeneEpistasis_Lasso.BatchSingleGeneEpistasisLasso">
-<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="sig-name descname">BatchSingleGeneEpistasisLasso</code><span class="sig-paren">(</span><em class="sig-param">str_inputFilePath_genotype</em>, <em class="sig-param">str_inputFileName_phenotype</em>, <em class="sig-param">str_outputFilePath=''</em>, <em class="sig-param">int_kOfKFold=2</em>, <em class="sig-param">int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#BatchSingleGeneEpistasisLasso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.BatchSingleGeneEpistasisLasso" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="sig-name descname">BatchSingleGeneEpistasisLasso</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">str_inputFilePath_genotype</span></em>, <em class="sig-param"><span class="n">str_inputFileName_phenotype</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">int_kOfKFold</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#BatchSingleGeneEpistasisLasso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.BatchSingleGeneEpistasisLasso" title="Permalink to this definition">¶</a></dt>
 <dd><p>Batch running for the single gene workflow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -427,9 +430,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step4_singleGeneEpistasis_Lasso.FeatureEncoderLasso">
-<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="sig-name descname">FeatureEncoderLasso</code><span class="sig-paren">(</span><em class="sig-param">np_genotype_rsid</em>, <em class="sig-param">np_genotype</em>, <em class="sig-param">np_phenotype</em>, <em class="sig-param">int_dim</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#FeatureEncoderLasso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.FeatureEncoderLasso" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="sig-name descname">FeatureEncoderLasso</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_genotype_rsid</span></em>, <em class="sig-param"><span class="n">np_genotype</span></em>, <em class="sig-param"><span class="n">np_phenotype</span></em>, <em class="sig-param"><span class="n">int_dim</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#FeatureEncoderLasso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.FeatureEncoderLasso" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implementation of the two-element combinatorial encoding.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -456,9 +459,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step4_singleGeneEpistasis_Lasso.FilterInLoading">
-<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="sig-name descname">FilterInLoading</code><span class="sig-paren">(</span><em class="sig-param">np_genotype</em>, <em class="sig-param">np_phenotype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#FilterInLoading"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.FilterInLoading" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="sig-name descname">FilterInLoading</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_genotype</span></em>, <em class="sig-param"><span class="n">np_phenotype</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#FilterInLoading"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.FilterInLoading" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is for filtering low quality varaint. Before modeling each subset of genotype features, two criteria were adopted to exclude low quality data. The first criterion is that the genotype frequency of a feature should exceed 5%, where the genotype frequency means the proportion of genotype among the total samples in the dataset. The second criterion is regarding the association between the feature and the phenotype. We used χ2 test to estimate the association between the feature and the phenotype, and the p-value should be smaller than 0.01.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -480,9 +483,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step4_singleGeneEpistasis_Lasso.LassoRegressionCV">
-<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="sig-name descname">LassoRegressionCV</code><span class="sig-paren">(</span><em class="sig-param">np_X</em>, <em class="sig-param">np_y</em>, <em class="sig-param">int_kOfKFold=2</em>, <em class="sig-param">int_nJobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#LassoRegressionCV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.LassoRegressionCV" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="sig-name descname">LassoRegressionCV</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_X</span></em>, <em class="sig-param"><span class="n">np_y</span></em>, <em class="sig-param"><span class="n">int_kOfKFold</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#LassoRegressionCV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.LassoRegressionCV" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implementation of the L1-regularized Lasso regression with k-fold cross validation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -506,9 +509,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step4_singleGeneEpistasis_Lasso.RandomizedLassoRegression">
-<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="sig-name descname">RandomizedLassoRegression</code><span class="sig-paren">(</span><em class="sig-param">np_X</em>, <em class="sig-param">np_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#RandomizedLassoRegression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.RandomizedLassoRegression" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="sig-name descname">RandomizedLassoRegression</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_X</span></em>, <em class="sig-param"><span class="n">np_y</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#RandomizedLassoRegression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.RandomizedLassoRegression" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implementation of the stability selection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -530,9 +533,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step4_singleGeneEpistasis_Lasso.SingleGeneEpistasisLasso">
-<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="sig-name descname">SingleGeneEpistasisLasso</code><span class="sig-paren">(</span><em class="sig-param">str_inputFileName_genotype</em>, <em class="sig-param">str_inputFileName_phenotype</em>, <em class="sig-param">str_outputFilePath=''</em>, <em class="sig-param">int_kOfKFold=2</em>, <em class="sig-param">int_nJobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#SingleGeneEpistasisLasso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.SingleGeneEpistasisLasso" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Lasso.</code><code class="sig-name descname">SingleGeneEpistasisLasso</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">str_inputFileName_genotype</span></em>, <em class="sig-param"><span class="n">str_inputFileName_phenotype</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">int_kOfKFold</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Lasso.html#SingleGeneEpistasisLasso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Lasso.SingleGeneEpistasisLasso" title="Permalink to this definition">¶</a></dt>
 <dd><p>A workflow to model a single gene containing two-element combinatorial encoding, stability selection, filtering low quality varaint and  L1-regularized Lasso regression with k-fold cross validation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -562,9 +565,9 @@
 <span id="step4-singlegeneepistasis-logistic"></span><h2>step4_singleGeneEpistasis_Logistic<a class="headerlink" href="#module-genepi.step4_singleGeneEpistasis_Logistic" title="Permalink to this headline">¶</a></h2>
 <p>Created on Feb 2018</p>
 <p>&#64;author: Chester (Yu-Chuan Chang)</p>
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step4_singleGeneEpistasis_Logistic.BatchSingleGeneEpistasisLogistic">
-<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="sig-name descname">BatchSingleGeneEpistasisLogistic</code><span class="sig-paren">(</span><em class="sig-param">str_inputFilePath_genotype</em>, <em class="sig-param">str_inputFileName_phenotype</em>, <em class="sig-param">str_outputFilePath=''</em>, <em class="sig-param">int_kOfKFold=2</em>, <em class="sig-param">int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#BatchSingleGeneEpistasisLogistic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.BatchSingleGeneEpistasisLogistic" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="sig-name descname">BatchSingleGeneEpistasisLogistic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">str_inputFilePath_genotype</span></em>, <em class="sig-param"><span class="n">str_inputFileName_phenotype</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">int_kOfKFold</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">4</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#BatchSingleGeneEpistasisLogistic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.BatchSingleGeneEpistasisLogistic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Batch running for the single gene workflow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -589,9 +592,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step4_singleGeneEpistasis_Logistic.FeatureEncoderLogistic">
-<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="sig-name descname">FeatureEncoderLogistic</code><span class="sig-paren">(</span><em class="sig-param">np_genotype_rsid</em>, <em class="sig-param">np_genotype</em>, <em class="sig-param">np_phenotype</em>, <em class="sig-param">int_dim</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#FeatureEncoderLogistic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.FeatureEncoderLogistic" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="sig-name descname">FeatureEncoderLogistic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_genotype_rsid</span></em>, <em class="sig-param"><span class="n">np_genotype</span></em>, <em class="sig-param"><span class="n">np_phenotype</span></em>, <em class="sig-param"><span class="n">int_dim</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#FeatureEncoderLogistic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.FeatureEncoderLogistic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implementation of the two-element combinatorial encoding.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -618,9 +621,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step4_singleGeneEpistasis_Logistic.FilterInLoading">
-<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="sig-name descname">FilterInLoading</code><span class="sig-paren">(</span><em class="sig-param">np_genotype</em>, <em class="sig-param">np_phenotype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#FilterInLoading"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.FilterInLoading" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="sig-name descname">FilterInLoading</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_genotype</span></em>, <em class="sig-param"><span class="n">np_phenotype</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#FilterInLoading"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.FilterInLoading" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is for filtering low quality varaint. Before modeling each subset of genotype features, two criteria were adopted to exclude low quality data. The first criterion is that the genotype frequency of a feature should exceed 5%, where the genotype frequency means the proportion of genotype among the total samples in the dataset. The second criterion is regarding the association between the feature and the phenotype. We used χ2 test to estimate the association between the feature and the phenotype, and the p-value should be smaller than 0.01.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -642,9 +645,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step4_singleGeneEpistasis_Logistic.GenerateContingencyTable">
-<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="sig-name descname">GenerateContingencyTable</code><span class="sig-paren">(</span><em class="sig-param">np_genotype</em>, <em class="sig-param">np_phenotype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#GenerateContingencyTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.GenerateContingencyTable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="sig-name descname">GenerateContingencyTable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_genotype</span></em>, <em class="sig-param"><span class="n">np_phenotype</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#GenerateContingencyTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.GenerateContingencyTable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generating the contingency table for chi-square test.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -666,9 +669,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step4_singleGeneEpistasis_Logistic.LogisticRegressionL1CV">
-<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="sig-name descname">LogisticRegressionL1CV</code><span class="sig-paren">(</span><em class="sig-param">np_X</em>, <em class="sig-param">np_y</em>, <em class="sig-param">int_kOfKFold=2</em>, <em class="sig-param">int_nJobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#LogisticRegressionL1CV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.LogisticRegressionL1CV" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="sig-name descname">LogisticRegressionL1CV</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_X</span></em>, <em class="sig-param"><span class="n">np_y</span></em>, <em class="sig-param"><span class="n">int_kOfKFold</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#LogisticRegressionL1CV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.LogisticRegressionL1CV" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implementation of the L1-regularized Logistic regression with k-fold cross validation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -692,9 +695,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step4_singleGeneEpistasis_Logistic.RandomizedLogisticRegression">
-<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="sig-name descname">RandomizedLogisticRegression</code><span class="sig-paren">(</span><em class="sig-param">np_X</em>, <em class="sig-param">np_y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#RandomizedLogisticRegression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.RandomizedLogisticRegression" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="sig-name descname">RandomizedLogisticRegression</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_X</span></em>, <em class="sig-param"><span class="n">np_y</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#RandomizedLogisticRegression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.RandomizedLogisticRegression" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implementation of the stability selection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -716,9 +719,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step4_singleGeneEpistasis_Logistic.SingleGeneEpistasisLogistic">
-<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="sig-name descname">SingleGeneEpistasisLogistic</code><span class="sig-paren">(</span><em class="sig-param">str_inputFileName_genotype</em>, <em class="sig-param">str_inputFileName_phenotype</em>, <em class="sig-param">str_outputFilePath=''</em>, <em class="sig-param">int_kOfKFold=2</em>, <em class="sig-param">int_nJobs=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#SingleGeneEpistasisLogistic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.SingleGeneEpistasisLogistic" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step4_singleGeneEpistasis_Logistic.</code><code class="sig-name descname">SingleGeneEpistasisLogistic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">str_inputFileName_genotype</span></em>, <em class="sig-param"><span class="n">str_inputFileName_phenotype</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">int_kOfKFold</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step4_singleGeneEpistasis_Logistic.html#SingleGeneEpistasisLogistic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step4_singleGeneEpistasis_Logistic.SingleGeneEpistasisLogistic" title="Permalink to this definition">¶</a></dt>
 <dd><p>A workflow to model a single gene containing two-element combinatorial encoding, stability selection, filtering low quality varaint and  L1-regularized Logistic regression with k-fold cross validation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -748,9 +751,9 @@
 <span id="step5-crossgeneepistasis-lasso"></span><h2>step5_crossGeneEpistasis_Lasso<a class="headerlink" href="#module-genepi.step5_crossGeneEpistasis_Lasso" title="Permalink to this headline">¶</a></h2>
 <p>Created on Feb 2018</p>
 <p>&#64;author: Chester (Yu-Chuan Chang)</p>
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step5_crossGeneEpistasis_Lasso.CrossGeneEpistasisLasso">
-<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Lasso.</code><code class="sig-name descname">CrossGeneEpistasisLasso</code><span class="sig-paren">(</span><em class="sig-param">str_inputFilePath_feature</em>, <em class="sig-param">str_inputFileName_phenotype</em>, <em class="sig-param">str_inputFileName_score=''</em>, <em class="sig-param">str_outputFilePath=''</em>, <em class="sig-param">int_kOfKFold=2</em>, <em class="sig-param">int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Lasso.html#CrossGeneEpistasisLasso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Lasso.CrossGeneEpistasisLasso" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Lasso.</code><code class="sig-name descname">CrossGeneEpistasisLasso</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">str_inputFilePath_feature</span></em>, <em class="sig-param"><span class="n">str_inputFileName_phenotype</span></em>, <em class="sig-param"><span class="n">str_inputFileName_score</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">int_kOfKFold</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Lasso.html#CrossGeneEpistasisLasso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Lasso.CrossGeneEpistasisLasso" title="Permalink to this definition">¶</a></dt>
 <dd><p>A workflow to model a cross gene epistasis containing two-element combinatorial encoding, stability selection, filtering low quality varaint and  L1-regularized Lasso regression with k-fold cross validation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -760,7 +763,7 @@
 <li><p><strong>str_inputFileName_score</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File name of input score file from stage 1 - singleGeneEpistasis</p></li>
 <li><p><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File path of output file</p></li>
 <li><p><strong>int_kOfKFold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The k for k-fold cross validation (default: 2)</p></li>
-<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 4)</p></li>
+<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 1)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -786,16 +789,16 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step5_crossGeneEpistasis_Lasso.LassoRegression">
-<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Lasso.</code><code class="sig-name descname">LassoRegression</code><span class="sig-paren">(</span><em class="sig-param">np_X</em>, <em class="sig-param">np_y</em>, <em class="sig-param">int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Lasso.html#LassoRegression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Lasso.LassoRegression" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Lasso.</code><code class="sig-name descname">LassoRegression</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_X</span></em>, <em class="sig-param"><span class="n">np_y</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Lasso.html#LassoRegression"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Lasso.LassoRegression" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implementation of the L1-regularized Lasso regression with k-fold cross validation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</p></li>
 <li><p><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</p></li>
-<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 4)</p></li>
+<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 1)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -811,9 +814,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step5_crossGeneEpistasis_Lasso.RegressorModelPersistence">
-<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Lasso.</code><code class="sig-name descname">RegressorModelPersistence</code><span class="sig-paren">(</span><em class="sig-param">np_X</em>, <em class="sig-param">np_y</em>, <em class="sig-param">str_outputFilePath=''</em>, <em class="sig-param">int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Lasso.html#RegressorModelPersistence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Lasso.RegressorModelPersistence" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Lasso.</code><code class="sig-name descname">RegressorModelPersistence</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_X</span></em>, <em class="sig-param"><span class="n">np_y</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Lasso.html#RegressorModelPersistence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Lasso.RegressorModelPersistence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dumping regressor for model persistence</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -821,7 +824,7 @@
 <li><p><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</p></li>
 <li><p><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</p></li>
 <li><p><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File path of output file</p></li>
-<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 4)</p></li>
+<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 1)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -835,9 +838,9 @@
 <span id="step5-crossgeneepistasis-logistic"></span><h2>step5_crossGeneEpistasis_Logistic<a class="headerlink" href="#module-genepi.step5_crossGeneEpistasis_Logistic" title="Permalink to this headline">¶</a></h2>
 <p>Created on Feb 2018</p>
 <p>&#64;author: Chester (Yu-Chuan Chang)</p>
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step5_crossGeneEpistasis_Logistic.ClassifierModelPersistence">
-<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="sig-name descname">ClassifierModelPersistence</code><span class="sig-paren">(</span><em class="sig-param">np_X</em>, <em class="sig-param">np_y</em>, <em class="sig-param">str_outputFilePath=''</em>, <em class="sig-param">int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#ClassifierModelPersistence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.ClassifierModelPersistence" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="sig-name descname">ClassifierModelPersistence</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_X</span></em>, <em class="sig-param"><span class="n">np_y</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#ClassifierModelPersistence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.ClassifierModelPersistence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dumping classifier for model persistence</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -845,7 +848,7 @@
 <li><p><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</p></li>
 <li><p><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</p></li>
 <li><p><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File path of output file</p></li>
-<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 4)</p></li>
+<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 1)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -854,9 +857,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step5_crossGeneEpistasis_Logistic.CrossGeneEpistasisLogistic">
-<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="sig-name descname">CrossGeneEpistasisLogistic</code><span class="sig-paren">(</span><em class="sig-param">str_inputFilePath_feature</em>, <em class="sig-param">str_inputFileName_phenotype</em>, <em class="sig-param">str_inputFileName_score=''</em>, <em class="sig-param">str_outputFilePath=''</em>, <em class="sig-param">int_kOfKFold=2</em>, <em class="sig-param">int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#CrossGeneEpistasisLogistic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.CrossGeneEpistasisLogistic" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="sig-name descname">CrossGeneEpistasisLogistic</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">str_inputFilePath_feature</span></em>, <em class="sig-param"><span class="n">str_inputFileName_phenotype</span></em>, <em class="sig-param"><span class="n">str_inputFileName_score</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">int_kOfKFold</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#CrossGeneEpistasisLogistic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.CrossGeneEpistasisLogistic" title="Permalink to this definition">¶</a></dt>
 <dd><p>A workflow to model a cross gene epistasis containing two-element combinatorial encoding, stability selection, filtering low quality varaint and  L1-regularized Logistic regression with k-fold cross validation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -866,7 +869,7 @@
 <li><p><strong>str_inputFileName_score</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File name of input score file from stage 1 - singleGeneEpistasis</p></li>
 <li><p><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File path of output file</p></li>
 <li><p><strong>int_kOfKFold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The k for k-fold cross validation (default: 2)</p></li>
-<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 4)</p></li>
+<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 1)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -892,9 +895,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step5_crossGeneEpistasis_Logistic.GenerateContingencyTable">
-<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="sig-name descname">GenerateContingencyTable</code><span class="sig-paren">(</span><em class="sig-param">np_genotype</em>, <em class="sig-param">np_phenotype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#GenerateContingencyTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.GenerateContingencyTable" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="sig-name descname">GenerateContingencyTable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_genotype</span></em>, <em class="sig-param"><span class="n">np_phenotype</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#GenerateContingencyTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.GenerateContingencyTable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generating the contingency table for chi-square test.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -916,16 +919,16 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step5_crossGeneEpistasis_Logistic.LogisticRegressionL1">
-<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="sig-name descname">LogisticRegressionL1</code><span class="sig-paren">(</span><em class="sig-param">np_X</em>, <em class="sig-param">np_y</em>, <em class="sig-param">int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#LogisticRegressionL1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.LogisticRegressionL1" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="sig-name descname">LogisticRegressionL1</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_X</span></em>, <em class="sig-param"><span class="n">np_y</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#LogisticRegressionL1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.LogisticRegressionL1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Implementation of the L1-regularized Logistic regression with k-fold cross validation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</p></li>
 <li><p><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</p></li>
-<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 4)</p></li>
+<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 1)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -941,9 +944,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step5_crossGeneEpistasis_Logistic.PlotPolygenicScore">
-<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="sig-name descname">PlotPolygenicScore</code><span class="sig-paren">(</span><em class="sig-param">np_X</em>, <em class="sig-param">np_y</em>, <em class="sig-param">int_kOfKFold=2</em>, <em class="sig-param">int_nJobs=1</em>, <em class="sig-param">str_outputFilePath=''</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#PlotPolygenicScore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.PlotPolygenicScore" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="sig-name descname">PlotPolygenicScore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_X</span></em>, <em class="sig-param"><span class="n">np_y</span></em>, <em class="sig-param"><span class="n">int_kOfKFold</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#PlotPolygenicScore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.PlotPolygenicScore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot figure for polygenic score, including group distribution and prevalence to PGS</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -960,9 +963,14 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step5_crossGeneEpistasis_Logistic.fsigmoid">
-<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="sig-name descname">fsigmoid</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">a</em>, <em class="sig-param">b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#fsigmoid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.fsigmoid" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="sig-name descname">fsigmoid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">a</span></em>, <em class="sig-param"><span class="n">b</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#fsigmoid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.fsigmoid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="genepi.step5_crossGeneEpistasis_Logistic.gaussian">
+<code class="sig-prename descclassname">genepi.step5_crossGeneEpistasis_Logistic.</code><code class="sig-name descname">gaussian</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">mean</span></em>, <em class="sig-param"><span class="n">amplitude</span></em>, <em class="sig-param"><span class="n">standard_deviation</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step5_crossGeneEpistasis_Logistic.html#gaussian"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step5_crossGeneEpistasis_Logistic.gaussian" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -970,9 +978,9 @@
 <span id="step6-ensemblewithcovariates"></span><h2>step6_ensembleWithCovariates<a class="headerlink" href="#module-genepi.step6_ensembleWithCovariates" title="Permalink to this headline">¶</a></h2>
 <p>Created on Feb 2018</p>
 <p>&#64;author: Chester (Yu-Chuan Chang)</p>
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step6_ensembleWithCovariates.ClassifierModelPersistence">
-<code class="sig-prename descclassname">genepi.step6_ensembleWithCovariates.</code><code class="sig-name descname">ClassifierModelPersistence</code><span class="sig-paren">(</span><em class="sig-param">np_X</em>, <em class="sig-param">np_y</em>, <em class="sig-param">str_outputFilePath=''</em>, <em class="sig-param">int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step6_ensembleWithCovariates.html#ClassifierModelPersistence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step6_ensembleWithCovariates.ClassifierModelPersistence" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step6_ensembleWithCovariates.</code><code class="sig-name descname">ClassifierModelPersistence</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_X</span></em>, <em class="sig-param"><span class="n">np_y</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step6_ensembleWithCovariates.html#ClassifierModelPersistence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step6_ensembleWithCovariates.ClassifierModelPersistence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dumping ensemble classifier for model persistence</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -980,7 +988,7 @@
 <li><p><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</p></li>
 <li><p><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</p></li>
 <li><p><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File path of output file</p></li>
-<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 4)</p></li>
+<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 1)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -989,9 +997,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step6_ensembleWithCovariates.EnsembleWithCovariatesClassifier">
-<code class="sig-prename descclassname">genepi.step6_ensembleWithCovariates.</code><code class="sig-name descname">EnsembleWithCovariatesClassifier</code><span class="sig-paren">(</span><em class="sig-param">str_inputFileName_feature</em>, <em class="sig-param">str_inputFileName_phenotype</em>, <em class="sig-param">str_outputFilePath=''</em>, <em class="sig-param">int_kOfKFold=2</em>, <em class="sig-param">int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step6_ensembleWithCovariates.html#EnsembleWithCovariatesClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step6_ensembleWithCovariates.EnsembleWithCovariatesClassifier" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step6_ensembleWithCovariates.</code><code class="sig-name descname">EnsembleWithCovariatesClassifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">str_inputFileName_feature</span></em>, <em class="sig-param"><span class="n">str_inputFileName_phenotype</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">int_kOfKFold</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step6_ensembleWithCovariates.html#EnsembleWithCovariatesClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step6_ensembleWithCovariates.EnsembleWithCovariatesClassifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>A workflow to ensemble genetic features with covariates for L1-regularized Logistic regression.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1000,7 +1008,7 @@
 <li><p><strong>str_inputFileName_phenotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File name of input phenotype data</p></li>
 <li><p><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File path of output file</p></li>
 <li><p><strong>int_kOfKFold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The k for k-fold cross validation (default: 2)</p></li>
-<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 4)</p></li>
+<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 1)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1026,9 +1034,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step6_ensembleWithCovariates.EnsembleWithCovariatesRegressor">
-<code class="sig-prename descclassname">genepi.step6_ensembleWithCovariates.</code><code class="sig-name descname">EnsembleWithCovariatesRegressor</code><span class="sig-paren">(</span><em class="sig-param">str_inputFileName_feature</em>, <em class="sig-param">str_inputFileName_phenotype</em>, <em class="sig-param">str_outputFilePath=''</em>, <em class="sig-param">int_kOfKFold=2</em>, <em class="sig-param">int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step6_ensembleWithCovariates.html#EnsembleWithCovariatesRegressor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step6_ensembleWithCovariates.EnsembleWithCovariatesRegressor" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step6_ensembleWithCovariates.</code><code class="sig-name descname">EnsembleWithCovariatesRegressor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">str_inputFileName_feature</span></em>, <em class="sig-param"><span class="n">str_inputFileName_phenotype</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">int_kOfKFold</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step6_ensembleWithCovariates.html#EnsembleWithCovariatesRegressor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step6_ensembleWithCovariates.EnsembleWithCovariatesRegressor" title="Permalink to this definition">¶</a></dt>
 <dd><p>A workflow to ensemble genetic features with covariates for L1-regularized Lasso regression.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1037,7 +1045,7 @@
 <li><p><strong>str_inputFileName_phenotype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File name of input phenotype data</p></li>
 <li><p><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File path of output file</p></li>
 <li><p><strong>int_kOfKFold</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The k for k-fold cross validation (default: 2)</p></li>
-<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 4)</p></li>
+<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 1)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1063,9 +1071,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step6_ensembleWithCovariates.LoadDataForEnsemble">
-<code class="sig-prename descclassname">genepi.step6_ensembleWithCovariates.</code><code class="sig-name descname">LoadDataForEnsemble</code><span class="sig-paren">(</span><em class="sig-param">str_inputFileName_feature</em>, <em class="sig-param">str_inputFileName_phenotype</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step6_ensembleWithCovariates.html#LoadDataForEnsemble"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step6_ensembleWithCovariates.LoadDataForEnsemble" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step6_ensembleWithCovariates.</code><code class="sig-name descname">LoadDataForEnsemble</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">str_inputFileName_feature</span></em>, <em class="sig-param"><span class="n">str_inputFileName_phenotype</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step6_ensembleWithCovariates.html#LoadDataForEnsemble"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step6_ensembleWithCovariates.LoadDataForEnsemble" title="Permalink to this definition">¶</a></dt>
 <dd><p>Loading genetic features for ensembling with covariates</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1090,9 +1098,9 @@
 </dl>
 </dd></dl>
 
-<dl class="function">
+<dl class="py function">
 <dt id="genepi.step6_ensembleWithCovariates.RegressorModelPersistence">
-<code class="sig-prename descclassname">genepi.step6_ensembleWithCovariates.</code><code class="sig-name descname">RegressorModelPersistence</code><span class="sig-paren">(</span><em class="sig-param">np_X</em>, <em class="sig-param">np_y</em>, <em class="sig-param">str_outputFilePath=''</em>, <em class="sig-param">int_nJobs=4</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step6_ensembleWithCovariates.html#RegressorModelPersistence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step6_ensembleWithCovariates.RegressorModelPersistence" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">genepi.step6_ensembleWithCovariates.</code><code class="sig-name descname">RegressorModelPersistence</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">np_X</span></em>, <em class="sig-param"><span class="n">np_y</span></em>, <em class="sig-param"><span class="n">str_outputFilePath</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">int_nJobs</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/genepi/step6_ensembleWithCovariates.html#RegressorModelPersistence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#genepi.step6_ensembleWithCovariates.RegressorModelPersistence" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dumping ensemble regressor for model persistence</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1100,7 +1108,7 @@
 <li><p><strong>np_X</strong> (<em>ndarray</em>) – 2D array containing genotype data with <cite>int8</cite> type</p></li>
 <li><p><strong>np_y</strong> (<em>ndarray</em>) – 2D array containing phenotype data with <cite>float</cite> type</p></li>
 <li><p><strong>str_outputFilePath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – File path of output file</p></li>
-<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 4)</p></li>
+<li><p><strong>int_nJobs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The number of thread (default: 1)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1132,11 +1140,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Chester (Yu-Chuan Chang)
+        
+        &copy; Copyright 2020, Chester (Yu-Chuan Chang)
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -1147,7 +1163,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

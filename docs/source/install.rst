@@ -53,7 +53,7 @@ Here is the dependency list for running GenEpi. pip takes care of these dependen
    - psutil >= 4.3.0
    - pymysql >= 0.8.0
    - scipy >= 0.19.0
-   - scikit-learn>=0.21.2
+   - scikit-learn == 0.21.2
 
 System Requirements
 -------------------

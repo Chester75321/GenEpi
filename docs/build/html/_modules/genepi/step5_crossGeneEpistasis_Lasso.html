@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,29 @@
   
 
   
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
@@ -48,7 +49,7 @@
           
 
           
-            <a href="../../index.html" class="icon icon-home"> GenEpi
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> GenEpi
           
 
           
@@ -58,7 +59,7 @@
             
             
               <div class="version">
-                2.0.2
+                2.0.10
               </div>
             
           
@@ -75,6 +76,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -95,6 +97,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -133,7 +136,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
@@ -173,23 +176,23 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">np</span><span class="o">.</span><span class="n">seterr</span><span class="p">(</span><span class="n">divide</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">invalid</span><span class="o">=</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="k">import</span> <span class="n">f_regression</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">linear_model</span>
-<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="k">import</span> <span class="n">coo_matrix</span>
-<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="k">import</span> <span class="n">shuffle</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">KFold</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">GridSearchCV</span>
-<span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="k">import</span> <span class="n">joblib</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_selection</span> <span class="kn">import</span> <span class="n">f_regression</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="kn">from</span> <span class="nn">scipy.sparse</span> <span class="kn">import</span> <span class="n">coo_matrix</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">shuffle</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="kn">import</span> <span class="n">joblib</span>
 <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">stats</span>
 
-<span class="kn">from</span> <span class="nn">genepi.step4_singleGeneEpistasis_Lasso</span> <span class="k">import</span> <span class="n">RandomizedLassoRegression</span>
-<span class="kn">from</span> <span class="nn">genepi.step4_singleGeneEpistasis_Lasso</span> <span class="k">import</span> <span class="n">LassoRegressionCV</span>
-<span class="kn">from</span> <span class="nn">genepi.step4_singleGeneEpistasis_Lasso</span> <span class="k">import</span> <span class="n">FeatureEncoderLasso</span>
+<span class="kn">from</span> <span class="nn">genepi.step4_singleGeneEpistasis_Lasso</span> <span class="kn">import</span> <span class="n">RandomizedLassoRegression</span>
+<span class="kn">from</span> <span class="nn">genepi.step4_singleGeneEpistasis_Lasso</span> <span class="kn">import</span> <span class="n">LassoRegressionCV</span>
+<span class="kn">from</span> <span class="nn">genepi.step4_singleGeneEpistasis_Lasso</span> <span class="kn">import</span> <span class="n">FeatureEncoderLasso</span>
 
 <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
 <span class="c1"># define functions </span>
 <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
-<div class="viewcode-block" id="LassoRegression"><a class="viewcode-back" href="../../api.html#genepi.step5_crossGeneEpistasis_Lasso.LassoRegression">[docs]</a><span class="k">def</span> <span class="nf">LassoRegression</span><span class="p">(</span><span class="n">np_X</span><span class="p">,</span> <span class="n">np_y</span><span class="p">,</span> <span class="n">int_nJobs</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+<div class="viewcode-block" id="LassoRegression"><a class="viewcode-back" href="../../api.html#genepi.step5_crossGeneEpistasis_Lasso.LassoRegression">[docs]</a><span class="k">def</span> <span class="nf">LassoRegression</span><span class="p">(</span><span class="n">np_X</span><span class="p">,</span> <span class="n">np_y</span><span class="p">,</span> <span class="n">int_nJobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Implementation of the L1-regularized Lasso regression with k-fold cross validation.</span>
@@ -197,7 +200,7 @@
 <span class="sd">    Args:</span>
 <span class="sd">        np_X (ndarray): 2D array containing genotype data with `int8` type</span>
 <span class="sd">        np_y (ndarray): 2D array containing phenotype data with `float` type</span>
-<span class="sd">        int_nJobs (int): The number of thread (default: 4)</span>
+<span class="sd">        int_nJobs (int): The number of thread (default: 1)</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        (float): float_AVG_S_P</span>
@@ -208,6 +211,8 @@
 
     <span class="n">X</span> <span class="o">=</span> <span class="n">np_X</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">np_y</span>
+    <span class="n">X_sparse</span> <span class="o">=</span> <span class="n">coo_matrix</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">X_sparse</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X_sparse</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     
     <span class="n">list_target</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">list_predict</span> <span class="o">=</span> <span class="p">[]</span>
@@ -227,7 +232,7 @@
     
     <span class="k">return</span> <span class="p">(</span><span class="n">float_pearson</span> <span class="o">+</span> <span class="n">float_spearman</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span></div>
 
-<div class="viewcode-block" id="RegressorModelPersistence"><a class="viewcode-back" href="../../api.html#genepi.step5_crossGeneEpistasis_Lasso.RegressorModelPersistence">[docs]</a><span class="k">def</span> <span class="nf">RegressorModelPersistence</span><span class="p">(</span><span class="n">np_X</span><span class="p">,</span> <span class="n">np_y</span><span class="p">,</span> <span class="n">str_outputFilePath</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">int_nJobs</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+<div class="viewcode-block" id="RegressorModelPersistence"><a class="viewcode-back" href="../../api.html#genepi.step5_crossGeneEpistasis_Lasso.RegressorModelPersistence">[docs]</a><span class="k">def</span> <span class="nf">RegressorModelPersistence</span><span class="p">(</span><span class="n">np_X</span><span class="p">,</span> <span class="n">np_y</span><span class="p">,</span> <span class="n">str_outputFilePath</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">int_nJobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Dumping regressor for model persistence</span>
@@ -236,7 +241,7 @@
 <span class="sd">        np_X (ndarray): 2D array containing genotype data with `int8` type</span>
 <span class="sd">        np_y (ndarray): 2D array containing phenotype data with `float` type</span>
 <span class="sd">        str_outputFilePath (str): File path of output file</span>
-<span class="sd">        int_nJobs (int): The number of thread (default: 4)</span>
+<span class="sd">        int_nJobs (int): The number of thread (default: 1)</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        None</span>
@@ -260,7 +265,7 @@
 <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
 <span class="c1"># main function</span>
 <span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span><span class="s2">&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot;</span>
-<div class="viewcode-block" id="CrossGeneEpistasisLasso"><a class="viewcode-back" href="../../api.html#genepi.step5_crossGeneEpistasis_Lasso.CrossGeneEpistasisLasso">[docs]</a><span class="k">def</span> <span class="nf">CrossGeneEpistasisLasso</span><span class="p">(</span><span class="n">str_inputFilePath_feature</span><span class="p">,</span> <span class="n">str_inputFileName_phenotype</span><span class="p">,</span> <span class="n">str_inputFileName_score</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">str_outputFilePath</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">int_kOfKFold</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">int_nJobs</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+<div class="viewcode-block" id="CrossGeneEpistasisLasso"><a class="viewcode-back" href="../../api.html#genepi.step5_crossGeneEpistasis_Lasso.CrossGeneEpistasisLasso">[docs]</a><span class="k">def</span> <span class="nf">CrossGeneEpistasisLasso</span><span class="p">(</span><span class="n">str_inputFilePath_feature</span><span class="p">,</span> <span class="n">str_inputFileName_phenotype</span><span class="p">,</span> <span class="n">str_inputFileName_score</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">str_outputFilePath</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">int_kOfKFold</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">int_nJobs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    A workflow to model a cross gene epistasis containing two-element combinatorial encoding, stability selection, filtering low quality varaint and  L1-regularized Lasso regression with k-fold cross validation.</span>
@@ -271,7 +276,7 @@
 <span class="sd">        str_inputFileName_score (str): File name of input score file from stage 1 - singleGeneEpistasis</span>
 <span class="sd">        str_outputFilePath (str): File path of output file</span>
 <span class="sd">        int_kOfKFold (int): The k for k-fold cross validation (default: 2)</span>
-<span class="sd">        int_nJobs (int): The number of thread (default: 4)</span>
+<span class="sd">        int_nJobs (int): The number of thread (default: 1)</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        (tuple): tuple containing:</span>
@@ -368,7 +373,8 @@
     <span class="n">np_genotype</span> <span class="o">=</span> <span class="n">np_genotype</span><span class="p">[:,</span> <span class="n">np_selectedIdx</span><span class="p">]</span>
     <span class="n">np_genotype_rsid</span> <span class="o">=</span> <span class="n">np_genotype_rsid</span><span class="p">[</span><span class="n">np_selectedIdx</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">np_genotype_rsid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mf">0.0</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;step5: There is no variant past the f regression feature selection.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
 
     <span class="c1">### select degree 1 feature</span>
     <span class="n">np_genotype_rsid_degree</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np_genotype_rsid</span><span class="p">])</span>
@@ -377,11 +383,13 @@
     <span class="n">np_genotype_degree1_rsid</span> <span class="o">=</span> <span class="n">np_genotype_rsid</span><span class="p">[</span><span class="n">np_selectedIdx</span><span class="p">]</span>
     
     <span class="c1">### remove redundant polynomial features</span>
-    <span class="n">np_genotype_degree1</span><span class="p">,</span> <span class="n">np_selectedIdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np_genotype_degree1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">np_genotype_degree1_rsid</span> <span class="o">=</span> <span class="n">np_genotype_degree1_rsid</span><span class="p">[</span><span class="n">np_selectedIdx</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">np_genotype_degree1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">np_genotype_degree1</span><span class="p">,</span> <span class="n">np_selectedIdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np_genotype_degree1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">np_genotype_degree1_rsid</span> <span class="o">=</span> <span class="n">np_genotype_degree1_rsid</span><span class="p">[</span><span class="n">np_selectedIdx</span><span class="p">]</span>
     
     <span class="c1">### generate cross gene interations</span>
-    <span class="n">np_genotype_crossGene_rsid</span><span class="p">,</span> <span class="n">np_genotype_crossGene</span> <span class="o">=</span> <span class="n">FeatureEncoderLasso</span><span class="p">(</span><span class="n">np_genotype_degree1_rsid</span><span class="p">,</span> <span class="n">np_genotype_degree1</span><span class="p">,</span> <span class="n">np_phenotype</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np_genotype_degree1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">np_genotype_crossGene_rsid</span><span class="p">,</span> <span class="n">np_genotype_crossGene</span> <span class="o">=</span> <span class="n">FeatureEncoderLasso</span><span class="p">(</span><span class="n">np_genotype_degree1_rsid</span><span class="p">,</span> <span class="n">np_genotype_degree1</span><span class="p">,</span> <span class="n">np_phenotype</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     
     <span class="c1">### remove degree 1 feature from dataset</span>
     <span class="n">np_selectedIdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span> <span class="o">!=</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np_genotype_rsid_degree</span><span class="p">])</span>
@@ -403,7 +411,8 @@
     <span class="n">np_genotype</span> <span class="o">=</span> <span class="n">np_genotype</span><span class="p">[:,</span> <span class="n">np_selectedIdx</span><span class="p">]</span>
     <span class="n">np_genotype_rsid</span> <span class="o">=</span> <span class="n">np_genotype_rsid</span><span class="p">[</span><span class="n">np_selectedIdx</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">np_genotype_rsid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mf">0.0</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;step5: There is no variant past the random lasso feature selection.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
     
     <span class="c1">#-------------------------</span>
     <span class="c1"># build model</span>
@@ -417,7 +426,8 @@
     <span class="n">np_genotype</span> <span class="o">=</span> <span class="n">np_genotype</span><span class="p">[:,</span> <span class="n">np_selectedIdx</span><span class="p">]</span>
     <span class="n">np_genotype_rsid</span> <span class="o">=</span> <span class="n">np_genotype_rsid</span><span class="p">[</span><span class="n">np_selectedIdx</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">np_genotype_rsid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mf">0.0</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;step5: There is no variant past the f regression feature selection.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
     
     <span class="c1">#-------------------------</span>
     <span class="c1"># analyze result</span>
@@ -471,11 +481,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Chester (Yu-Chuan Chang)
+        
+        &copy; Copyright 2020, Chester (Yu-Chuan Chang)
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -486,7 +504,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

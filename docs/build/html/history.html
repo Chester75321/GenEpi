@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,27 +11,29 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="API Documentations" href="api.html" /> 
@@ -49,7 +50,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> GenEpi
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> GenEpi
           
 
           
@@ -59,7 +60,7 @@
             
             
               <div class="version">
-                2.0.2
+                2.0.10
               </div>
             
           
@@ -76,6 +77,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -91,11 +93,17 @@
 <li class="toctree-l1"><a class="reference internal" href="workflow.html">How it Works</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Documentations</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release History</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#id1">[2.0.4] - 2019-12-12</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">[2.0.3] - 2019-10-13</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">[2.0.2] - 2019-09-18</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">[2.0.1] - 2019-07-12</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">[1.0.3] - 2018-04-22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">[2.0.10] - 2019-07-29</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">[2.0.9] - 2019-12-31</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">[2.0.8] - 2019-12-26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">[2.0.7] - 2019-12-26</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">[2.0.6] - 2019-12-25</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">[2.0.5] - 2019-12-24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">[2.0.4] - 2019-12-12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">[2.0.3] - 2019-10-13</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">[2.0.2] - 2019-09-18</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">[2.0.1] - 2019-07-12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">[1.0.3] - 2018-04-22</a></li>
 </ul>
 </li>
 </ul>
@@ -103,6 +111,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -141,7 +150,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Release History</li>
     
@@ -166,29 +175,90 @@
 <span id="history"></span><h1>Release History<a class="headerlink" href="#release-history" title="Permalink to this headline">¶</a></h1>
 <p>All notable changes to this project will be documented in this file.</p>
 <div class="section" id="id1">
-<h2>[2.0.4] - 2019-12-12<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>[2.0.10] - 2019-07-29<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Added</p>
+<ul class="simple">
+<li><p>Add genome database for intergenic region (hg19, hg38)</p></li>
+<li><p>Add functions for modeling intergenic region</p></li>
+<li><p>Add warning message if there is no variant past the feature selection</p></li>
+<li><p>Add warning message if there is no variant remained in previous step</p></li>
+</ul>
+<p>Fixed</p>
+<ul class="simple">
+<li><p>Update the UCSC mysql host</p></li>
+<li><p>Fix error when modeling empty feature set (step5)</p></li>
+<li><p>Fix error when modeling empty feature set (step6)</p></li>
+<li><p>Refine PRS plot</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>[2.0.9] - 2019-12-31<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Added</p>
+<ul class="simple">
+<li><p>Add standalone AppGenEpi.app</p></li>
+</ul>
+<p>Fixed</p>
+<ul class="simple">
+<li><p>Fix the bug of joblib multithreading</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>[2.0.8] - 2019-12-26<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Fixed</p>
+<ul class="simple">
+<li><p>Fix unsupported image format for ploting PRS</p></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>[2.0.7] - 2019-12-26<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>Fixed</p>
+<ul class="simple">
+<li><p>Fix executable python for AppGenEpi</p></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>[2.0.6] - 2019-12-25<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>Fixed</p>
+<ul class="simple">
+<li><p>Fix file path bug for ploting PRS</p></li>
+</ul>
+<p>Removed</p>
+<ul class="simple">
+<li><p>Remove unused PIL import</p></li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h2>[2.0.5] - 2019-12-24<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>Added</p>
+<ul class="simple">
+<li><p>Add AppGenEpi (GUI)</p></li>
+<li><p>Add polygenic risk score calculation for classifier</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2>[2.0.4] - 2019-12-12<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <p>Added</p>
 <ul class="simple">
 <li><p>Add sliding windows scanning to deal with mega genes</p></li>
 </ul>
 </div>
-<div class="section" id="id2">
-<h2>[2.0.3] - 2019-10-13<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h2>[2.0.3] - 2019-10-13<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <p>Added</p>
 <ul class="simple">
 <li><p>Add GenEpi’s documentation to Read the Docs</p></li>
 <li><p>Add model persistance for classifier and regressor</p></li>
 </ul>
 </div>
-<div class="section" id="id3">
-<h2>[2.0.2] - 2019-09-18<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h2>[2.0.2] - 2019-09-18<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <p>Added</p>
 <ul class="simple">
 <li><p>Add multiprocessing for gene batch running</p></li>
 </ul>
 </div>
-<div class="section" id="id4">
-<h2>[2.0.1] - 2019-07-12<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h2>[2.0.1] - 2019-07-12<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <p>Added</p>
 <ul class="simple">
 <li><p>Support self-defiend genome regions (for any species)</p></li>
@@ -207,8 +277,8 @@
 <li><p>Remove random forest ensemble</p></li>
 </ul>
 </div>
-<div class="section" id="id5">
-<h2>[1.0.3] - 2018-04-22<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h2>[1.0.3] - 2018-04-22<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <p>First preview release</p>
 </div>
 </div>
@@ -231,11 +301,19 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2019, Chester (Yu-Chuan Chang)
+        
+        &copy; Copyright 2020, Chester (Yu-Chuan Chang)
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -246,7 +324,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
