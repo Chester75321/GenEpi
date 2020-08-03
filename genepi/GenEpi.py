@@ -38,6 +38,7 @@ def ArgumentsParser():
     'developed by Yu-Chuan Chang at c4Lab of National Taiwan University. '
     'Github: https://github.com/Chester75321/GenEpi '
     'Reference: GenEpi: Gene-based Epistasis Discovery Using Machine Learning '
+    '(https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-020-3368-2)'
     '(https://www.biorxiv.org/content/10.1101/421719v5) '
     parser = argparse.ArgumentParser(prog='GenEpi', description=str_description)
     
