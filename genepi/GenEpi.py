@@ -112,7 +112,7 @@ def InputChecking(str_inputFileName_genotype, str_inputFileName_phenotype, args)
         np_phenotype = np.array(list_phenotype, dtype=np.float)
         del list_phenotype
         if set(list(np_phenotype[:,-1])) != {0.0, 1.0}:
-            sys.exit("The phenotype value should be 1=control or 2=case in classification mode.")
+            sys.exit("The phenotype value should be 0=control or 1=case in classification mode.")
 
     return int_num_genotype, int_num_phenotype
 
