@@ -142,45 +142,23 @@ def fsigmoid(x, a, b):
     float_return = 1.0/(1.0+np.exp(-a*(x-b)))
     return float_return
 
-def PlotPolygenicScore(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1, str_outputFilePath=""):
+def PlotPolygenicScore(list_target, list_predict, list_proba, str_outputFilePath="", str_label=""):
     """
 
     Plot figure for polygenic score, including group distribution and prevalence to PGS
 
     Args:
-        np_X (ndarray): 2D array containing genotype data with `int8` type
-        np_y (ndarray): 2D array containing phenotype data with `float` type
-        int_kOfKFold (int): The k for k-fold cross validation (default: 2)
-        int_nJobs (int): The number of thread (default: 1)
+        list_target (list): A list containing the target of each samples
+        list_predict (list): A list containing the predition value of each samples
+        list_proba (list): A list containing the predition probability of each samples
+        str_outputFilePath (str): File path of output file
+        str_label (str): The label of the output plots
 
     Returns:
         None
     
     """
 
-    X = np_X
-    y = np_y
-    X_sparse = coo_matrix(X)
-    X, X_sparse, y = shuffle(X, X_sparse, y, random_state=0)
-    kf = KFold(n_splits=int_kOfKFold)
-
-    list_target = []
-    list_predict = []
-    list_proba = []
-    for idxTr, idxTe in kf.split(X):
-        cost = [2**x for x in range(-8, 8)]
-        parameters = [{'C':cost, 'penalty':['l1'], 'dual':[False], 'class_weight':['balanced']}]
-        kf_estimator = KFold(n_splits=2)
-        estimator_logistic = linear_model.LogisticRegression(max_iter=100, solver='liblinear')
-        estimator_grid = GridSearchCV(estimator_logistic, parameters, scoring='f1', n_jobs=1, cv=kf_estimator)
-        estimator_grid.fit(X[idxTr], y[idxTr])
-        list_predict_this = estimator_grid.best_estimator_.predict(X[idxTe])
-        list_proba_this = estimator_grid.best_estimator_.predict_proba(X[idxTe])
-        for idx_y, idx_predict, idx_proba in zip(list(y[idxTe]), list_predict_this, list_proba_this):
-            list_target.append(float(idx_y))
-            list_predict.append(idx_predict)
-            list_proba.append(idx_proba)
-        
     float_f1Score = skMetric.f1_score(list_target, list_predict)
 
     #-------------------------
@@ -191,7 +169,7 @@ def PlotPolygenicScore(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1, str_outputFi
 
     int_bin = 25
     plt.figure(figsize=(5,5))
-
+    
     # plot case
     pd_case = pd_pgs[pd_pgs.target == 1.0]
     plt.hist(pd_case['proba'], bins=int_bin, label='Case', color="#e68fac", weights=np.ones_like(pd_case['proba'])/float(len(pd_case['proba'])))
@@ -219,10 +197,10 @@ def PlotPolygenicScore(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1, str_outputFi
     plt.legend(prop={'size': 12})
     plt.title(str_method + ' Predicting F1 Score: ' + "%.4f" % float_f1Score + ' ')
     plt.xlim(0, 1)
-    plt.ylim(0, 1)
+    plt.ylim(0, 0.5)
     plt.xlabel('Polygenic Score')
     plt.ylabel('Fraction of samples by group')
-    plt.savefig(os.path.join(str_outputFilePath, "GenEpi_PGS.png"), dpi=300)
+    plt.savefig(os.path.join(str_outputFilePath, str("GenEpi_PGS_" + str_label + ".png")), dpi=300)
     plt.close('all')
 
     #-------------------------
@@ -255,7 +233,26 @@ def PlotPolygenicScore(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1, str_outputFi
     plt.ylim(0, 1)
     plt.xlabel('Polygenic Score Percentile')
     plt.ylabel('Prevalence of Percentile Group')
-    plt.savefig(os.path.join(str_outputFilePath, "GenEpi_Prevalence.png"), dpi=300)
+    plt.savefig(os.path.join(str_outputFilePath, str("GenEpi_Prevalence_" + str_label + ".png")), dpi=300)
+    plt.close('all')
+
+    #-------------------------
+    # plot ROC
+    #-------------------------
+    fpr, tpr, _ = skMetric.roc_curve(list_target, np.array(list_proba)[:,1])
+    float_auc = skMetric.auc(fpr, tpr)
+
+    plt.figure(figsize=(5,5))
+    plt.plot(fpr, tpr, color='#e68fac', lw=2, label='Class 1 ROC curve (area = %0.2f)' % float_auc)
+    plt.plot([0, 1], [0, 1], color='black', lw=2, linestyle='--')
+
+    plt.legend(loc="lower right")
+    plt.title('Receiver operating characteristic example')
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.0])
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.savefig(os.path.join(str_outputFilePath, str("GenEpi_ROC_" + str_label + ".png")), dpi=300)
     plt.close('all')
 
 """"""""""""""""""""""""""""""
@@ -377,7 +374,7 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
     np_selectedIdx = np.array([x == 1 for x in np_genotype_rsid_degree])
     np_genotype_degree1 = np_genotype[:, np_selectedIdx]
     np_genotype_degree1_rsid = np_genotype_rsid[np_selectedIdx]
-    
+
     ### remove redundant polynomial features
     if np_genotype_degree1.shape[1] > 0:
         np_genotype_degree1, np_selectedIdx = np.unique(np_genotype_degree1, axis=1, return_index=True)
@@ -413,7 +410,7 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
     #-------------------------
     # build model
     #-------------------------
-    float_f1Score_test, np_weight = LogisticRegressionL1CV(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
+    float_f1Score_test, np_weight, dict_y = LogisticRegressionL1CV(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
     float_f1Score_train = LogisticRegressionL1(np_genotype, np_phenotype[:, -1].astype(int), int_nJobs)
     
     ### filter out zero-weight features
@@ -439,6 +436,14 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
     ### calculate genotype frequency
     np_genotypeFreq = np.sum(np_genotype, axis=0).astype(float) / np_genotype.shape[0]
     
+    ### calculate statistic
+    tn, fp, fn, tp = skMetric.confusion_matrix(dict_y["target"], dict_y["predict"]).ravel()
+    float_specificity = tn / (tn + fp)
+    float_sensitivity = tp / (fn + tp)
+
+    fpr, tpr, _ = skMetric.roc_curve(dict_y["target"], np.array(dict_y["predict_proba"])[:,1])
+    float_auc = skMetric.auc(fpr, tpr)
+
     #-------------------------
     # output results
     #-------------------------
@@ -462,7 +467,7 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
             file_outputFile.writelines(",".join(np_genotype[idx_subject, :].astype(str)) + "\n")
 
     ### output figures
-    PlotPolygenicScore(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs, str_outputFilePath)
+    PlotPolygenicScore(dict_y["target"], dict_y["predict"], dict_y["predict_proba"], str_outputFilePath, "CV")
 
     #-------------------------
     # dump persistent model
@@ -470,5 +475,6 @@ def CrossGeneEpistasisLogistic(str_inputFilePath_feature, str_inputFileName_phen
     ClassifierModelPersistence(np_genotype, np_phenotype[:, -1].astype(int), str_outputFilePath, int_nJobs)
     
     print("step5: Detect cross gene epistasis. DONE! (Training score:" + "{0:.2f}".format(float_f1Score_train) + "; " + str(int_kOfKFold) + "-fold Test Score:" + "{0:.2f}".format(float_f1Score_test) + ")")
+    print("AUC: " + "{0:.2f}".format(float_auc) + "; Specificity: " + "{0:.2f}".format(float_specificity) + "; Sensitivity: " + "{0:.2f}".format(float_sensitivity))
     
     return float_f1Score_train, float_f1Score_test

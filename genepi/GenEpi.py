@@ -66,6 +66,9 @@ def ArgumentsParser():
     parser_group_2.add_argument('--compressld', action='store_true', default=False, help="enable this function")
     parser_group_2.add_argument("-d", required = False, default=0.9, type=float, help="threshold for compression: D prime")
     parser_group_2.add_argument("-r", required = False, default=0.9, type=float, help="threshold for compression: R square")
+
+    ### define arguments for isolated test
+    parser.add_argument('-i', action='store_true', default=False, help="enable isolated test")
  
     return parser
 
@@ -113,7 +116,7 @@ def InputChecking(str_inputFileName_genotype, str_inputFileName_phenotype, args)
         del list_phenotype
         if set(list(np_phenotype[:,-1])) != {0.0, 1.0}:
             sys.exit("The phenotype value should be 0=control or 1=case in classification mode.")
-
+    
     return int_num_genotype, int_num_phenotype
 
 """"""""""""""""""""""""""""""
@@ -142,8 +145,8 @@ def main(args=None):
     args = ArgumentsParser().parse_args(args)
 
     ### get arguments for I/O
-    str_inputFileName_genotype = args.g
-    str_inputFileName_phenotype = args.p
+    str_inputFileName_genotype = os.path.abspath(args.g)
+    str_inputFileName_phenotype = os.path.abspath(args.p)
     str_inputFileName_regions = ""
     if args.s is not None:
         str_inputFileName_regions = args.s
@@ -192,6 +195,8 @@ def main(args=None):
         file_outputFile.writelines("\t" + "--compressld (enable function of LD data compression): " + str(args.compressld) + "\n")
         file_outputFile.writelines("\t" + "-d (D prime threshold): " + str(args.d) + "\n")
         file_outputFile.writelines("\t" + "-r (R square threshold): " + str(args.r) + "\n" + "\n")
+
+        file_outputFile.writelines("\t" + "-i (enable isolated test): " + str(args.i) + "\n" + "\n")
         
         ### check input format
         int_num_genotype, int_num_phenotype = InputChecking(str_inputFileName_genotype, str_inputFileName_phenotype, args)
@@ -200,6 +205,12 @@ def main(args=None):
         print("Number of variants: " + str(int_num_genotype))
         print("Number of samples: " + str(int_num_phenotype))
         
+        ### step0_splittingDataAsIsolatedData
+        if args.i:
+            SplittingDataAsIsolatedData(str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath=str_outputFilePath, int_randomState = 0)
+            str_inputFileName_genotype = os.path.join(str_outputFilePath, os.path.basename(str_inputFileName_genotype).replace(".gen", "_subset_1.gen"))
+            str_inputFileName_phenotype = os.path.join(str_outputFilePath, os.path.basename(str_inputFileName_phenotype).replace(".csv", "_subset_1.csv"))
+
         ### step1_downloadUCSCDB
         if args.updatedb:
             DownloadUCSCDB(str_hgbuild=args.b)
@@ -228,6 +239,15 @@ def main(args=None):
             file_outputFile.writelines("Ensemble with co-variate performance (F1 score)" + "\n")
             file_outputFile.writelines("Training: " + str(float_score_train) + "\n")
             file_outputFile.writelines("Testing (" + str(args.k) + "-fold CV): " + str(float_score_test) + "\n" + "\n")
+            ### step7_validateByIsolatedData
+            if args.i == True:
+                str_inputFileName_genotype = os.path.join(str_outputFilePath, os.path.basename(args.g).replace(".gen", "_subset_2.gen"))
+                str_inputFileName_phenotype = os.path.join(str_outputFilePath, os.path.basename(args.p).replace(".csv", "_subset_2.csv"))
+                float_score_test_gen = ValidateByIsolatedDataClassifier(os.path.join(str_outputFilePath, "crossGeneResult", "Classifier.pkl"), os.path.join(str_outputFilePath, "crossGeneResult", "Feature.csv"), str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath=os.path.join(str_outputFilePath, "isolatedValidation"))
+                float_score_test_cov = ValidateByIsolatedDataCovariateClassifier(os.path.join(str_outputFilePath, "crossGeneResult", "Classifier_Covariates.pkl"), os.path.join(str_outputFilePath, "crossGeneResult", "Feature.csv"), str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath=os.path.join(str_outputFilePath, "isolatedValidation"))
+                file_outputFile.writelines("Performance on the isolated test data (F1 score)" + "\n")
+                file_outputFile.writelines("Genetic feature: " + str(float_score_test_gen) + "\n")
+                file_outputFile.writelines("With co-variate: " + str(float_score_test_cov) + "\n" + "\n")
         else:
             ### step4_singleGeneEpistasis_Lasso (for quantitative trial)
             BatchSingleGeneEpistasisLasso(os.path.join(str_outputFilePath, "snpSubsets"), str_inputFileName_phenotype, int_kOfKFold=int(args.k), int_nJobs=int(int_thread))
@@ -241,6 +261,15 @@ def main(args=None):
             file_outputFile.writelines("Ensemble with co-variate performance (Average of the Pearson and Spearman correlation)" + "\n")
             file_outputFile.writelines("Training: " + str(float_score_train) + "\n")
             file_outputFile.writelines("Testing (" + str(args.k) + "-fold CV): " + str(float_score_test) + "\n" + "\n")
+            ### step7_validateByIsolatedData
+            if args.i == True:
+                str_inputFileName_genotype = os.path.join(str_outputFilePath, os.path.basename(args.g).replace(".gen", "_subset_2.gen"))
+                str_inputFileName_phenotype = os.path.join(str_outputFilePath, os.path.basename(args.p).replace(".csv", "_subset_2.csv"))
+                float_score_test_gen = ValidateByIsolatedDataRegressor(os.path.join(str_outputFilePath, "crossGeneResult", "Regressor.pkl"), os.path.join(str_outputFilePath, "crossGeneResult", "Feature.csv"), str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath=os.path.join(str_outputFilePath, "isolatedValidation"))
+                float_score_test_cov = ValidateByIsolatedDataCovariateRegressor(os.path.join(str_outputFilePath, "crossGeneResult", "Regressor_Covariates.pkl"), os.path.join(str_outputFilePath, "crossGeneResult", "Feature.csv"), str_inputFileName_genotype, str_inputFileName_phenotype, str_outputFilePath=os.path.join(str_outputFilePath, "isolatedValidation"))
+                file_outputFile.writelines("Performance on the isolated test data (F1 score)" + "\n")
+                file_outputFile.writelines("Genetic feature: " + str(float_score_test_gen) + "\n")
+                file_outputFile.writelines("With co-variate: " + str(float_score_test_cov) + "\n" + "\n")
         
         file_outputFile.writelines("end analysis at: " + time.strftime("%Y%m%d-%H:%M:%S", time.localtime()) + "\n")
 

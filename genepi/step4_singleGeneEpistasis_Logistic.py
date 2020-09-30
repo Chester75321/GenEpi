@@ -27,6 +27,7 @@ from sklearn.utils import shuffle
 from sklearn import linear_model
 from sklearn.model_selection import KFold
 from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import confusion_matrix
 import sklearn.metrics as skMetric
 import scipy.stats as stats
 import multiprocessing as mp
@@ -87,6 +88,7 @@ def LogisticRegressionL1CV(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1):
     
     list_target = []
     list_predict = []
+    list_predict_proba = []
     list_weight = []
     for idxTr, idxTe in kf.split(X):
         cost = [2**x for x in range(-8, 8)]
@@ -96,15 +98,18 @@ def LogisticRegressionL1CV(np_X, np_y, int_kOfKFold = 2, int_nJobs = 1):
         estimator_grid = GridSearchCV(estimator_logistic, parameters, scoring='f1', n_jobs=1, cv=kf_estimator)
         estimator_grid.fit(X[idxTr], y[idxTr])
         list_label = estimator_grid.best_estimator_.predict(X[idxTe])
+        list_prob = estimator_grid.best_estimator_.predict_proba(X[idxTe])
         list_weight.append([float(item) for item in estimator_grid.best_estimator_.coef_[0]])
-        for idx_y, idx_label in zip(list(y[idxTe]), list_label):
+        for idx_y, idx_label, idx_prob in zip(list(y[idxTe]), list_label, list_prob):
             list_target.append(float(idx_y))
             list_predict.append(idx_label)
+            list_predict_proba.append(idx_prob)
     np_weight = np.array(list_weight)
     np_weight = np.average(list_weight, axis=0)
     float_f1Score = skMetric.f1_score(list_target, list_predict)
+    dict_y = {"target": list_target, "predict": list_predict, "predict_proba": list_predict_proba}
     
-    return float_f1Score, np_weight
+    return float_f1Score, np_weight, dict_y
 
 def FeatureEncoderLogistic(np_genotype_rsid, np_genotype, np_phenotype, int_dim):
     """
@@ -311,7 +316,7 @@ def SingleGeneEpistasisLogistic(str_inputFileName_genotype, str_inputFileName_ph
     #-------------------------
     # build model
     #-------------------------
-    float_f1Score, np_weight = LogisticRegressionL1CV(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
+    float_f1Score, np_weight, dict_y = LogisticRegressionL1CV(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
     if float_f1Score == 0.0:
         return 0.0
     

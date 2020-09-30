@@ -198,7 +198,7 @@ def EnsembleWithCovariatesClassifier(str_inputFileName_feature, str_inputFileNam
     #-------------------------
     # build model
     #-------------------------
-    float_f1Score_test, np_weight = LogisticRegressionL1CV(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
+    float_f1Score_test, np_weight, dict_y = LogisticRegressionL1CV(np_genotype, np_phenotype[:, -1].astype(int), int_kOfKFold, int_nJobs)
     float_f1Score_train = LogisticRegressionL1(np_genotype, np_phenotype[:, -1].astype(int), int_nJobs)
     
     #-------------------------
