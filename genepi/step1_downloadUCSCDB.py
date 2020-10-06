@@ -53,3 +53,28 @@ def DownloadUCSCDB(str_outputFilePath = os.path.dirname(os.path.abspath(__file__
             file_outputFile.writelines(",".join(item) + "\n")
     
     print("step1: Down load UCSC Database. DONE!")
+
+
+"""
+list_output = []
+with open("/Users/chester/Data/Parkinson/genepi/genepi/UCSCGenomeDatabase.txt", "r") as file_input:
+    list_line_pre = file_input.readline().strip().split(",")
+    list_output.append(",".join(list_line_pre))
+    for line in file_input.readlines():
+        list_line_this = line.strip().split(",")
+        if list_line_pre[0] != list_line_this[0]:
+            list_line_pre = list_line_this
+            list_output.append(",".join(list_line_this))
+            continue
+        if list_line_pre[2] <= list_line_this[1]:
+            list_inter = [list_line_this[0], str(int(list_line_pre[2])+1), str(int(list_line_this[1])-1), "=", list_line_pre[4] + "=" + list_line_this[4]]
+            list_line_pre = list_line_this
+            list_output.append(",".join(list_inter))
+            list_output.append(",".join(list_line_this))
+        else:
+            list_line_pre = list_line_this
+            list_output.append(",".join(list_line_this))
+with open("/Users/chester/Data/Parkinson/hg19_inter.txt", "w") as file_output:
+    for line in list_output:
+        file_output.writelines(line + "\n")
+"""

@@ -14,17 +14,23 @@ warnings.warn = warn
 # import libraries
 """"""""""""""""""""""""""""""
 import sys
+import os
+import subprocess
 
 """"""""""""""""""""""""""""""
 # main function
 """"""""""""""""""""""""""""""
-def CorrectMissingID(str_inputFileName_genotype):
+def CorrectMissingID(str_inputFileName_genotype, str_outputFilePath = ""):
+    ### set default output path
+    if str_outputFilePath == "":
+        str_outputFilePath = os.path.dirname(str_inputFileName_genotype)
+
     ### count lines of input files
     int_num_genotype = sum(1 for line in open(str_inputFileName_genotype))
     
     ### read .gen file
     with open(str_inputFileName_genotype, "r") as file_inputFile:
-        with open(str_inputFileName_genotype.replace(".gen", "_addID.gen"), "w") as file_outputFile:
+        with open(os.path.join(str_outputFilePath, os.path.basename(str_inputFileName_genotype).replace(".gen", "_addID.gen")), "w") as file_outputFile:
             int_count_snp = 0
             for line in file_inputFile:
                 list_thisSnp = line.strip().split(" ")
@@ -33,7 +39,7 @@ def CorrectMissingID(str_inputFileName_genotype):
                     list_thisSnp[1] = 'C' + str(list_thisSnp[0]) + 'P' + str(list_thisSnp[2])
                     file_outputFile.writelines(' '.join(list_thisSnp) + "\n")
                 else:
-                    file_outputFile.writelines(line + "\n")
+                    file_outputFile.writelines(line)
                 
                 ### show progress
                 int_count_snp = int_count_snp + 1
@@ -42,3 +48,16 @@ def CorrectMissingID(str_inputFileName_genotype):
                 sys.stdout.flush()
     
     print("step0: Correct Missingn ID DONE! \t\t\t\t")
+
+def CorrectMissingIDAWK(str_inputFileName_genotype, str_outputFilePath = ""):
+    ### set default output path
+    if str_outputFilePath == "":
+        str_outputFilePath = os.path.dirname(str_inputFileName_genotype)
+    
+    str_command = "awk -F \" \" '{if ($2==\".\") $2=\"C\"$1\"P\"$3; print}' "
+    str_command += str_inputFileName_genotype + " > "
+    str_command += os.path.join(str_outputFilePath, os.path.basename(str_inputFileName_genotype).replace(".gen", "_addID.gen"))
+    subprocess.call(str_command, shell=True)
+
+if __name__ == '__main__':
+    CorrectMissingIDAWK(sys.argv[1], sys.argv[2])
